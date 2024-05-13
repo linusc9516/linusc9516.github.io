@@ -277,7 +277,3 @@ header section {
     width: calc(100vw - 200px);
     background: rgba(25, 25, 25, 0.3);
 }
-
-@media (height > max-height) {
-s
-}
