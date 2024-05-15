@@ -1,52 +1,49 @@
+/* OVERALL */
+/* ------------------------------------ */
+
+nav_items = document.querySelectorAll(".nav-item");
+nav_btns = document.querySelectorAll(".nav-btn");
+
+for (i=0; i < nav_items.length; i++) {
+    if (nav_btns[i].classList.contains("disabled")) {
+        nav_items[i].style.setProperty("cursor", "not-allowed");
+    }
+}
+
 /* BLOG */
 /* ------------------------------------ */
 
 let posts = [
     {
-        title: "Post 1",
-        file: "./src/blog_entries/test.txt"
+        title: "First post!! [09-02-22]",
+        file: "./src/blog_entries/first_post.txt"
     },
     {
-        title: "Post 2",
-        file: "./src/blog_entries/test.txt"
+        title: "Restarting the project~ [15-05-24]",
+        file: "./src/blog_entries/restarting.txt"
     },
-    {
-        title: "Post 3",
-        file: "./src/blog_entries/test.txt"
-    },
-    {
-        title: "Post 4",
-        file: "./src/blog_entries/test.txt"
-    },
-    {
-        title: "Post 5",
-        file: "./src/blog_entries/test.txt"
-    },
-    {
-        title: "Post 6",
-        file: "./src/blog_entries/test.txt"
-    }
     // Add more posts here
 ];
 
 function createPost(post) {
     let postElement = document.createElement("div");
-    postElement.id = post.title.toLowerCase().replace(/\s+/g, "-");
+    postElement.id = post.title.toLowerCase().replace(/\s+/g, "-"); // Making a legible ID for each post
     postElement.classList.add("post");
 
     let titleElement = document.createElement("span");
     titleElement.classList.add("title");
-    titleElement.textContent = "⠀" + post.title;
+    titleElement.textContent = "⠀" + post.title; // Adds spacing for the expand/collapse button
 
     let contentElement = document.createElement("div");
     contentElement.classList.add("content");
-    contentElement.style.display = "none";
+    contentElement.style.display = "none"; // Hides the content on load
+    contentElement.innerHTML = ""; // Clear the content
 
     // Load post content from file
     fetch(post.file)
         .then(response => response.text())
         .then(content => {
-            contentElement.textContent = content;
+            contentElement.innerHTML = content; // Populates the div with text content written
         })
         .catch(error => {
             console.error(`Error loading post content from ${post.file}:`, error);
@@ -56,7 +53,7 @@ function createPost(post) {
     let arrow = document.createElement("i");
     arrow.classList.add("fa-solid");
     arrow.classList.add("fa-caret-right");
-    arrow.classList.add("fa-lg");
+    arrow.classList.add("fa-2x");
     collapseButton.classList.add("collapse-button");
     collapseButton.appendChild(arrow);
 
@@ -94,10 +91,13 @@ function loadPage() {
         postTitle.textContent = posts[i].title;
 
         postTitle.addEventListener("click", function () {
-            let post = document.getElementById("post-" + (i + 1).toString())
+            let post = document.getElementById(posts[i].title.toLowerCase().replace(/\s+/g, "-"));
             if (post.getElementsByTagName("div")[0].style.display === "none") {
                 post.getElementsByTagName("span")[0].click();
             }
+
+            document.querySelector("#blog-nav").style.setProperty("width", "calc(100vw - 210px)");
+            document.querySelector(".post").style.setProperty("width", "calc(100vw - 210px)");
         })
         timelineElement.appendChild(postTitle);
     }
