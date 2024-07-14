@@ -1,0 +1,5 @@
+.hintrc
+.prettierrc
+.stylelintrc.json
+.editorconfig
+.parcel-cache
