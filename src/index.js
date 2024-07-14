@@ -12,13 +12,14 @@ window.addEventListener('resize', function() {
     // Check if the width has changed
     if (window.innerWidth !== lastWidth) {
         lastWidth = window.innerWidth;
-        
+
         // Delay the reload to avoid constant reloading during resize
         clearTimeout(window.resizeTimer);
         window.resizeTimer = setTimeout(forceReload, 250);
     }
 });
 
+// Generates properties for nav_items
 nav_items = document.querySelectorAll(".nav-item");
 nav_btns = document.querySelectorAll(".nav-btn");
 
@@ -29,7 +30,7 @@ for (i = 0; i < nav_items.length; i++) {
 }
 
 function updateNavbarHeight() {
-	const navbar = document.querySelector('.navbar'); // Replace with your navbar's selector
+	const navbar = document.querySelector('.navbar');
 	if (navbar) {
     const height = navbar.offsetHeight;
     document.documentElement.style.setProperty('--navbar-height', height + 'px');
@@ -84,6 +85,7 @@ $(function () {
 /* ABOUT */
 /* ------------------------------------ */
 
+// Ensures fullscreen display only works on about page
 if (window.location.pathname.split("/").pop().toLowerCase() === "about") {
 	// Scroll indicator functionality
 	$(document).ready(function () {
@@ -106,7 +108,7 @@ if (window.location.pathname.split("/").pop().toLowerCase() === "about") {
 
 		// Displays/hides scroll indicator
 		function updateScrollIndicator() {
-			// Check if we're at the bottom of the page
+			// Check if at the bottom of the page
 			let scrollPosition = $(window).scrollTop() + $(window).height();
 			let pageHeight = $(document).height();
 
@@ -163,6 +165,8 @@ function createWidget({
     followUrl = null,
     size = '1x1'
 }) {
+
+	// Entire widget is a link
     const widget = document.createElement('a');
     widget.className = `widget size-${size}`;
     widget.href = linkUrl;
@@ -170,9 +174,11 @@ function createWidget({
     widget.rel = 'noopener noreferrer';
 	widget.style.textDecoration = 'none';
 
+	// Header of widget (title + follow btn if have)
 	const headerContainer = document.createElement('div');
     headerContainer.className = 'widget-header';
 
+	// Inline container for icon + title
     const titleContainer = document.createElement('div');
     titleContainer.className = 'title-container';
 
@@ -202,11 +208,13 @@ function createWidget({
 
     widget.appendChild(headerContainer);
 
+	// Main content of widget
     const contentElement = document.createElement('p');
     contentElement.textContent = content;
 	contentElement.style.textDecoration = 'none';
     widget.appendChild(contentElement);
 
+	// Adds the image/embed to the widget
     if (imageUrl || embedHTML) {
         const embedContent = document.createElement('div');
         embedContent.className = 'embed-content';
@@ -322,6 +330,7 @@ function createWidgets() {
     });
 }
 
+// Ensures it only runs on the connections page
 if (window.location.pathname.split("/").pop().toLowerCase() === "connections") {
 	createWidgets();
 }
@@ -343,6 +352,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Add more posts here
     ];
 
+	// Dynamically formatting the post from a txt file
     function createPost(post) {
         let postElement = document.createElement("div");
         postElement.id = post.title.toLowerCase().replace(/\s+/g, "-");
@@ -390,6 +400,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return postElement;
     }
 
+	// Populates page
     function loadPage() {
 		let timelineElement = document.querySelector(".timeline");
 		let blogElement = document.getElementById("blog");
@@ -422,14 +433,6 @@ document.addEventListener("DOMContentLoaded", function () {
 				$('html, body').animate({
 					scrollTop: $(post).offset().top - $(".navbar").outerHeight()
 				}, 'slow');
-
-				// Adjust layout if needed
-				document
-					.querySelector("#blog-nav")
-					.style.setProperty("width", "calc(100vw - 210px)");
-				document
-					.querySelector(".post")
-					.style.setProperty("width", "calc(100vw - 210px)");
 			});
 
 			timelineElement.appendChild(postTitle);
