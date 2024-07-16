@@ -450,18 +450,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (window.location.pathname.split("/").pop().toLowerCase() === "blog") {
         loadPage();
     }
-
-	postTitle.addEventListener("click", function (event) {
-		event.preventDefault();
-		let post = document.getElementById(posts[i].title.toLowerCase().replace(/\s+/g, "-"));
-		if (post.getElementsByTagName("div")[0].style.display === "none") {
-			post.getElementsByTagName("span")[0].click();
-		}
-		window.scrollTo({
-			top: post.offsetTop - document.querySelector('.navbar').offsetHeight,
-			behavior: 'smooth'
-		});
-	});
 });
 
 
