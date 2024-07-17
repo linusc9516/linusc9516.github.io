@@ -1,4 +1,4 @@
-/* OVERALL */
+/* GLOBAL STYLES */
 /* ------------------------------------ */
 
 @font-face {
@@ -13,8 +13,15 @@
 }
 
 :root {
-	--navbar-height: 0px; /* Adjust this value to match your navbar's height */
+	--navbar-height: 0px; // Will be dynamically set in js
 }
+
+// Color palette
+$primary-color: #112820;
+$secondary-color: #092a55;
+$accent-color: #011627;
+$accent-color-2: #4bdbad;
+$accent-color-3: #dce8ff;
 
 * {
 	margin: 0;
@@ -22,12 +29,6 @@
 	box-sizing: border-box;
 	font-family: "Dosis", system-ui, "sans serif";
 }
-
-$primary-color: #112820;
-$secondary-color: #162b46;
-$accent-color: #011627;
-$accent-color-2: #4bdbad;
-$accent-color-3: #dce8ff;
 
 html {
 	scroll-behavior: smooth;
@@ -39,8 +40,15 @@ body {
 	padding: 0;
 	overflow-x: hidden;
 	overflow-y: auto;
+	width: 100%;
 }
 
+html,
+body {
+	max-width: 100%;
+}
+
+// Navbar styling
 .navbar {
 	width: 100vw;
 	background-color: $accent-color-3;
@@ -49,15 +57,35 @@ body {
 	display: flex;
 	align-items: center;
 	gap: 3vw;
+
+	.navbar-brand {
+		padding-left: 2vw;
+		color: $secondary-color;
+		font-weight: 700;
+		font-size: 1.5rem;
+		text-align: center;
+	}
+
+	.nav-active {
+		text-align: center;
+		max-width: 180px;
+		background: rgba($accent-color-2, 0.3);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		border-radius: 10px;
+		color: $primary-color;
+		pointer-events: none;
+	}
 }
 
+// Global styling due to also needing to style the index-nav buttons
 .nav-btn {
 	color: $primary-color;
 	font-size: 1.5rem;
 	text-decoration: none;
 	transition: transform 0.69s cubic-bezier(0.51, 0.07, 0.27, 0.85);
 
-	&:not(.active):hover {
+	&:not(.nav-active):hover {
 		color: $primary-color;
 		transform: scale(
 			1
@@ -93,29 +121,6 @@ body {
 	}
 }
 
-.index-link {
-	font-size: 2.5rem;
-}
-
-.active {
-	text-align: center;
-	max-width: 180px;
-	background: rgba($accent-color-2, 0.3);
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
-	border-radius: 10px;
-	color: $primary-color;
-	pointer-events: none;
-}
-
-.navbar-brand {
-	padding-left: 2vw;
-	color: $secondary-color;
-	font-weight: 700;
-	font-size: 1.5rem;
-	text-align: center;
-}
-
 // Add these new styles for mobile view
 @media (max-width: 991px) {
 	// This is Bootstrap's default breakpoint for lg
@@ -135,46 +140,51 @@ body {
 		}
 	}
 
-	.active {
+	.nav-btn {
+		&:hover::after {
+			animation: none !important;
+		}
+	}
+
+	.nav-active {
 		max-width: 100%; // Allow full width on mobile
 		text-align: left;
-		background: none; // Remove background on mobile
+		background: none !important; // Remove background on mobile
 		backdrop-filter: none;
 		-webkit-backdrop-filter: none;
 		border-radius: 0;
 	}
 }
 
+// Adds filter and dynamically adjusts size of background images on all viewports
 .bg-img {
 	position: fixed;
-	-o-object-fit: cover;
 	object-fit: cover;
 	z-index: -1;
 
-	/* Force filter to be run by GPU */
-	transform: translateZ(0px);
+	// Force filter to be run by GPU
+	transform: translateZ(0);
 
-	/* Removes white border after filtering */
+	// Removes white border after filtering
 	transform: scale(1.1);
 	filter: blur(5px) contrast(0.4);
 
 	inset: -30px;
 
-	/* Set for most browsers */
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
+	// Fallback for older browsers
 	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
 
-	/* Set rules to fill background */
+	// Set rules to fill background
 	min-height: 100%;
-	min-width: 1080px;
+	min-width: 100%;
 
-	/* Set up proportionate scaling */
+	// Set up proportionate scaling
 	width: 100%;
-	height: auto;
+	height: 100%;
 
-	/* Set up positioning */
+	// Set up positioning
 	top: 0;
 	left: 0;
 
@@ -185,16 +195,62 @@ body {
 	&#bg-home {
 		filter: blur(3px) brightness(0.9);
 	}
+
+	// Responsive design
+	@media (max-width: 768px) {
+		min-width: auto;
+		width: auto;
+		height: 100%;
+		left: 50%;
+		transform: translateX(-50%) scale(1.1);
+	}
+}
+
+// Styles the backToTopBtn
+.backToTopBtn {
+	display: none;
+	position: fixed;
+	bottom: 5%;
+	right: 3%;
+	font-size: 4rem;
+	z-index: 99;
+	color: $accent-color;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+
+	@media (max-width: 780px) {
+		font-size: 3rem;
+	}
+
+	&#blog-backToTop {
+		right: 240px;
+		@media (max-width: 780px) {
+			right: 3%;
+		}
+	}
+}
+
+@media (min-width: 780px) {
+	.backToTopBtn:hover {
+		color: $accent-color;
+		transform: scale(1.1);
+	}
 }
 
 /* ------------------------------------ */
 /* HOMEPAGE */
 /* ------------------------------------ */
 
+#homepage-body {
+	max-height: 100%;
+	overflow: hidden;
+}
+
 #pfp {
 	border-radius: 50%;
 }
 
+// Styles the header
 header {
 	display: flex;
 	flex-direction: row;
@@ -204,12 +260,14 @@ header {
 	margin-top: 70vh;
 	margin-left: 10vw;
 	font-weight: 500;
-	color: rgba($accent-color, 0.85);
 
 	h1 {
+		text-align: left;
 		font-weight: 800;
 		font-size: 7rem;
 		letter-spacing: 0.02rem;
+		color: rgba($accent-color, 0.85);
+		text-transform: none;
 	}
 
 	img {
@@ -239,15 +297,27 @@ header {
 	}
 }
 
+// Makes the index-nav inherit some styles similar to navbar but makes it distinct in other ways
 .index-nav-wrapper {
 	width: 100%;
+
+	.index-link {
+		font-size: 2.5rem;
+	}
+
+	.nav-btn {
+		display: block;
+		width: 100%;
+		text-align: center;
+		padding: 10px 15px;
+	}
 }
 
 #index-nav {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: 20px; // Adjust this value to set consistent spacing
+	gap: 20px;
 	padding: 0; // Remove default padding
 }
 
@@ -255,13 +325,6 @@ header {
 	flex: 0 1 auto; // Changed from 1 1 auto to prevent stretching
 	margin: 0 !important; // Override any default margins
 	padding: 0 !important; // Override any default padding
-}
-
-.nav-btn {
-	display: block;
-	width: 100%;
-	text-align: center;
-	padding: 10px 15px; // Adjust padding as needed
 }
 
 @media (max-width: 1200px) {
@@ -324,6 +387,7 @@ header {
 			max-width: 80%; // Adjust this value as needed
 			margin-left: auto;
 			margin-right: auto;
+			gap: 0px; // Consistent with the flex gap
 		}
 
 		#index-nav {
@@ -342,92 +406,141 @@ header {
 /* ABOUT */
 /* ------------------------------------ */
 
-// Fullscreen text
-.fullscreen-section {
-	width: 100vw;
-	height: 100vh;
-	padding: 0 15vw 0 15vw;
-	box-sizing: border-box;
+// Styles the about page
+#about {
+	padding: calc(var(--navbar-height) + 4rem) 0;
+	background-color: rgba($accent-color-3, 0.4);
 
-	// Optional: Center content vertically and horizontally
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	// Text style
-	p {
-		font-size: 5rem;
-		color: $primary-color;
-		line-height: 1.5;
-		text-align: center;
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
 	}
-}
 
-.backToTopBtn {
-	display: none;
-	position: fixed;
-	bottom: 5%;
-	right: 3%;
-	font-size: 4rem;
-	z-index: 99;
-	color: $accent-color-2;
-	cursor: pointer;
-	transition: transform 1s ease;
+	h2 {
+		color: $accent-color-2;
+		font-size: 4rem;
+		font-weight: 700;
+		text-align: center;
+		margin-bottom: 2rem;
+		text-shadow: 2px 2px 4px rgba($accent-color, 0.5);
+	}
 
-	&#blog-backToTop {
-		right: 240px;
-		@media (max-width: 780px) {
-			right: 3%;
+	.about-content {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center; // Center the content horizontally
+		align-items: flex-start;
+		margin-bottom: 3rem;
+	}
+
+	.bio {
+		flex: 1 1 300px;
+		max-width: 70%; // Limit the maximum width
+		padding: 0 2rem; // Add horizontal padding
+		text-align: left; // Keep text left-aligned
+
+		p {
+			font-size: 1.5rem;
+			font-weight: 500;
+			line-height: 1.8;
+			margin-bottom: 1rem;
+			color: $primary-color;
+		}
+	}
+
+	// Adds eye-catching styles for skills section
+	.skills {
+		h3 {
+			color: $accent-color;
+			font-size: 3rem;
+			text-align: center;
+			margin-bottom: 1.5rem;
+		}
+
+		.skills-tabs {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin-bottom: 1.5rem;
+			font-size: 1.5rem;
+
+			.tab-button {
+				background-color: $secondary-color;
+				color: $accent-color-3;
+				border: none;
+				padding: 0.5rem 1rem;
+				margin: 0.25rem;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				flex: 1 1 auto;
+				max-width: 150px;
+
+				&.skills-active,
+				&:hover {
+					background-color: $accent-color-2;
+					color: $accent-color;
+				}
+			}
+		}
+
+		.skills-content {
+			.skills-list {
+				display: none;
+				flex-wrap: wrap;
+				justify-content: center;
+				list-style-type: none;
+				padding: 0;
+
+				&.skills-active {
+					display: flex;
+				}
+
+				li {
+					background-color: $secondary-color;
+					color: $accent-color-3;
+					padding: 0.5rem 1rem;
+					margin: 0.5rem;
+					border-radius: 20px;
+					font-size: 1.8rem;
+					transition: all 0.3s ease;
+
+					&:hover {
+						background-color: $accent-color-2;
+						color: $accent-color;
+						transform: translateY(-3px);
+					}
+				}
+			}
 		}
 	}
 }
 
-.backToTopBtn:hover {
-	color: $accent-color-2;
-	filter: brightness(0.8);
-	transform: scale(1.3);
-}
+@media (max-width: 768px) {
+	#about {
+		.about-content {
+			flex-direction: column;
+			align-items: center; // Center items vertically on small screens
+		}
 
-.fa-chevron-down {
-	position: fixed;
-	bottom: 5%;
-}
+		.bio {
+			padding: 0 1rem; // Reduce padding on small screens
+			max-width: 90%; // Limit the maximum width
+		}
 
-@keyframes bounce {
-	0%,
-	20%,
-	50%,
-	80%,
-	100% {
-		transform: translateY(0);
-	}
-	40% {
-		transform: translateY(-10px);
-	}
-	60% {
-		transform: translateY(-5px);
-	}
-}
+		.skills {
+			.skills-tabs {
+				flex-direction: column;
+				align-items: center;
 
-#scroll-indicator {
-	position: fixed;
-	position: fixed;
-	bottom: 20px;
-	left: 50%;
-	transform: translateX(-50%);
-	font-size: 3rem;
-	color: rgba($accent-color-2, 0.7);
-	opacity: 1;
-	transition: opacity 0.3s ease;
-
-	.hide {
-		opacity: 0;
-		pointer-events: none;
-	}
-
-	i {
-		animation: bounce 2s infinite;
-		animation-delay: 10s;
+				.tab-button {
+					width: 100%;
+					max-width: none;
+					text-align: center;
+					margin: 0.25rem 0;
+				}
+			}
+		}
 	}
 }
 
@@ -435,17 +548,20 @@ header {
 /* CONNECTIONS */
 /* ------------------------------------ */
 
+// Defaults the widget container settings on desktop view
 #widget-container {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(4, 1fr); // 4 1x1 widgets per row
 	gap: 20px;
-	padding: 80px 20px 20px;
+	padding: calc(var(--navbar-height) + 2rem) 20px 20px;
 	width: 100%;
 	margin: 0 auto;
 }
 
+// Styles individual widgets
 .widget {
-	background-color: rgba($accent-color-2, 0.3);
+	background-color: rgba($accent-color-3, 0.4);
+	backdrop-filter: brightness(1.2);
 	border-radius: 10px;
 	padding: 20px;
 	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
@@ -496,6 +612,7 @@ header {
 		font-weight: 600;
 	}
 
+	// Gives correct grid formatting with different sized widgets (Only used in musicWidgets)
 	&.size-1x1 {
 		grid-column: span 1;
 		grid-row: span 1;
@@ -516,6 +633,7 @@ header {
 		grid-row: span 2;
 	}
 
+	// Ensures embed content of the widgets maintain aspect ratio and fit the widgets accordingly
 	.embed-content {
 		margin-bottom: 15px;
 		display: flex;
@@ -577,6 +695,16 @@ header {
 	}
 }
 
+// Styles text-based links for the widgets content
+.connections-link {
+	color: #430052;
+
+	&:hover {
+		color: #2b0035;
+	}
+}
+
+// Responsive design of the grids on smaller devices
 @media (min-width: 1201px) {
 	#widget-container {
 		grid-template-columns: repeat(4, 1fr);
@@ -641,64 +769,126 @@ header {
 /* BLOG */
 /* ------------------------------------ */
 
+// Additional variables for readability
+$text-color: $primary-color;
+$background-color: rgba($accent-color-3, 0.3);
+$border-color: rgba($accent-color-2, 0.5);
+
 #blog-container {
 	padding-top: var(--navbar-height);
 }
 
+// Styles individual posts
 .post {
-	padding: 10px;
-	margin-bottom: 20px;
-	background: rgba(255, 255, 255, 0.2);
-	width: calc(100vw - 200px);
+	padding: 20px;
+	margin-bottom: 30px;
+	background: $background-color;
+	width: 100%;
+	box-shadow: 0 4px 6px rgba($accent-color, 0.1);
+	transition: transform 0.3s ease;
 
-	.title {
-		font-size: 2rem;
-		font-weight: 600;
-		margin-bottom: 5px;
+	&:hover {
+		transform: translateY(-5px);
 	}
 
-	.content {
-		margin-bottom: 0.08vh;
-		max-width: clamp(320px, 90%, 840px);
-		margin: auto;
+	// Hints that the post title is clickable
+	.postTitle {
+		font-size: 2.8rem;
+		font-weight: 700;
+		margin-bottom: 15px;
+		color: $secondary-color;
+		text-shadow: 1px 1px 2px rgba($primary-color, 0.5);
+		cursor: pointer;
+		transition: color 0.3s ease;
 
-		p {
-			font-size: 1.25rem;
-			font-weight: 450;
-			line-height: 1.5;
+		.collapse-button {
+			font-size: 1.5rem;
+			font-weight: 600;
+		}
+
+		&:hover {
+			color: $secondary-color;
+			filter: brightness(0.85);
 		}
 	}
 
-	.collapse-button {
-		cursor: pointer;
-		color: $accent-color;
+	.content {
+		margin-bottom: 20px;
+		max-width: clamp(320px, 90%, 1000px);
+		margin: auto;
+
+		h3 {
+			font-size: 1.8rem;
+		}
+
+		p {
+			font-size: 1.4rem;
+			font-weight: 500;
+			line-height: 1.8;
+			color: $text-color;
+			margin-bottom: 15px;
+		}
 	}
 }
 
+// Styles the timeline
 .timeline {
 	position: fixed;
-	top: 0;
-	right: -200px;
+	top: var(--navbar-height);
+	right: 0;
 	width: 200px;
-	background-color: $accent-color;
-	z-index: 990;
-	padding: calc(var(--navbar-height) + 1vw) 0 0 1vw;
+	background-color: rgba($secondary-color, 0.9);
+	z-index: 1;
+	padding: 2vh 2vh;
 	overflow-y: auto;
 	height: 100vh;
-	transition: right 0.3s ease;
+	box-shadow: -2px 0 5px rgba($accent-color, 0.2);
 
+	// Makes indiviaul entries on timeline look more like clickable links
 	.entry {
-		margin-bottom: 5px;
+		margin-bottom: 15px;
+		padding: 10px;
+		background-color: rgba($accent-color-3, 0.1);
+		border-radius: 5px;
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			background-color: rgba($accent-color-3, 0.2);
+		}
 	}
+
 	a {
 		display: block;
 		color: $accent-color-2;
 		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.3s ease;
+
+		&:hover {
+			color: $accent-color-3;
+		}
 	}
 }
 
+// Additional styles for better readability
+body {
+	background-color: $primary-color;
+	color: $text-color;
+}
+
+// Eye-catching header
+h1 {
+	font-size: 3rem;
+	color: $accent-color-2;
+	text-align: center;
+	margin: 30px 0;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	text-shadow: 2px 2px 4px rgba($accent-color, 0.5);
+}
+
 .timeline-toggle {
-	display: none;
+	display: none; // Initially toggle timeline button is hidden on desktop
 	position: fixed;
 	top: 50%;
 	right: 0;
@@ -715,6 +905,7 @@ header {
 	}
 }
 
+// Fixes the youtube iframe embeds in the blogs to maintain aspect ratio even on smaller viewports
 .youtube-container {
 	position: relative;
 	width: 100%;
@@ -742,21 +933,15 @@ header {
 
 @media (max-width: 780px) {
 	.timeline {
-		display: block;
+		display: block; // Hides timeline initially for smaller viewports
 	}
 
 	.timeline-toggle {
-		display: block;
+		display: block; // Shows timeline toggle button on smaller viewports
 	}
 
 	.post {
-		width: calc(100vw - 40px);
-	}
-}
-
-@media (max-width: 620px) {
-	.post {
-		width: calc(100vw - 20px);
+		width: 100vw;
 	}
 }
 
@@ -764,6 +949,39 @@ header {
 /* MUSIC */
 /* ------------------------------------ */
 
-.center-iframe {
+// Styles music page
+#music {
+	h1 {
+		color: $accent-color-2;
+		font-size: 4rem;
+		font-weight: 800;
+		text-align: center;
+		margin-bottom: 1rem;
+		text-shadow: 2px 2px 4px rgba($accent-color, 0.5);
+		text-transform: none;
+	}
+
+	p {
+		color: $accent-color;
+		font-weight: 600;
+		text-decoration: underline $primary-color;
+	}
+}
+
+#playlists-container {
+	padding-top: calc(var(--navbar-height) + 2rem);
+
+	#widget-container {
+		padding: 0 2vw;
+	}
+}
+
+// Centers the iframe
+.iframe-container {
+	padding-top: 3vh;
 	text-align: center;
+}
+
+#lastfmstats {
+	height: calc(95vh - var(--navbar-height));
 }

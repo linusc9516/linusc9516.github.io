@@ -112,9 +112,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" class="club-60"><style>
     <clipPath id="clip0_2235_6899">
         <rect width="1400" height="250" fill="white" />
     </clipPath>
-    <clipPath id="clip0_6_552">
-    <rect width="1400" height="250" rx="24" fill="white"/>
-    </clipPath>
+    {ROUNDED}
 </defs>
 
 <style>
@@ -139,7 +137,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" class="club-60"><style>
 </text>
 <text xml:space="preserve" style="white-space: pre; text-align: right;" font-family="sans-serif" font-size="25"
     letter-spacing="0em" text-anchor="end" class="medalrank" opacity="1">
-    <tspan x="1350.74" y="161.05">medal rank <tspan>#464</tspan></tspan>
+    <tspan x="1350.74" y="161.05">medal rank <tspan>#467</tspan></tspan>
 </text>
 <rect x="224" y="127" width="1128" height="5" rx="2.5" fill="white" fill-opacity="0.25" />
 <rect x="224" y="125" width="859.8744" height="9" rx="4.5" fill="rgb(var(--accent1))" />
@@ -147,7 +145,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" class="club-60"><style>
 <rect x="224" y="125" width="859.8744" height="9" rx="4.5" fill="url(#paint0_linear_2236_7097)" fill-opacity="0.5" />
 <text fill="white" xml:space="preserve" style="white-space: pre" font-family="sans-serif" font-size="20" font-weight="600"
     letter-spacing="0em">
-    <tspan x="373" y="166.48">#84416</tspan>
+    <tspan x="373" y="166.48">#84509</tspan>
 </text>
 
 <g class="gamemode-icon">
@@ -165,7 +163,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" class="club-60"><style>
 </text>
 <text fill="white" xml:space="preserve" style="white-space: pre" font-family="sans-serif" font-size="17" font-weight="600"
     letter-spacing="0em">
-    <tspan x="653" y="165.508">in love with a ghost <tspan font-weight="100" fill="#fffa">1.19%</tspan></tspan>
+    <tspan x="653" y="165.508">in love with a ghost <tspan font-weight="100" fill="#fffa">1.27%</tspan></tspan>
 </text>
 <path d="M489 160C489 151.716 495.716 145 504 145H640V175H504C495.716 175 489 168.284 489 160V160Z"
     fill="url(#paint1_linear_2236_7097)" fill-opacity="0.25" />
