@@ -28,7 +28,7 @@
 	<title>placeholder's Music</title>
 </head>
 
-<body>
+<body id="music">
 	<div class="nav-containter">
 		<nav class="navbar navbar-light navbar-expand-lg bg-body-tertiary" id="about-nav">
 			<div class="container-fluid">
@@ -59,7 +59,7 @@
                                 <a class="nav-link disabled nav-btn" href="./projects"><i class="fa-solid fa-bars-progress"></i> Projects</a>
                             </li> -->
 						<li class="nav-item px-3">
-							<a class="nav-link nav-btn active" href="./music"><i class="fa-solid fa-music"
+							<a class="nav-link nav-btn nav-active" href="./music"><i class="fa-solid fa-music"
 									aria-hidden="true"></i> Music</a>
 						</li>
 					</ul>
@@ -70,9 +70,18 @@
 	<div class="image-container">
 		<img src="./src/images/bg-main.png" class="bg-img bg-main" />
 	</div>
-	<div id="widget-container"></div>
-	<div class="center-iframe"><iframe src="https://lastfmstats.com/user/placeholder/charts" style="border: none;"
-			width="70%" height="1600"></iframe></div>
+	<div id="playlists-container">
+		<h1>My Playlists</h1>
+		<div id="widget-container"></div>
+	</div>
+	<div class="iframe-container">
+		<h1>Last.fm Stats</h1>
+		<a href="https://lastfmstats.com/" target="_blank" rel="noopener noreferrer">
+			<p>Stats provided by lastfmstats.com</p>
+		</a><iframe id="lastfmstats" src="https://lastfmstats.com/user/placeholder/charts" style="border: none;"
+			width="80%"></iframe>
+	</div>
+	<i class="fas fa-arrow-circle-up backToTopBtn" onclick="scrollToTop()"></i>
 	<script src=" ./src/index.js">
 	</script>
 </body>

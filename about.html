@@ -41,7 +41,7 @@
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item px-3">
-							<a class="nav-link active nav-btn" href="./about"><i class="fa-solid fa-circle-info"
+							<a class="nav-link nav-active nav-btn" href="./about"><i class="fa-solid fa-circle-info"
 									aria-hidden="true"></i>
 								About me</a>
 						</li>
@@ -72,27 +72,37 @@
 		<img src="./src/images/bg-main.png" class="bg-img bg-main" />
 	</div>
 	<i class="fas fa-arrow-circle-up backToTopBtn" onclick="scrollToTop()"></i>
-	<div class="fullscreen-section">
-		<p class="content">
-			Hello! I'm placeholder<br />
-			(Also known as MyAngelNazuna)
-		</p>
-	</div>
-	<div class="reveal-on-scroll fullscreen-section">
-		<p class="content">
-			osu! top 500 (medal count) player from HK :3
-			<a href="https://osekai.net/profiles/?user=0&page=Medals&mode=osu" target="_blank"
-				rel="noopener noreferrer">
-				<img src="./src/images/osekai-profile.svg" id="osu-profile" />
-			</a>
-		</p>
-	</div>
-	<div class="reveal-on-scroll fullscreen-section">
-		<p class="content">To be updated soon™</p>
-	</div>
-	<div id="scroll-indicator">
-		<i class="fas fa-chevron-down"></i>
-	</div>
+	<section id="about">
+		<div id="about-container">
+			<h2>About Me</h2>
+			<div class="about-content">
+				<div class="bio">
+					<p>Hi! I'm placeholder (or MyAngelNazuna), a student based in Hong Kong.<br> I'm passionate
+						about Data Analytics, Mathematics, and Chemistry.</p>
+					<p>With 5 years of programming in my free time, I've learnt a lot about algorithms and
+						computer processes.</p>
+					<p>When I'm free from schoolwork, I also enjoy football, VTubers, Anime, Visual Novels, and osu!</p>
+					<p>If you share similar interests or want to know me more, you can hit me up with a DM on
+						Discord!<br>
+						My friend link will be displayed on the <a href="./connections"
+							class="connections-link">connections</a> page.</p>
+				</div>
+			</div>
+			<div class="skills">
+				<h3>Skills</h3>
+				<div class="skills-tabs">
+					<button class="tab-button" data-tab="beginner">Beginner</button>
+					<button class="tab-button skills-active" data-tab="intermediate">Intermediate</button>
+					<button class="tab-button" data-tab="advanced">Advanced</button>
+				</div>
+				<div class="skills-content">
+					<ul id="beginner-skills" class="skills-list"></ul>
+					<ul id="intermediate-skills" class="skills-list skills-active"></ul>
+					<ul id="advanced-skills" class="skills-list"></ul>
+				</div>
+			</div>
+		</div>
+	</section>
 	<script src="./src/index.js"></script>
 </body>
 
