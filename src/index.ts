@@ -410,8 +410,9 @@ function initializeSocialsPage(): void {
 
 function initializeBlogPage(): void {
 	const posts: Post[] = [
-		{ title: "First post!!", file: "first-post.txt" },
-		{ title: "Restarting the project~", file: "restarting.txt" },
+		{ title: "First post!!", file: "first-post.html" },
+		{ title: "Restarting the project~", file: "restarting.html" },
+		{ title: "Dev diary", file: "dev-diary.html" },
 		// More posts TBA...
 	];
 
@@ -597,12 +598,25 @@ function initializeMusicPage(): void {
 		}
 		const isMobile = window.matchMedia("(max-width: 1024px)").matches;
 
-		musicWidgets.forEach(widget => {
+		musicWidgets.forEach((widget: MusicWidget) => {
+			let modifiedWidget: MusicWidget = { ...widget };
+
+			if (modifiedWidget.embedHTML) {
+				if (modifiedWidget.embedHTML.toLowerCase().includes('soundcloud') && isMobile) {
+					// Clear embedHTML for SoundCloud widgets
+					modifiedWidget.content = "My favourite remixes on SoundCloud!<br> SoundCloud playlist embed unfortunately is broken on mobile..."
+					modifiedWidget.embedHTML = undefined;
+				} else {
+					// Adjust height for non-SoundCloud embeds
+					modifiedWidget.embedHTML = modifiedWidget.embedHTML.replace(
+						/height="(\d+)"/,
+						`height="${isMobile ? '352' : '700'}"`
+					);
+				}
+			}
+
 			createWidget({
-				...widget,
-				embedHTML: widget.embedHTML ?
-					widget.embedHTML.replace(/height="(\d+)"/, `height="${isMobile ? '352' : '700'}"`) :
-					undefined, // Makes height of playlists smaller on mobile to improve UX
+				...modifiedWidget,
 				size: isMobile ? '1x1' : '2x2'
 			});
 		});

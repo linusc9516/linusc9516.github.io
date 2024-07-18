@@ -852,16 +852,29 @@ $border-color: rgba($accent-color-2, 0.5);
 		max-width: clamp(320px, 90%, 1000px);
 		margin: auto;
 
+		h2 {
+			font-size: 2.5rem;
+			color: $secondary-color;
+			font-weight: 700;
+		}
+
 		h3 {
-			font-size: 1.8rem;
+			font-size: 2rem;
+			font-weight: 600;
 		}
 
 		p {
-			font-size: 1.4rem;
+			font-size: 1.5rem;
 			font-weight: 500;
 			line-height: 1.8;
 			color: $text-color;
 			margin-bottom: 15px;
+		}
+
+		img {
+			position: relative;
+			width: 100%;
+			height: auto;
 		}
 	}
 }
@@ -977,6 +990,26 @@ h1 {
 
 	.post {
 		width: 100vw;
+		.content {
+			h2 {
+				font-size: 2rem;
+				color: $secondary-color;
+				font-weight: 700;
+			}
+
+			h3 {
+				font-size: 1.6rem;
+				font-weight: 600;
+			}
+
+			p {
+				font-size: 1.2rem;
+				font-weight: 500;
+				line-height: 1.8;
+				color: $text-color;
+				margin-bottom: 15px;
+			}
+		}
 	}
 }
 
