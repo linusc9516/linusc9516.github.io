@@ -1,4 +1,4 @@
-// Types
+// Initializes types
 interface Skill {
 	[key: string]: string[];
 }
@@ -48,19 +48,9 @@ function updateNavbarHeight(): void {
 }
 
 function toggleBackToTopButton(): void {
-	if (!backToTopBtn) return;
-
-	const firstFullscreenDiv = document.querySelector(".fullscreen-section");
-	const firstRowWidgets = document.querySelector(".widget");
-	let scrollThreshold = 0;
-
-	if (firstFullscreenDiv) {
-		scrollThreshold = firstFullscreenDiv.clientHeight * 0.6;
-	} else if (firstRowWidgets) {
-		scrollThreshold = firstRowWidgets.clientHeight * 1.2;
-	}
-
-	backToTopBtn.style.display = window.scrollY > scrollThreshold ? "block" : "none";
+	if (!backToTopBtn) return; // Prevents errors on pages wtih no button
+	// Toggles button display when over half page is scrolled
+	backToTopBtn.style.display = window.scrollY > window.innerHeight * 0.5 ? "block" : "none";
 }
 
 // Event listeners
@@ -69,11 +59,12 @@ window.addEventListener("resize", debounce(() => {
 		lastWidth = window.innerWidth;
 		location.reload();
 	}
-	updateNavbarHeight();
+	updateNavbarHeight(); // Updates whenever window is resized
 }, 250));
 
 window.addEventListener("scroll", toggleBackToTopButton);
 
+// Initialization when page loaded
 document.addEventListener("DOMContentLoaded", () => {
 	updateNavbarHeight();
 	toggleBackToTopButton();
@@ -82,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const navItems = document.querySelectorAll<HTMLElement>(".nav-item");
 	const navBtns = document.querySelectorAll<HTMLElement>(".nav-btn");
 
+	// Adds cursor style to disabled nav links
 	navItems.forEach((item, index) => {
 		if (navBtns[index].classList.contains("disabled")) {
 			item.style.cursor = "not-allowed";
@@ -90,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Page-specific functionality
 	const currentPage = window.location.pathname.split("/").pop()?.toLowerCase();
-
 	switch (currentPage) {
 		case "about":
 			initializeAboutPage();
@@ -107,9 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 });
 
+// jQuery function for smooth scrolling to the top
 $(() => {
 	const $backToTopBtn: JQuery<HTMLElement> = $(".backToTopBtn");
 
+	// If Btn exists and is clicked, init scroll
 	if ($backToTopBtn.length) {
 		$backToTopBtn.on("click", (event: JQuery.ClickEvent) => {
 			event.preventDefault();
@@ -121,7 +114,10 @@ $(() => {
 	}
 });
 
+// Widget creating function (reused in both socials & music for playlists)
 const createWidget = (options: WidgetOptions): void => {
+
+	// Entire widget body is a link
 	const widget = document.createElement("a");
 	widget.className = `widget size-${options.size || "1x1"}`;
 	widget.href = options.linkUrl;
@@ -129,6 +125,7 @@ const createWidget = (options: WidgetOptions): void => {
 	widget.rel = "noopener noreferrer";
 	widget.style.textDecoration = "none";
 
+	// A bit messy but follwo btn positioning only works with nested div
 	const headerContainer = document.createElement("div");
 	headerContainer.className = "widget-header";
 
@@ -137,7 +134,7 @@ const createWidget = (options: WidgetOptions): void => {
 
 	if (options.iconUrl) {
 		const iconElement = document.createElement("img");
-		iconElement.src = options.iconUrl;
+		iconElement.src = `src/images/${options.iconUrl}`;
 		iconElement.alt = "Icon";
 		iconElement.className = "widget-icon";
 		titleContainer.appendChild(iconElement);
@@ -152,8 +149,13 @@ const createWidget = (options: WidgetOptions): void => {
 		const followButton = document.createElement("a");
 		followButton.href = options.followUrl;
 		followButton.className = "follow-button";
-		followButton.textContent = options.followUrl.toLowerCase().includes("youtube.com") ? "Subscribe" : "Follow";
-		followButton.textContent = options.followUrl.toLowerCase().includes("fantasy.premierleague.com") ? "Join" : "Follow";
+		if (options.followUrl.toLowerCase().includes("youtube.com")) {
+			followButton.textContent = "Subscribe";
+		} else if (options.followUrl.toLowerCase().includes("fantasy.premierleague.com")) {
+			followButton.textContent = "Join";
+		} else if (options.followUrl.toLowerCase().includes("twitter.com")) {
+			followButton.textContent = "Follow";
+		}
 		followButton.target = "_blank";
 		followButton.rel = "noopener noreferrer";
 		headerContainer.appendChild(followButton);
@@ -162,6 +164,7 @@ const createWidget = (options: WidgetOptions): void => {
 	widget.appendChild(headerContainer);
 
 	const contentElement = document.createElement("p");
+	// Could've used contentElement.textContent to prevent everything being parsed as HTML, but needed link for the last.fm widget
 	contentElement.innerHTML = options.content;
 	contentElement.style.textDecoration = "none";
 	widget.appendChild(contentElement);
@@ -171,15 +174,15 @@ const createWidget = (options: WidgetOptions): void => {
 		embedContent.className = "embed-content";
 
 		if (options.imageUrl) {
-			embedContent.innerHTML = `<img src="${options.imageUrl}" alt="${options.title}" onerror="this.src='path/to/fallback-image.jpg';">`;
+			embedContent.innerHTML = `<img src="src/images/${options.imageUrl}" alt="${options.title}" onerror="this.src='src/images/fallback.webp';">`; // Too lazy to add fallback, maybe sometime in the future
 		} else if (options.embedHTML) {
-			embedContent.innerHTML = options.embedHTML;
+			embedContent.innerHTML = options.embedHTML; // Yeah somehow embedHTML implementation is similar to contentElement.. whatever.
 		}
 
 		widget.appendChild(embedContent);
 	}
 
-	widgetContainer?.appendChild(widget);
+	widgetContainer?.appendChild(widget); // Yay we finally made a widget dynamically, only took 70 lines
 };
 
 // Page-specific functions
@@ -188,15 +191,10 @@ function initializeAboutPage(): void {
 	const aboutContent = document.querySelector<HTMLElement>('.about-content');
 	const caret = document.querySelector<HTMLElement>('.mobile-caret');
 
-	console.log(aboutHeader);
-	console.log(aboutContent);
-	console.log(caret);
 	if (aboutHeader && aboutContent && caret) {
-		console.log('loaded');
 		aboutHeader.addEventListener('click', () => {
-			console.log('registered click');
 			if (window.innerWidth <= 768) {
-				console.log('didnt toggle');
+				// Functionality to toggle expand/collapse the About Me section on mobile
 				aboutContent.classList.toggle('collapsed');
 				caret.classList.toggle('fa-caret-down');
 				caret.classList.toggle('fa-caret-up');
@@ -204,15 +202,14 @@ function initializeAboutPage(): void {
 		});
 	}
 
-
 	const skills: Skill = {
 		beginner: [
 			"TensorFlow",
-			"Julia (Learning)",
-			"C++",
-			"Basic responsive web design",
-			"jQuery",
 			"Flask",
+			"Julia (Learning)",
+			"Basic responsive web design",
+			"C++",
+			"jQuery",
 			"Git",
 		],
 		intermediate: [
@@ -264,19 +261,20 @@ function initializeAboutPage(): void {
 			}
 		});
 	});
+
+	function animateSkills(skillsList: HTMLElement): void {
+		const skillItems = skillsList.querySelectorAll<HTMLElement>("li");
+		skillItems.forEach((item, index) => {
+			item.style.opacity = "0";
+			item.style.transform = "translateY(20px)";
+			setTimeout(() => {
+				item.style.opacity = "1";
+				item.style.transform = "translateY(0)";
+			}, index * 50);
+		});
+	}
 }
 
-function animateSkills(skillsList: HTMLElement): void {
-	const skillItems = skillsList.querySelectorAll<HTMLElement>("li");
-	skillItems.forEach((item, index) => {
-		item.style.opacity = "0";
-		item.style.transform = "translateY(20px)";
-		setTimeout(() => {
-			item.style.opacity = "1";
-			item.style.transform = "translateY(0)";
-		}, index * 50);
-	});
-}
 
 function initializeSocialsPage(): void {
 	// Create widgets
@@ -285,8 +283,8 @@ function initializeSocialsPage(): void {
 			title: "osu!",
 			content: "Check out my osu! profile~",
 			linkUrl: "https://osu.ppy.sh/users/0",
-			iconUrl: "src/images/osu-icon.svg",
-			imageUrl: "src/images/osu-header.webp",
+			iconUrl: "osu-icon.svg",
+			imageUrl: "osu-header.webp",
 		},
 		{
 			title: "Tournament History",
@@ -294,108 +292,108 @@ function initializeSocialsPage(): void {
 				"Both staffing and playing are included!<br> Displayed below is my most recent banner.",
 			linkUrl:
 				"https://docs.google.com/spreadsheets/d/00000000000000000000000000000000000000000000/edit?gid=2118512619#gid=2118512619",
-			iconUrl: "src/images/sheets-icon.svg",
-			imageUrl: "src/images/nct2-header.webp",
+			iconUrl: "sheets-icon.svg",
+			imageUrl: "nct2-header.webp",
 		},
 		{
 			title: "osekai",
 			content: "Check my medal statistics on osekai!",
 			linkUrl: "https://osekai.net/profiles/?user=0&page=Medals&mode=osu",
-			iconUrl: "src/images/osekai-icon.svg",
-			imageUrl: "src/images/osekai-header.svg",
+			iconUrl: "osekai-icon.svg",
+			imageUrl: "osekai-header.svg",
 		},
 		{
 			title: "Youtube",
 			content: "Subscribe to my channel on Youtube!",
 			linkUrl: "https://www.youtube.com/@example",
-			iconUrl: "src/images/youtube-icon.svg",
-			imageUrl: "src/images/youtube-header.webp",
+			iconUrl: "youtube-icon.svg",
+			imageUrl: "youtube-header.webp",
 			followUrl: "https://www.youtube.com/@example",
 		},
 		{
 			title: "Twitter",
 			content: "Follow my main account on Twitter ^^",
 			linkUrl: "https://twitter.com/example",
-			iconUrl: "src/images/twitter-icon.svg",
-			imageUrl: "src/images/placeholder-header.webp",
+			iconUrl: "twitter-icon.svg",
+			imageUrl: "placeholder-header.webp",
 			followUrl: "https://twitter.com/intent/user?screen_name=placeholder",
 		},
 		{
 			title: "RushiaTwt",
 			content: "Follow my Rushia Counting Twitter!",
 			linkUrl: "https://twitter.com/RushiaMyBeloved",
-			iconUrl: "src/images/twitter-icon.svg",
-			imageUrl: "src/images/rushiamybeloved-header.webp",
+			iconUrl: "twitter-icon.svg",
+			imageUrl: "rushiamybeloved-header.webp",
 			followUrl: "https://twitter.com/intent/user?screen_name=RushiaMyBeloved",
 		},
 		{
 			title: "Discord server",
 			content: "Join my server! :3",
 			linkUrl: "https://discord.gg/000000",
-			iconUrl: "src/images/discord-icon.svg",
-			imageUrl: "src/images/server-header.webp",
+			iconUrl: "discord-icon.svg",
+			imageUrl: "server-header.webp",
 		},
 		{
 			title: "Discord account",
 			content: "Invite me as friend nya~",
 			linkUrl: "https://discord.com/users/0",
-			iconUrl: "src/images/discord-icon.svg",
-			imageUrl: "src/images/discord-header.webp",
+			iconUrl: "discord-icon.svg",
+			imageUrl: "discord-header.webp",
 		},
 		{
 			title: "GitHub",
 			content: "Check out my projects on GitHub~",
 			linkUrl: "https://github.com/example",
-			iconUrl: "src/images/github-icon.svg",
-			imageUrl: "src/images/github-pfp.webp",
+			iconUrl: "github-icon.svg",
+			imageUrl: "github-pfp.webp",
 			size: "1x1",
 		},
 		{
 			title: 'Spotify',
 			content: 'Check out my account for playlists!',
 			linkUrl: 'https://open.spotify.com/user/0000000000000000000000?si=0abff12c86554294',
-			iconUrl: 'src/images/spotify-icon.svg',
-			imageUrl: 'src/images/spotify-pfp.webp',
+			iconUrl: 'spotify-icon.svg',
+			imageUrl: 'spotify-pfp.webp',
 			size: '1x1'
 		},
 		{
 			title: 'SoundCloud',
 			content: 'Check out my SoundCloud!',
 			linkUrl: 'https://soundcloud.com/example',
-			iconUrl: 'src/images/soundcloud-icon.svg',
-			imageUrl: 'src/images/soundcloud-pfp.webp',
+			iconUrl: 'soundcloud-icon.svg',
+			imageUrl: 'soundcloud-pfp.webp',
 			size: '1x1'
 		},
 		{
 			title: "Last.fm",
 			content:
 				'More stats available on the <a class="socials-link" href="./music">Music</a> Tab!',
-			linkUrl: "https://last.fm/placeholder",
-			iconUrl: "src/images/lastfm-icon.svg",
-			imageUrl: "src/images/lastfm-pfp.webp",
+			linkUrl: "https://last.fm/user/placeholder",
+			iconUrl: "lastfm-icon.svg",
+			imageUrl: "lastfm-pfp.webp",
 			size: "1x1",
 		},
 		{
 			title: "Steam",
 			content: "Add me as friend on steam! (Highly inactive)",
 			linkUrl: "https://steamcommunity.com/id/example/",
-			iconUrl: "src/images/steam-icon.svg",
-			imageUrl: "src/images/steam-pfp.webp",
+			iconUrl: "steam-icon.svg",
+			imageUrl: "steam-pfp.webp",
 			size: "1x1",
 		},
 		{
 			title: "Twitch",
 			content: "My twitch account (Rarely streams)",
 			linkUrl: "https://twitch.tv/example/",
-			iconUrl: "src/images/twitch-icon.svg",
-			imageUrl: "src/images/twitch-pfp.webp",
+			iconUrl: "twitch-icon.svg",
+			imageUrl: "twitch-pfp.webp",
 			size: "1x1",
 		},
 		{
 			title: "Fantasy PL",
 			content: "My FPL miniLeague for 24/25 Season!",
 			linkUrl: "https://fantasy.premierleague.com/leagues/142567/standings/c",
-			imageUrl: "src/images/pl-icon.webp",
+			imageUrl: "pl-icon.webp",
 			followUrl: "https://fantasy.premierleague.com/leagues/auto-join/hzwugs",
 			size: "1x1",
 		},
@@ -403,17 +401,18 @@ function initializeSocialsPage(): void {
 			title: "Football server",
 			content: "Join my other discord server for football chats!",
 			linkUrl: "https://discord.gg/gEkbpjKtrH",
-			imageUrl: "src/images/discord-icon.svg",
+			imageUrl: "discord-icon.svg",
 			size: '1x1',
 		},
+		// More widgets TBA...
 	].forEach(createWidget);
 }
 
 function initializeBlogPage(): void {
 	const posts: Post[] = [
-		{ title: "First post!!", file: "./src/blog-entries/first-post.txt" },
-		{ title: "Restarting the project~", file: "./src/blog-entries/restarting.txt" },
-		// Add more posts here
+		{ title: "First post!!", file: "first-post.txt" },
+		{ title: "Restarting the project~", file: "restarting.txt" },
+		// More posts TBA...
 	];
 
 	const createPost = (post: Post): HTMLElement => {
@@ -432,7 +431,7 @@ function initializeBlogPage(): void {
 
 		const titleElement = document.createElement("span");
 		titleElement.classList.add("title");
-		titleElement.textContent = "\u2800" + post.title; // Unicode space character
+		titleElement.textContent = "\u2800" + post.title; // Unicode space character to enable spacing
 
 		postTitleContainer.appendChild(collapseButton);
 		postTitleContainer.appendChild(titleElement);
@@ -441,6 +440,7 @@ function initializeBlogPage(): void {
 		contentElement.classList.add("content");
 		contentElement.style.display = "none";
 
+		// Toggle expand/collapse of posts
 		postTitleContainer.addEventListener("click", () => {
 			if (contentElement.style.display === "none") {
 				arrow.classList.remove("fa-caret-right");
@@ -453,7 +453,8 @@ function initializeBlogPage(): void {
 			}
 		});
 
-		fetch(post.file)
+		// Loads each post from the directory
+		fetch(`./src/blog-entries/${post.file}`)
 			.then((response) => response.text())
 			.then((content) => {
 				contentElement.innerHTML = content;
@@ -475,6 +476,7 @@ function initializeBlogPage(): void {
 		timelineElement.innerHTML = "";
 		blogElement.innerHTML = "";
 
+		// Newest post at the top
 		posts.reverse().forEach((post) => {
 			const postElement = createPost(post);
 			blogElement.appendChild(postElement);
@@ -531,7 +533,7 @@ function initializeBlogPage(): void {
 	const blogContent = document.getElementById("blog");
 
 	if (toggleButton && timeline && blogContent) {
-		let isTimelineVisible = window.innerWidth > 780;
+		let isTimelineVisible = window.innerWidth > 780; // For desktop timeline is initially visible
 
 		const updateTimelineVisibility = (): void => {
 			if (window.innerWidth > 780) {
@@ -544,11 +546,13 @@ function initializeBlogPage(): void {
 			}
 		};
 
+		// For mobile only
 		toggleButton.addEventListener("click", () => {
 			isTimelineVisible = !isTimelineVisible;
 			updateTimelineVisibility();
 		});
 
+		// Updates timeline ASAP
 		window.addEventListener("resize", updateTimelineVisibility);
 		updateTimelineVisibility();
 	}
@@ -560,28 +564,28 @@ function initializeMusicPage(): void {
 			title: 'Spotify Main Playlist',
 			content: 'Bangers only!',
 			linkUrl: 'https://open.spotify.com/playlist/1mVNP66DkhroJRds67UTpK?si=54674a5aa28b45c2',
-			iconUrl: 'src/images/spotify-icon.svg',
+			iconUrl: 'spotify-icon.svg',
 			embedHTML: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1mVNP66DkhroJRds67UTpK?utm_source=generator" width="100%" height="700" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
 		},
 		{
 			title: 'Spotify Emotional Playlist',
 			content: 'Slow, relaxing songs to listen~',
 			linkUrl: 'https://open.spotify.com/playlist/2Uf4ughAQi6HkvmVWi8dvp?si=149d58e91e3b4136',
-			iconUrl: 'src/images/spotify-icon.svg',
+			iconUrl: 'spotify-icon.svg',
 			embedHTML: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Uf4ughAQi6HkvmVWi8dvp?utm_source=generator" width="100%" height="700" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
 		},
 		{
 			title: 'YouTube Playlist',
 			content: 'My playlist on YT!',
 			linkUrl: 'https://youtube.com/playlist?list=PLKKggsa6p95NFOOrnmM50O6YGxIaaxGUw',
-			iconUrl: 'src/images/youtube-icon.svg',
+			iconUrl: 'youtube-icon.svg',
 			embedHTML: '<iframe width="100%" height="700" src="https://www.youtube.com/embed/?listType=playlist&list=PLKKggsa6p95NFOOrnmM50O6YGxIaaxGUw&index=10" frameborder="0" allowfullscreen>',
 		},
 		{
 			title: 'Soundcloud Remix Playlist',
 			content: 'My favourite remixes!',
 			linkUrl: 'https://on.soundcloud.com/nCveaVp69jXKdgcp9',
-			iconUrl: 'src/images/soundcloud-icon.svg',
+			iconUrl: 'soundcloud-icon.svg',
 			embedHTML: '<iframe width="100%" height="700" scrolling="no" frameborder="no" allow="autoplay" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1821604341&color=%2354405a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/example" title="placeholder" target="_blank" style="color: #cccccc; text-decoration: none;">placeholder</a> · <a href="https://soundcloud.com/example/sets/remix" title="Remix type shit" target="_blank" style="color: #cccccc; text-decoration: none;">Remix type shit</a></div>',
 		},
 	];
@@ -598,7 +602,7 @@ function initializeMusicPage(): void {
 				...widget,
 				embedHTML: widget.embedHTML ?
 					widget.embedHTML.replace(/height="(\d+)"/, `height="${isMobile ? '352' : '700'}"`) :
-					undefined,
+					undefined, // Makes height of playlists smaller on mobile to improve UX
 				size: isMobile ? '1x1' : '2x2'
 			});
 		});
@@ -619,12 +623,3 @@ function initializeMusicPage(): void {
 		resizeTimeout = window.setTimeout(handleResize, 250);
 	});
 }
-
-// Main initialization
-document.addEventListener('DOMContentLoaded', () => {
-	const currentPage = window.location.pathname.split("/").pop()?.toLowerCase();
-
-	if (currentPage === "music") {
-		initializeMusicPage();
-	}
-});
