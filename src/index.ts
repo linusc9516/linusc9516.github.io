@@ -395,16 +395,16 @@ function initializeSocialsPage(): void {
 			title: "Fantasy PL",
 			content: "My FPL miniLeague for 24/25 Season!",
 			linkUrl: "https://fantasy.premierleague.com/leagues/142567/standings/c",
-			iconUrl: "src/images/twitch-icon.svg	",
-			imageUrl: "src/images/twitch-pfp.webp",
+			imageUrl: "src/images/pl-icon.webp",
+			followUrl: "https://fantasy.premierleague.com/leagues/auto-join/hzwugs",
 			size: "1x1",
 		},
 		{
 			title: "Football server",
 			content: "Join my other discord server for football chats!",
-			linkUrl: "https://discord.gg/000000",
-			iconUrl: "src/images/discord-icon.svg",
-			imageUrl: "src/images/server-header.webp",
+			linkUrl: "https://discord.gg/gEkbpjKtrH",
+			imageUrl: "src/images/discord-icon.svg",
+			size: '1x1',
 		},
 	].forEach(createWidget);
 }
