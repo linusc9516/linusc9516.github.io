@@ -48,6 +48,27 @@ body {
 	max-width: 100%;
 }
 
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background-color: rgba($accent-color-3, 0.5);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: $secondary-color;
+	border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: $accent-color;
+}
+
 // Navbar styling
 .navbar {
 	width: 100vw;
@@ -159,50 +180,25 @@ body {
 // Adds filter and dynamically adjusts size of background images on all viewports
 .bg-img {
 	position: fixed;
-	object-fit: cover;
 	z-index: -1;
-
-	// Force filter to be run by GPU
-	transform: translateZ(0);
-
-	// Removes white border after filtering
-	transform: scale(1.1);
-	filter: blur(5px) contrast(0.4);
-
-	inset: -30px;
-
-	// Fallback for older browsers
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
-
-	// Set rules to fill background
-	min-height: 100%;
-	min-width: 100%;
-
-	// Set up proportionate scaling
+	inset: 0;
 	width: 100%;
 	height: 100%;
-
-	// Set up positioning
-	top: 0;
-	left: 0;
-
-	&::after {
-		transform: scale(1);
-	}
+	object-fit: cover;
+	content: "";
+	position: fixed;
+	inset: 0;
+	background: inherit;
+	filter: blur(5px) contrast(0.6);
 
 	&#bg-home {
 		filter: blur(3px) brightness(0.9);
 	}
 
-	// Responsive design
 	@media (max-width: 768px) {
-		min-width: auto;
 		width: auto;
-		height: 100%;
 		left: 50%;
-		transform: translateX(-50%) scale(1.1);
+		transform: translateX(-50%);
 	}
 }
 
@@ -388,6 +384,9 @@ header {
 			margin-left: auto;
 			margin-right: auto;
 			gap: 0px; // Consistent with the flex gap
+			.index-link {
+				font-size: 2rem;
+			}
 		}
 
 		#index-nav {
@@ -408,7 +407,7 @@ header {
 
 // Styles the about page
 #about {
-	padding: calc(var(--navbar-height) + 4rem) 0;
+	padding: calc(var(--navbar-height) + 2rem) 0;
 	background-color: rgba($accent-color-3, 0.4);
 
 	.container {
@@ -516,16 +515,42 @@ header {
 	}
 }
 
+@media (min-width: 769px) {
+	.mobile-caret {
+		display: none;
+	}
+}
+
 @media (max-width: 768px) {
 	#about {
+		.about-header {
+			cursor: pointer;
+			font-size: 3rem;
+		}
+
+		.mobile-caret {
+			display: inline-block;
+			font-size: 2.5rem;
+		}
+
 		.about-content {
 			flex-direction: column;
 			align-items: center; // Center items vertically on small screens
+			max-height: 1000px; // Adjust this value as needed
+			overflow: hidden;
+			transition: max-height 0.3s ease-out;
+
+			&.collapsed {
+				max-height: 0;
+			}
 		}
 
 		.bio {
 			padding: 0 1rem; // Reduce padding on small screens
 			max-width: 90%; // Limit the maximum width
+			p {
+				font-size: 1rem;
+			}
 		}
 
 		.skills {
@@ -545,7 +570,7 @@ header {
 }
 
 /* ------------------------------------ */
-/* CONNECTIONS */
+/* SOCIALS */
 /* ------------------------------------ */
 
 // Defaults the widget container settings on desktop view
@@ -696,7 +721,7 @@ header {
 }
 
 // Styles text-based links for the widgets content
-.connections-link {
+.socials-link {
 	color: #430052;
 
 	&:hover {

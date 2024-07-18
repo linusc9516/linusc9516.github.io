@@ -12,10 +12,17 @@ interface WidgetOptions {
 	followUrl?: string;
 	size?: string;
 }
-
 interface Post {
 	title: string;
 	file: string;
+}
+interface MusicWidget {
+	title: string;
+	content: string;
+	linkUrl: string;
+	iconUrl: string;
+	embedHTML?: string;
+	size?: string;
 }
 
 // Global variables
@@ -88,8 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		case "about":
 			initializeAboutPage();
 			break;
-		case "connections":
-			initializeConnectionsPage();
+		case "socials":
+			initializeSocialsPage();
 			break;
 		case "blog":
 			initializeBlogPage();
@@ -107,7 +114,7 @@ $(() => {
 		$backToTopBtn.on("click", (event: JQuery.ClickEvent) => {
 			event.preventDefault();
 			$("html, body").animate({ scrollTop: 0 }, {
-				duration: 800,
+				duration: 200,
 				easing: "swing"
 			});
 		});
@@ -176,6 +183,27 @@ const createWidget = (options: WidgetOptions): void => {
 
 // Page-specific functions
 function initializeAboutPage(): void {
+	const aboutHeader = document.querySelector<HTMLElement>('.about-header');
+	const aboutContent = document.querySelector<HTMLElement>('.about-content');
+	const caret = document.querySelector<HTMLElement>('.mobile-caret');
+
+	console.log(aboutHeader);
+	console.log(aboutContent);
+	console.log(caret);
+	if (aboutHeader && aboutContent && caret) {
+		console.log('loaded');
+		aboutHeader.addEventListener('click', () => {
+			console.log('registered click');
+			if (window.innerWidth <= 768) {
+				console.log('didnt toggle');
+				aboutContent.classList.toggle('collapsed');
+				caret.classList.toggle('fa-caret-down');
+				caret.classList.toggle('fa-caret-up');
+			}
+		});
+	}
+
+
 	const skills: Skill = {
 		beginner: [
 			"TensorFlow",
@@ -249,7 +277,7 @@ function animateSkills(skillsList: HTMLElement): void {
 	});
 }
 
-function initializeConnectionsPage(): void {
+function initializeSocialsPage(): void {
 	// Create widgets
 	[
 		{
@@ -257,7 +285,7 @@ function initializeConnectionsPage(): void {
 			content: "Check out my osu! profile~",
 			linkUrl: "https://osu.ppy.sh/users/0",
 			iconUrl: "src/images/osu-icon.svg",
-			imageUrl: "src/images/osu-header.png",
+			imageUrl: "src/images/osu-header.webp",
 		},
 		{
 			title: "Tournament History",
@@ -266,7 +294,7 @@ function initializeConnectionsPage(): void {
 			linkUrl:
 				"https://docs.google.com/spreadsheets/d/00000000000000000000000000000000000000000000/edit?gid=2118512619#gid=2118512619",
 			iconUrl: "src/images/sheets-icon.svg",
-			imageUrl: "src/images/nct2-header.png",
+			imageUrl: "src/images/nct2-header.webp",
 		},
 		{
 			title: "osekai",
@@ -280,23 +308,23 @@ function initializeConnectionsPage(): void {
 			content: "Subscribe to my channel on Youtube!",
 			linkUrl: "https://www.youtube.com/@example",
 			iconUrl: "src/images/youtube-icon.svg",
-			imageUrl: "src/images/youtube-header.png",
+			imageUrl: "src/images/youtube-header.webp",
 			followUrl: "https://www.youtube.com/@example",
 		},
 		{
 			title: "Twitter",
 			content: "Follow my main account on Twitter ^^",
 			linkUrl: "https://twitter.com/example",
-			iconUrl: "src/images/twitter-icon.png",
-			imageUrl: "src/images/placeholder-header.png",
+			iconUrl: "src/images/twitter-icon.svg",
+			imageUrl: "src/images/placeholder-header.webp",
 			followUrl: "https://twitter.com/intent/user?screen_name=placeholder",
 		},
 		{
 			title: "RushiaTwt",
 			content: "Follow my Rushia Counting Twitter!",
 			linkUrl: "https://twitter.com/example",
-			iconUrl: "src/images/twitter-icon.png",
-			imageUrl: "src/images/rushiamybeloved-header.png",
+			iconUrl: "src/images/twitter-icon.svg",
+			imageUrl: "src/images/rushiamybeloved-header.webp",
 			followUrl: "https://twitter.com/intent/user?screen_name=placeholder",
 		},
 		{
@@ -304,21 +332,21 @@ function initializeConnectionsPage(): void {
 			content: "Join my server! :3",
 			linkUrl: "https://discord.gg/000000",
 			iconUrl: "src/images/discord-icon.svg",
-			imageUrl: "src/images/server-header.png",
+			imageUrl: "src/images/server-header.webp",
 		},
 		{
 			title: "Discord account",
 			content: "Invite me as friend nya~",
 			linkUrl: "https://discord.com/users/0",
 			iconUrl: "src/images/discord-icon.svg",
-			imageUrl: "src/images/discord-header.gif",
+			imageUrl: "src/images/discord-header.webp",
 		},
 		{
 			title: "GitHub",
 			content: "Check out my projects on GitHub~",
 			linkUrl: "https://github.com/example",
 			iconUrl: "src/images/github-icon.svg",
-			imageUrl: "src/images/github-pfp.png",
+			imageUrl: "src/images/github-pfp.webp",
 			size: "1x1",
 		},
 		{
@@ -326,7 +354,7 @@ function initializeConnectionsPage(): void {
 			content: 'Check out my account for playlists!',
 			linkUrl: 'https://open.spotify.com/user/0000000000000000000000?si=0abff12c86554294',
 			iconUrl: 'src/images/spotify-icon.svg',
-			imageUrl: 'src/images/spotify-pfp.png',
+			imageUrl: 'src/images/spotify-pfp.webp',
 			size: '1x1'
 		},
 		{
@@ -334,16 +362,16 @@ function initializeConnectionsPage(): void {
 			content: 'Check out my SoundCloud!',
 			linkUrl: 'https://soundcloud.com/example',
 			iconUrl: 'src/images/soundcloud-icon.svg',
-			imageUrl: 'src/images/soundcloud-pfp.png',
+			imageUrl: 'src/images/soundcloud-pfp.webp',
 			size: '1x1'
 		},
 		{
 			title: "Last.fm",
 			content:
-				'More stats available on the <a class="connections-link" href="./music">Music</a> Tab!',
+				'More stats available on the <a class="socials-link" href="./music">Music</a> Tab!',
 			linkUrl: "https://last.fm/placeholder",
 			iconUrl: "src/images/lastfm-icon.svg",
-			imageUrl: "src/images/lastfm-pfp.png",
+			imageUrl: "src/images/lastfm-pfp.webp",
 			size: "1x1",
 		},
 		{
@@ -351,7 +379,7 @@ function initializeConnectionsPage(): void {
 			content: "Add me as friend on steam! (Highly inactive)",
 			linkUrl: "https://steamcommunity.com/id/example/",
 			iconUrl: "src/images/steam-icon.svg",
-			imageUrl: "src/images/steam-pfp.png",
+			imageUrl: "src/images/steam-pfp.webp",
 			size: "1x1",
 		},
 		{
@@ -359,7 +387,7 @@ function initializeConnectionsPage(): void {
 			content: "My twitch account (Rarely streams)",
 			linkUrl: "https://twitch.tv/example/",
 			iconUrl: "src/images/twitch-icon.svg",
-			imageUrl: "src/images/twitch-pfp.png",
+			imageUrl: "src/images/twitch-pfp.webp",
 			size: "1x1",
 		}
 	].forEach(createWidget);
@@ -463,7 +491,7 @@ function initializeBlogPage(): void {
 							scrollTop: scrollTo - navbarHeight
 						},
 						{
-							duration: 800,
+							duration: 200,
 							easing: "swing"
 						}
 					);
@@ -510,15 +538,6 @@ function initializeBlogPage(): void {
 	}
 }
 
-interface MusicWidget {
-	title: string;
-	content: string;
-	linkUrl: string;
-	iconUrl: string;
-	embedHTML: string;
-	size?: string;
-}
-
 function initializeMusicPage(): void {
 	const musicWidgets: MusicWidget[] = [
 		{
@@ -536,19 +555,19 @@ function initializeMusicPage(): void {
 			embedHTML: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Uf4ughAQi6HkvmVWi8dvp?utm_source=generator" width="100%" height="700" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
 		},
 		{
-			title: 'Soundcloud Remix Playlist',
-			content: 'My favourite remixes!',
-			linkUrl: 'https://on.soundcloud.com/nCveaVp69jXKdgcp9',
-			iconUrl: 'src/images/soundcloud-icon.svg',
-			embedHTML: '<iframe width="100%" height="700" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1821604341&color=%2354405a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/example" title="placeholder" target="_blank" style="color: #cccccc; text-decoration: none;">placeholder</a> · <a href="https://soundcloud.com/example/sets/remix" title="Remix type shit" target="_blank" style="color: #cccccc; text-decoration: none;">Remix type shit</a></div>',
-		},
-		{
 			title: 'YouTube Playlist',
 			content: 'My playlist on YT!',
 			linkUrl: 'https://youtube.com/playlist?list=PLKKggsa6p95NFOOrnmM50O6YGxIaaxGUw',
 			iconUrl: 'src/images/youtube-icon.svg',
 			embedHTML: '<iframe width="100%" height="700" src="https://www.youtube.com/embed/?listType=playlist&list=PLKKggsa6p95NFOOrnmM50O6YGxIaaxGUw&index=10" frameborder="0" allowfullscreen>',
-		}
+		},
+		{
+			title: 'Soundcloud Remix Playlist',
+			content: 'My favourite remixes!',
+			linkUrl: 'https://on.soundcloud.com/nCveaVp69jXKdgcp9',
+			iconUrl: 'src/images/soundcloud-icon.svg',
+			embedHTML: '<iframe width="100%" height="700" scrolling="no" frameborder="no" allow="autoplay" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1821604341&color=%2354405a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/example" title="placeholder" target="_blank" style="color: #cccccc; text-decoration: none;">placeholder</a> · <a href="https://soundcloud.com/example/sets/remix" title="Remix type shit" target="_blank" style="color: #cccccc; text-decoration: none;">Remix type shit</a></div>',
+		},
 	];
 
 	function createMusicWidgets(): void {
@@ -561,6 +580,9 @@ function initializeMusicPage(): void {
 		musicWidgets.forEach(widget => {
 			createWidget({
 				...widget,
+				embedHTML: widget.embedHTML ?
+					widget.embedHTML.replace(/height="(\d+)"/, `height="${isMobile ? '352' : '700'}"`) :
+					undefined,
 				size: isMobile ? '1x1' : '2x2'
 			});
 		});

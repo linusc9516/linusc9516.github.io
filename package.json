@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "simplebar": "^6.2.7"
   },
   "devDependencies": {
     "@parcel/transformer-webmanifest": "^2.12.0",
