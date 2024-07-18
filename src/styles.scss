@@ -378,6 +378,17 @@ header {
 
 @media (max-width: 620px) {
 	header {
+		gap: 0px; // Consistent with the flex gap
+		img {
+			flex-direction: column;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		h1 {
+			margin: 0;
+		}
+
 		.index-nav-wrapper {
 			grid-template-columns: 1fr;
 			max-width: 80%; // Adjust this value as needed
@@ -395,9 +406,8 @@ header {
 
 		.list-group-item {
 			display: block;
-			margin-bottom: 10px; // Add some vertical spacing between items
+			// margin-bottom: 10px; // Add some vertical spacing between items
 		}
-		margin-top: 60vh;
 	}
 }
 

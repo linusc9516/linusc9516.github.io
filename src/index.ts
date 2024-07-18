@@ -153,6 +153,7 @@ const createWidget = (options: WidgetOptions): void => {
 		followButton.href = options.followUrl;
 		followButton.className = "follow-button";
 		followButton.textContent = options.followUrl.toLowerCase().includes("youtube.com") ? "Subscribe" : "Follow";
+		followButton.textContent = options.followUrl.toLowerCase().includes("fantasy.premierleague.com") ? "Join" : "Follow";
 		followButton.target = "_blank";
 		followButton.rel = "noopener noreferrer";
 		headerContainer.appendChild(followButton);
@@ -322,10 +323,10 @@ function initializeSocialsPage(): void {
 		{
 			title: "RushiaTwt",
 			content: "Follow my Rushia Counting Twitter!",
-			linkUrl: "https://twitter.com/example",
+			linkUrl: "https://twitter.com/RushiaMyBeloved",
 			iconUrl: "src/images/twitter-icon.svg",
 			imageUrl: "src/images/rushiamybeloved-header.webp",
-			followUrl: "https://twitter.com/intent/user?screen_name=placeholder",
+			followUrl: "https://twitter.com/intent/user?screen_name=RushiaMyBeloved",
 		},
 		{
 			title: "Discord server",
@@ -389,7 +390,22 @@ function initializeSocialsPage(): void {
 			iconUrl: "src/images/twitch-icon.svg",
 			imageUrl: "src/images/twitch-pfp.webp",
 			size: "1x1",
-		}
+		},
+		{
+			title: "Fantasy PL",
+			content: "My FPL miniLeague for 24/25 Season!",
+			linkUrl: "https://fantasy.premierleague.com/leagues/142567/standings/c",
+			iconUrl: "src/images/twitch-icon.svg	",
+			imageUrl: "src/images/twitch-pfp.webp",
+			size: "1x1",
+		},
+		{
+			title: "Football server",
+			content: "Join my other discord server for football chats!",
+			linkUrl: "https://discord.gg/000000",
+			iconUrl: "src/images/discord-icon.svg",
+			imageUrl: "src/images/server-header.webp",
+		},
 	].forEach(createWidget);
 }
 

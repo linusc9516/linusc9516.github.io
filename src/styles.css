@@ -331,7 +331,15 @@ header section {
 }
 @media (max-width: 620px) {
   header {
-    margin-top: 60vh;
+    gap: 0px;
+  }
+  header img {
+    flex-direction: column;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  header h1 {
+    margin: 0;
   }
   header .index-nav-wrapper {
     grid-template-columns: 1fr;
@@ -348,7 +356,6 @@ header section {
   }
   header .list-group-item {
     display: block;
-    margin-bottom: 10px;
   }
 }
 /* ------------------------------------ */
