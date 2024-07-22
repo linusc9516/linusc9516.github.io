@@ -1,0 +1,224 @@
+@font-face {
+	font-family: "Dosis Bold";
+	src: url("../font/Dosis-VariableFont_wght.ttf") format("truetype");
+	font-weight: 500;
+	font-style: bold;
+	font-family: "Dosis";
+	src: url("../font/Dosis-VariableFont_wght.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+}
+
+:root {
+	--navbar-height: 0px; // Will be dynamically set in js
+}
+
+// Color palette
+$primary-color: #112820;
+$secondary-color: #092a55;
+$accent-color: #011627;
+$accent-color-2: #4bdbad;
+$accent-color-3: #dce8ff;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Dosis", system-ui, "sans serif";
+}
+
+html {
+	scroll-behavior: smooth;
+	font-size: 16px;
+	font-family: "Dosis", system-ui, "sans serif";
+
+	// IE Scrollbar styles
+	scrollbar-face-color: #dedede;
+	scrollbar-base-color: #dedede;
+	scrollbar-3dlight-color: #dedede;
+	scrollbar-highlight-color: #dedede;
+	scrollbar-track-color: #919bad;
+	scrollbar-arrow-color: #919bad;
+	scrollbar-shadow-color: #dedede;
+
+	// Chrome Scrollbar styless
+	::-webkit-scrollbar {
+		width: 0.7rem;
+		height: 0.2rem;
+	}
+	::-webkit-scrollbar-button {
+		background-color: #d8d8d8;
+	}
+	::-webkit-scrollbar-track {
+		background-color: #dedede;
+	}
+	::-webkit-scrollbar-track-piece {
+		background-color: #919bad;
+	}
+	::-webkit-scrollbar-thumb {
+		height: 3rem;
+		background-color: #d8d8d8;
+		border-radius: 2rem;
+	}
+	::-webkit-scrollbar-corner {
+		background-color: #dedede;
+	}
+	::-webkit-resizer {
+		background-color: #d8d8d8;
+	}
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 100%;
+}
+
+html,
+body {
+	max-width: 100%;
+}
+
+// Navbar styling
+.navbar {
+	position: fixed;
+	display: flex;
+	width: 100vw;
+	background-color: $accent-color-3;
+	z-index: 1000;
+	border-radius: 0.2rem;
+
+	.navbar-brand {
+		padding: 0.5rem;
+		color: $secondary-color;
+		font-weight: 700;
+		font-size: 1.5rem;
+	}
+
+	.nav-btn {
+		text-align: center;
+		color: $primary-color;
+		font-size: 1.5rem;
+		text-decoration: none;
+
+		&:not(.nav-active):hover {
+			color: $primary-color;
+			transform: scale(1);
+
+			&::after {
+				content: "";
+				position: absolute;
+				left: 0;
+				bottom: -5px;
+				width: 0;
+				height: 3px;
+				background-color: $secondary-color;
+				animation: underline 0.5s cubic-bezier(0.51, 0.07, 0.27, 0.85)
+					forwards;
+			}
+
+			@keyframes underline {
+				0% {
+					width: 0;
+				}
+
+				100% {
+					width: 100%;
+				}
+			}
+		}
+
+		&.nav-active {
+			background: rgba($accent-color-2, 0.25);
+			border-radius: 0.75rem;
+			pointer-events: none;
+		}
+	}
+}
+// Add these new styles for mobile view
+
+@media (max-width: 768px) {
+	// This is Bootstrap's default breakpoint for md
+	.navbar {
+		width: 100%;
+		.navbar-brand {
+			padding-left: 1rem;
+		}
+
+		.nav-btn {
+			width: 100%;
+			text-align: left;
+			&:hover::after {
+				animation: none !important;
+			}
+			&.nav-active {
+				background: none !important; // Remove background on mobile
+				backdrop-filter: none;
+				-webkit-backdrop-filter: none;
+				border-radius: 0;
+			}
+		}
+	}
+}
+// Adds filter and dynamically adjusts size of background images on all viewports
+/* Parent container */
+
+/* Background image */
+.bg-img {
+	background-image: url(../images/bg-main.webp);
+	position: fixed;
+	z-index: -1;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	background-size: cover;
+	background-position: center;
+	filter: contrast(0.6);
+
+	&#bg-home {
+		filter: brightness(0.9);
+	}
+}
+@media (max-width: 768px) {
+	.bg-img {
+		width: 100%;
+		height: 100%;
+		left: 0;
+		transform: none;
+		object-fit: cover;
+	}
+}
+
+// Styles the backToTopBtn
+.backToTopBtn {
+	display: none;
+	position: fixed;
+	bottom: 5%;
+	right: 3%;
+	font-size: 4rem;
+	z-index: 99;
+	color: $accent-color;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+
+	@media (max-width: 780px) {
+		font-size: 3rem;
+	}
+
+	&#blog-backToTop {
+		right: 240px;
+		@media (max-width: 780px) {
+			right: 3%;
+		}
+	}
+}
+
+@media (min-width: 780px) {
+	.backToTopBtn:hover {
+		color: $accent-color;
+		transform: scale(1.1);
+	}
+}

@@ -1,0 +1,43 @@
+// Color palette
+$primary-color: #112820;
+$secondary-color: #092a55;
+$accent-color: #011627;
+$accent-color-2: #4bdbad;
+$accent-color-3: #dce8ff;
+
+// Styles music page
+#music {
+	h1 {
+		color: $accent-color-2;
+		font-size: 4rem;
+		font-weight: 800;
+		text-align: center;
+		margin-bottom: 1rem;
+		text-shadow: 2px 2px 4px rgba($accent-color, 0.5);
+		text-transform: none;
+	}
+
+	p {
+		color: $accent-color;
+		font-weight: 600;
+		text-decoration: underline $primary-color;
+	}
+}
+
+#playlists-container {
+	padding-top: calc(var(--navbar-height) + 2rem);
+
+	#widget-container {
+		padding: 0 2vw;
+	}
+}
+
+// Centers the iframe
+.iframe-container {
+	padding-top: 3vh;
+	text-align: center;
+}
+
+#lastfmstats {
+	height: calc(95vh - var(--navbar-height));
+}

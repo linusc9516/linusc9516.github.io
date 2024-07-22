@@ -1,0 +1,31 @@
+#music h1 {
+  color: #4bdbad;
+  font-size: 4rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(1, 22, 39, 0.5);
+  text-transform: none;
+}
+#music p {
+  color: #011627;
+  font-weight: 600;
+  -webkit-text-decoration: underline #112820;
+          text-decoration: underline #112820;
+}
+
+#playlists-container {
+  padding-top: calc(var(--navbar-height) + 2rem);
+}
+#playlists-container #widget-container {
+  padding: 0 2vw;
+}
+
+.iframe-container {
+  padding-top: 3vh;
+  text-align: center;
+}
+
+#lastfmstats {
+  height: calc(95vh - var(--navbar-height));
+}/*# sourceMappingURL=music.css.map */
