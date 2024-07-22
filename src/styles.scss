@@ -377,11 +377,6 @@ header {
 }
 
 @media (max-width: 620px) {
-	#homepage-body {
-		max-height: 100%;
-		overflow: auto;
-	}
-
 	header {
 		gap: 0px; // Consistent with the flex gap
 		img {
