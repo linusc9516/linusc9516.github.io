@@ -580,14 +580,14 @@ function initializeMusicPage(): void {
 			content: 'My playlist on YT!',
 			linkUrl: 'https://youtube.com/playlist?list=PLKKggsa6p95NFOOrnmM50O6YGxIaaxGUw',
 			iconUrl: 'youtube-icon.svg',
-			embedHTML: '<iframe width="100%" height="700" src="https://www.youtube.com/embed/?listType=playlist&list=PLKKggsa6p95NFOOrnmM50O6YGxIaaxGUw&index=10" frameborder="0" allowfullscreen>',
+			embedHTML: '<iframe width="100%" height="700" src="https://www.youtube.com/embed/?listType=playlist&list=PLKKggsa6p95NFOOrnmM50O6YGxIaaxGUw&index=13" frameborder="0" allowfullscreen>',
 		},
 		{
 			title: 'Soundcloud Remix Playlist',
 			content: 'My favourite remixes!',
 			linkUrl: 'https://on.soundcloud.com/nCveaVp69jXKdgcp9',
 			iconUrl: 'soundcloud-icon.svg',
-			embedHTML: '<iframe width="100%" height="700" scrolling="no" frameborder="no" allow="autoplay" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1821604341&color=%2354405a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/example" title="placeholder" target="_blank" style="color: #cccccc; text-decoration: none;">placeholder</a> · <a href="https://soundcloud.com/example/sets/remix" title="Remix type shit" target="_blank" style="color: #cccccc; text-decoration: none;">Remix type shit</a></div>',
+			embedHTML: '<iframe width="100%" height="700" scrolling="no" frameborder="no" allow="autoplay" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1821604341&color=%2354405a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/example" title="placeholder" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
 		},
 	];
 
@@ -604,7 +604,7 @@ function initializeMusicPage(): void {
 			if (modifiedWidget.embedHTML) {
 				if (modifiedWidget.embedHTML.toLowerCase().includes('soundcloud') && isMobile) {
 					// Clear embedHTML for SoundCloud widgets
-					modifiedWidget.content = "My favourite remixes on SoundCloud!<br> SoundCloud playlist embed unfortunately is broken on mobile..."
+					modifiedWidget.content = "My favourite remixes on SoundCloud!<br> SoundCloud playlist embed unfortunately is broken on mobile... but you can still click the link to see the full playlist!";
 					modifiedWidget.embedHTML = undefined;
 				} else {
 					// Adjust height for non-SoundCloud embeds

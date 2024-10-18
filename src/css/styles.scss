@@ -17,37 +17,13 @@
 
 // Catppuccin Mocha palette
 $white: #f0d8e5;
-$pink: #f5c2e7;
-$mauve: #cba6f7;
-$red: #f38ba8;
-$maroon: #eba0ac;
-$peach: #fab387;
-$yellow: #f9e2af;
-$green: #a6e3a1;
 $teal: #94e2d5;
 $sky: #89dceb;
-$sapphire: #74c7ec;
-$blue: #89b4fa;
 $lavender: #b4befe;
 $text: #cdd6f4;
-$subtext1: #bac2de;
-$subtext0: #a6adc8;
-$overlay2: #9399b2;
-$overlay1: #7f849c;
-$overlay0: #6c7086;
-$surface2: #585b70;
-$surface1: #45475a;
-$surface0: #313244;
+$surface: #313244;
 $base: #1e1e2e;
-$mantle: #181825;
 $crust: #11111b;
-
-// Redefined palette for testing
-$primary-color: $peach;
-$secondary-color: $mauve;
-$accent-color: $lavender;
-$accent-color-2: $teal;
-$accent-color-3: $base;
 
 * {
 	margin: 0;
@@ -115,25 +91,34 @@ body {
 	position: fixed;
 	display: flex;
 	width: 100vw;
-	background-color: $accent-color-3;
+	background-color: $base;
 	z-index: 1000;
 	border-radius: 0.2rem;
 
 	.navbar-brand {
 		padding: 0.5rem;
-		color: $secondary-color;
+		color: $lavender;
 		font-weight: 700;
 		font-size: 1.5rem;
 	}
 
+	.nav-item {
+		&.nav-active {
+			background: rgba($surface, 0.2);
+			border-radius: 0.75rem;
+			pointer-events: none;
+		}
+	}
+
 	.nav-btn {
 		text-align: center;
-		color: $primary-color;
+		color: $teal;
 		font-size: 1.5rem;
+		font-weight: 500;
 		text-decoration: none;
 
-		&:not(.nav-active):hover {
-			color: $primary-color;
+		&:hover {
+			color: $sky;
 			transform: scale(1);
 
 			&::after {
@@ -143,7 +128,7 @@ body {
 				bottom: -5px;
 				width: 0;
 				height: 3px;
-				background-color: $secondary-color;
+				background-color: $sky;
 				animation: underline 0.5s cubic-bezier(0.51, 0.07, 0.27, 0.85)
 					forwards;
 			}
@@ -158,12 +143,6 @@ body {
 				}
 			}
 		}
-
-		&.nav-active {
-			background: rgba($accent-color-2, 0.25);
-			border-radius: 0.75rem;
-			pointer-events: none;
-		}
 	}
 }
 // Add these new styles for mobile view
@@ -176,17 +155,17 @@ body {
 			padding-left: 1rem;
 		}
 
+		.nav-item {
+			&.nav-active {
+				background: none !important; // Remove background on mobile
+			}
+		}
+
 		.nav-btn {
 			width: 100%;
 			text-align: left;
 			&:hover::after {
 				animation: none !important;
-			}
-			&.nav-active {
-				background: none !important; // Remove background on mobile
-				backdrop-filter: none;
-				-webkit-backdrop-filter: none;
-				border-radius: 0;
 			}
 		}
 	}
@@ -204,12 +183,9 @@ body {
 	background-size: cover;
 	background-position: center;
 	transform: scale(1.003); // Fixes border issues
-	filter: contrast(0.6);
-
-	&#bg-home {
-		filter: contrast(0.35);
-	}
+	// filter: contrast(0.6);
 }
+
 @media (max-width: 768px) {
 	.bg-img {
 		width: 100%;
@@ -228,7 +204,7 @@ body {
 	right: 3%;
 	font-size: 4rem;
 	z-index: 99;
-	color: $accent-color;
+	color: $teal;
 	cursor: pointer;
 	transition: transform 0.3s ease;
 
@@ -246,18 +222,29 @@ body {
 
 @media (min-width: 780px) {
 	.backToTopBtn:hover {
-		color: $accent-color;
+		color: $teal;
 		transform: scale(1.1);
 	}
 }
 
 // Styles text-based links
 .socials-link {
-	color: $peach;
+	color: $teal;
 
 	&:hover {
-		color: $yellow;
+		color: $sky;
 	}
+}
+
+// Styles global widgets
+
+#widget-container {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr); // 4 1x1 widgets per row
+	gap: 20px;
+	padding: calc(var(--navbar-height) + 2rem) 20px 20px;
+	width: 100%;
+	margin: 0 auto;
 }
 
 /* ------------------------------------ */
@@ -265,6 +252,16 @@ body {
 /* ------------------------------------ */
 
 // Styles the header
+
+#home-overlay {
+	height: 100vh;
+	width: 100vw;
+	top: 0;
+	left: 0;
+	position: fixed;
+	z-index: -1;
+	background-color: rgba($base, 0.6);
+}
 
 header {
 	display: flex;
@@ -283,7 +280,7 @@ header {
 		font-size: 7rem;
 		letter-spacing: 0.02rem;
 		margin: 0;
-		color: $base;
+		color: $lavender;
 		box-shadow: inset shadow 0 -0.5rem 0 rgba($base, 0.4);
 		text-transform: none;
 		mix-blend-mode: hard-light;
@@ -316,10 +313,13 @@ header {
 		display: block;
 		width: 100%;
 		text-align: center;
-		color: $base;
-		box-shadow: inset shadow 0 -0.5rem 0 rgba($base, 0.4);
+		color: $teal;
 		&#about-me-btn {
 			padding-left: 0;
+		}
+
+		&:hover {
+			color: $sky;
 		}
 	}
 
@@ -419,7 +419,7 @@ header {
 		margin-left: auto;
 		margin-right: auto;
 		.nav-btn {
-			text-align: left;
+			text-align: center;
 			&#about-me-btn {
 				padding-left: 0.75rem;
 			}
@@ -435,25 +435,20 @@ header {
 /* ------------------------------------ */
 
 // Styles the about page
-#about {
+#about-container {
 	padding: calc(var(--navbar-height) + 2rem) 0;
 	background-color: rgba($base, 0.85);
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 20px;
-	}
+	margin: 0 auto;
 
 	h2 {
-		color: $teal;
+		color: $lavender;
 		font-size: 4rem;
 		font-weight: 700;
 		text-align: center;
 		margin-bottom: 2rem;
-		text-shadow: 2px 2px 4px rgba($sky, 0.5);
+		text-shadow: 2px 2px 4px rgba($lavender, 0.3);
 	}
 
 	.about-content {
@@ -482,8 +477,9 @@ header {
 	// Adds eye-catching styles for skills section
 	.skills {
 		h3 {
-			color: $sky;
+			color: $lavender;
 			font-size: 3rem;
+			font-weight: 600;
 			text-align: center;
 			margin-bottom: 1.5rem;
 		}
@@ -497,7 +493,7 @@ header {
 
 			.tab-button {
 				background-color: $crust;
-				color: $sky;
+				color: $teal;
 				border: none;
 				padding: 0.5rem 1rem;
 				margin: 0.25rem;
@@ -510,7 +506,7 @@ header {
 
 				&.skills-active,
 				&:hover {
-					background-color: $blue;
+					background-color: $sky;
 					color: $crust;
 				}
 			}
@@ -530,7 +526,7 @@ header {
 
 				li {
 					background-color: $crust;
-					color: $sky;
+					color: $teal;
 					padding: 0.5rem 1rem;
 					margin: 0.5rem;
 					border-radius: 0.5rem;
@@ -539,7 +535,7 @@ header {
 					transition: all 0.3s ease;
 
 					&:hover {
-						background-color: $blue;
+						background-color: $sky;
 						color: $crust;
 						transform: translateY(-3px);
 					}
@@ -556,7 +552,7 @@ header {
 }
 
 @media (max-width: 768px) {
-	#about {
+	#about-container {
 		.about-header {
 			cursor: pointer;
 			font-size: 3rem;
@@ -608,29 +604,24 @@ header {
 /* ------------------------------------ */
 
 // Defaults the widget container settings on desktop view
-#widget-container {
+#socials-container {
+	background-color: rgba($base, 0.85);
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
-	display: grid;
-	grid-template-columns: repeat(4, 1fr); // 4 1x1 widgets per row
-	gap: 20px;
-	padding: calc(var(--navbar-height) + 2rem) 20px 20px;
-	width: 100%;
-	margin: 0 auto;
 }
 
 // Styles individual widgets
 .widget {
-	background-color: rgba($accent-color-3, 0.4);
+	background-color: rgba($base, 0.75);
 	backdrop-filter: brightness(1.2);
 	border-radius: 0.5rem;
 	padding: 20px;
-	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 8px 12px $crust;
 	transition: transform 0.2s, box-shadow 0.2s;
 
 	&:hover {
 		transform: translateY(-5px);
-		box-shadow: 0 14px 20px rgba(0, 0, 0, 0.25);
+		box-shadow: 0 14px 20px $crust;
 	}
 
 	.widget-header {
@@ -655,15 +646,9 @@ header {
 		h2 {
 			margin: 0;
 			font-size: 2rem;
-			color: $primary-color;
+			color: $lavender;
 			text-decoration: none;
 			font-weight: bold;
-		}
-
-		.follow-button {
-			padding: 5px 10px;
-			font-size: 1.25rem;
-			white-space: nowrap;
 		}
 
 		.button-container {
@@ -677,29 +662,25 @@ header {
 		.follow-button {
 			display: inline-block;
 			padding: 8px 16px;
+			font-size: 1.25rem;
+			white-space: nowrap;
 			text-decoration: none;
 			border-radius: 3rem;
 			transition: background-color 0.2s, transform 0.1s;
-			color: $accent-color-3;
-			background-color: $secondary-color;
+			color: $teal;
+			background-color: $crust;
 
 			&:hover {
-				background-color: $accent-color-2;
-				color: $accent-color;
+				color: $crust;
+				background-color: $sky;
 				transform: translateY(-3px);
-			}
-
-			&:active {
-				background-color: $accent-color-2;
-				color: $accent-color;
-				transform: translateY(0);
 			}
 		}
 	}
 
 	p {
 		margin: 0 0 15px 0;
-		color: $secondary-color;
+		color: $text;
 		font-weight: 600;
 	}
 
@@ -812,13 +793,9 @@ header {
 /* BLOG */
 /* ------------------------------------ */
 
-// Additional variables for readability
-$text-color: $primary-color;
-$background-color: rgba($accent-color-3, 0.3);
-$border-color: rgba($accent-color-2, 0.5);
-
 #blog-container {
 	padding-top: var(--navbar-height);
+	background-color: rgba($base, 0.85);
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
 }
@@ -827,9 +804,8 @@ $border-color: rgba($accent-color-2, 0.5);
 .post {
 	padding: 20px;
 	margin-bottom: 30px;
-	background: $background-color;
 	width: 100%;
-	box-shadow: 0 4px 6px rgba($accent-color, 0.1);
+	box-shadow: 0 4px 6px rgba($crust, 0.25);
 	transition: transform 0.3s ease;
 	border-radius: 0.25rem;
 
@@ -842,8 +818,8 @@ $border-color: rgba($accent-color-2, 0.5);
 		font-size: 2.8rem;
 		font-weight: 700;
 		margin-bottom: 15px;
-		color: $secondary-color;
-		text-shadow: 1px 1px 2px rgba($primary-color, 0.5);
+		color: $lavender;
+		text-shadow: 1px 1px 2px rgba($lavender, 0.5);
 		cursor: pointer;
 		transition: color 0.3s ease;
 
@@ -853,8 +829,7 @@ $border-color: rgba($accent-color-2, 0.5);
 		}
 
 		&:hover {
-			color: $secondary-color;
-			filter: brightness(0.85);
+			filter: brightness(1.05);
 		}
 	}
 
@@ -864,21 +839,22 @@ $border-color: rgba($accent-color-2, 0.5);
 		margin: auto;
 
 		h2 {
+			color: $text;
 			font-size: 2.5rem;
-			color: $secondary-color;
 			font-weight: 700;
 		}
 
 		h3 {
+			color: $teal;
 			font-size: 2rem;
 			font-weight: 600;
 		}
 
 		p {
+			color: $text;
 			font-size: 1.5rem;
 			font-weight: 500;
 			line-height: 1.8;
-			color: $text-color;
 			margin-bottom: 15px;
 		}
 
@@ -896,55 +872,38 @@ $border-color: rgba($accent-color-2, 0.5);
 	top: var(--navbar-height);
 	right: 0;
 	width: 200px;
-	background-color: rgba($secondary-color, 0.9);
+	background-color: rgba($crust, 0.9);
 	z-index: 1;
 	padding: 2vh 2vh;
 	overflow-y: auto;
 	height: 100vh;
-	box-shadow: -2px 0 5px rgba($accent-color, 0.2);
+	box-shadow: -2px 0 5px rgba($crust, 0.2);
 	border-radius: 0.25rem;
 
 	// Makes indiviaul entries on timeline look more like clickable links
 	.entry {
 		margin-bottom: 15px;
 		padding: 10px;
-		background-color: rgba($accent-color-3, 0.1);
+		background-color: rgba($surface, 0.75);
 		border-radius: 0.4rem;
 		transition: background-color 0.3s ease;
 
 		&:hover {
-			background-color: rgba($accent-color-3, 0.2);
+			background-color: rgba($surface, 0.9);
 		}
 	}
 
 	a {
 		display: block;
-		color: $accent-color-2;
+		color: $teal;
 		text-decoration: none;
 		font-weight: 500;
 		transition: color 0.3s ease;
 
 		&:hover {
-			color: $accent-color-3;
+			color: $sky;
 		}
 	}
-}
-
-// Additional styles for better readability
-body {
-	background-color: $primary-color;
-	color: $text-color;
-}
-
-// Eye-catching header
-h1 {
-	font-size: 3rem;
-	color: $accent-color-2;
-	text-align: center;
-	margin: 30px 0;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	text-shadow: 2px 2px 4px rgba($accent-color, 0.5);
 }
 
 .timeline-toggle {
@@ -961,7 +920,7 @@ h1 {
 	border-bottom-left-radius: 5px;
 
 	i {
-		color: $accent-color;
+		color: $teal;
 	}
 }
 
@@ -1005,7 +964,6 @@ h1 {
 		.content {
 			h2 {
 				font-size: 2rem;
-				color: $secondary-color;
 				font-weight: 700;
 			}
 
@@ -1018,7 +976,6 @@ h1 {
 				font-size: 1.2rem;
 				font-weight: 500;
 				line-height: 1.8;
-				color: $text-color;
 				margin-bottom: 15px;
 			}
 		}
@@ -1030,42 +987,43 @@ h1 {
 /* ------------------------------------ */
 
 // Styles music page
-#music {
+#music-container {
+	padding-top: var(--navbar-height);
+	background-color: rgba($base, 0.85);
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+
 	h1 {
-		color: $accent-color-2;
+		color: $lavender;
 		font-size: 4rem;
 		font-weight: 800;
 		text-align: center;
 		margin-bottom: 1rem;
-		text-shadow: 2px 2px 4px rgba($accent-color, 0.5);
+		text-shadow: 2px 2px 4px rgba($lavender, 0.5);
 		text-transform: none;
 	}
 
 	p {
-		color: $accent-color;
+		color: $text;
 		font-weight: 600;
-		text-decoration: underline $primary-color;
+		text-decoration: underline $text;
 	}
-}
 
-#playlists-container {
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
-	padding-top: calc(var(--navbar-height) + 2rem);
+	#playlists-container {
+		padding-top: calc(var(--navbar-height) + 2rem);
 
-	#widget-container {
-		padding: 0 2vw;
+		#widget-container {
+			padding: 0 2vw;
+		}
 	}
-}
 
-// Centers the iframe
-.iframe-container {
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
-	padding-top: 3vh;
-	text-align: center;
-}
+	// // Centers the iframe
+	// .iframe-container {
+	// 	padding-top: 3vh;
+	// 	text-align: center;
+	// }
 
-#lastfmstats {
-	height: calc(95vh - var(--navbar-height));
+	// #lastfmstats {
+	// 	height: calc(95vh - var(--navbar-height));
+	// }
 }

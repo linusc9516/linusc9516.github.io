@@ -26,7 +26,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
-	<script src="https://kit.fontawesome.com/53cb7cf0f5.js" crossorigin="anonymous"></script>
 	<link href="./src/css/styles.css" rel="stylesheet">
 	<style>
 		@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap");
@@ -38,7 +37,7 @@
 	<div class="nav-containter">
 		<nav class="navbar navbar-dark navbar-expand-md bg-body-tertiary" id="about-nav">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/"><i class="fa-solid fa-house"></i> Home</a>
+				<a class="navbar-brand" href="/">placeholder</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
 					aria-label="Toggle navigation">
@@ -46,28 +45,20 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
-						<li class="nav-item px-3">
-							<a class="nav-link nav-active nav-btn" href="./about"><i class="fa-solid fa-circle-info"
-									aria-hidden="true"></i>
-								About</a>
+						<li class="nav-item nav-active px-3">
+							<a class="nav-link nav-btn" href="./about"> About</a>
 						</li>
 						<li class="nav-item px-3">
-							<a class="nav-link nav-btn" href="./socials"><i class="fa-solid fa-link"
-									aria-hidden="true"></i>
-								Socials</a>
+							<a class="nav-link nav-btn" href="./socials"> Socials</a>
 						</li>
 						<li class="nav-item px-3">
-							<a class="nav-link nav-btn" href="./blog"><i class="fa-solid fa-newspaper"
-									aria-hidden="true"></i>
-								Blog</a>
+							<a class="nav-link nav-btn" href="./blog"> Blog</a>
 						</li>
 						<!-- <li class="nav-item px-3">
-                                <a class="nav-link disabled nav-btn" href="./projects"><i class="fa-solid fa-bars-progress"></i> Projects</a>
+                                <a class="nav-link disabled nav-btn" href="./projects">Projects</a>
                         </li> -->
 						<li class="nav-item px-3">
-							<a class="nav-link nav-btn" href="./music"><i class="fa-solid fa-music"
-									aria-hidden="true"></i>
-								Music</a>
+							<a class="nav-link nav-btn" href="./music"> Music</a>
 						</li>
 					</ul>
 				</div>
@@ -78,39 +69,32 @@
 		<img class="bg-img bg-main" alt="Background image">
 	</div>
 	<i class="fas fa-arrow-circle-up backToTopBtn"></i>
-	<section id="about">
-		<div id="about-container">
-			<h2 class="about-header">
-				<i class="fas fa-caret-down mobile-caret"></i>
-				About Me
-			</h2>
-			<div class="about-content">
-				<div class="bio">
-					<p>Hi! I'm placeholder (or MyAngelNazuna), a student based in Hong Kong.<br> I'm passionate
-						about Data Analytics, Mathematics, Economics, and Sciences.</p>
-					<p>With 5 years of programming in my free time, I've learnt a lot about algorithms and
-						computer processes.</p>
-					<p>When I'm free from schoolwork, I also enjoy football, VTubers, Anime, Visual Novels, music,
-						and
-						osu!</p>
-					<p>If you share similar interests or want to know me more, you can hit me up with a DM on
-						Discord!<br>
-						My friend link will be displayed on the <a href="./socials" class="socials-link">socials</a>
-						page.</p>
-				</div>
+	<section id="about-container">
+		<h2 class="about-header">
+			<i class="fas fa-caret-down mobile-caret"></i>
+			About Me
+		</h2>
+		<div class="about-content">
+			<div class="bio">
+				<p>I'm Linus (I go by placeholder online), a student based in Hong Kong. <br>I'm passionate and
+					interested in programming, computing, and logic.</p>
+				<p>Outside schoolwork, I also enjoy football, anime, visual novels, manga, music,
+					and casual gaming. <br>If you share similar interests or want to know me more, you can
+					hit me up with a DM on
+					<a href="https://discord.com/users/0" class="socials-link">Discord!</a><br>
 			</div>
-			<div class="skills">
-				<h3>Skills</h3>
-				<div class="skills-tabs">
-					<button class="tab-button" data-tab="beginner">Beginner</button>
-					<button class="tab-button skills-active" data-tab="intermediate">Intermediate</button>
-					<button class="tab-button" data-tab="advanced">Advanced</button>
-				</div>
-				<div class="skills-content">
-					<ul id="beginner-skills" class="skills-list"></ul>
-					<ul id="intermediate-skills" class="skills-list skills-active"></ul>
-					<ul id="advanced-skills" class="skills-list"></ul>
-				</div>
+		</div>
+		<div class="skills">
+			<h3>Skills</h3>
+			<div class="skills-tabs">
+				<button class="tab-button" data-tab="beginner">Beginner</button>
+				<button class="tab-button skills-active" data-tab="intermediate">Intermediate</button>
+				<button class="tab-button" data-tab="advanced">Advanced</button>
+			</div>
+			<div class="skills-content">
+				<ul id="beginner-skills" class="skills-list"></ul>
+				<ul id="intermediate-skills" class="skills-list skills-active"></ul>
+				<ul id="advanced-skills" class="skills-list"></ul>
 			</div>
 		</div>
 	</section>
