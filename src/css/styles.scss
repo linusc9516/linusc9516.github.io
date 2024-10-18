@@ -15,12 +15,39 @@
 	--navbar-height: 0px; // Will be dynamically set in js
 }
 
-// Color palette
-$primary-color: #112820;
-$secondary-color: #092a55;
-$accent-color: #011627;
-$accent-color-2: #4bdbad;
-$accent-color-3: #dce8ff;
+// Catppuccin Mocha palette
+$white: #f0d8e5;
+$pink: #f5c2e7;
+$mauve: #cba6f7;
+$red: #f38ba8;
+$maroon: #eba0ac;
+$peach: #fab387;
+$yellow: #f9e2af;
+$green: #a6e3a1;
+$teal: #94e2d5;
+$sky: #89dceb;
+$sapphire: #74c7ec;
+$blue: #89b4fa;
+$lavender: #b4befe;
+$text: #cdd6f4;
+$subtext1: #bac2de;
+$subtext0: #a6adc8;
+$overlay2: #9399b2;
+$overlay1: #7f849c;
+$overlay0: #6c7086;
+$surface2: #585b70;
+$surface1: #45475a;
+$surface0: #313244;
+$base: #1e1e2e;
+$mantle: #181825;
+$crust: #11111b;
+
+// Redefined palette for testing
+$primary-color: $peach;
+$secondary-color: $mauve;
+$accent-color: $lavender;
+$accent-color-2: $teal;
+$accent-color-3: $base;
 
 * {
 	margin: 0;
@@ -35,13 +62,13 @@ html {
 	font-family: "Dosis", system-ui, "sans serif";
 
 	// IE Scrollbar styles
-	scrollbar-face-color: #dedede;
-	scrollbar-base-color: #dedede;
-	scrollbar-3dlight-color: #dedede;
-	scrollbar-highlight-color: #dedede;
-	scrollbar-track-color: #919bad;
-	scrollbar-arrow-color: #919bad;
-	scrollbar-shadow-color: #dedede;
+	scrollbar-face-color: $white;
+	scrollbar-base-color: $white;
+	scrollbar-3dlight-color: $white;
+	scrollbar-highlight-color: $white;
+	scrollbar-track-color: $lavender;
+	scrollbar-arrow-color: $lavender;
+	scrollbar-shadow-color: $white;
 
 	// Chrome Scrollbar styless
 	::-webkit-scrollbar {
@@ -49,24 +76,24 @@ html {
 		height: 0.2rem;
 	}
 	::-webkit-scrollbar-button {
-		background-color: #d8d8d8;
-	}
-	::-webkit-scrollbar-track {
-		background-color: #dedede;
-	}
-	::-webkit-scrollbar-track-piece {
-		background-color: #919bad;
-	}
-	::-webkit-scrollbar-thumb {
-		height: 3rem;
-		background-color: #d8d8d8;
-		border-radius: 2rem;
-	}
-	::-webkit-scrollbar-corner {
-		background-color: #dedede;
-	}
-	::-webkit-resizer {
-		background-color: #d8d8d8;
+		background-color: $white;
+		::-webkit-scrollbar-track {
+			background-color: $white;
+		}
+		::-webkit-scrollbar-track-piece {
+			background-color: $lavender;
+		}
+		::-webkit-scrollbar-thumb {
+			height: 3rem;
+			background-color: $white;
+			border-radius: 2rem;
+		}
+		::-webkit-scrollbar-corner {
+			background-color: $white;
+		}
+		::-webkit-resizer {
+			background-color: $white;
+		}
 	}
 }
 
@@ -180,7 +207,7 @@ body {
 	filter: contrast(0.6);
 
 	&#bg-home {
-		filter: brightness(0.9);
+		filter: contrast(0.35);
 	}
 }
 @media (max-width: 768px) {
@@ -224,11 +251,21 @@ body {
 	}
 }
 
+// Styles text-based links
+.socials-link {
+	color: $peach;
+
+	&:hover {
+		color: $yellow;
+	}
+}
+
 /* ------------------------------------ */
 /* HOMEPAGE */
 /* ------------------------------------ */
 
 // Styles the header
+
 header {
 	display: flex;
 	flex-direction: row;
@@ -246,7 +283,8 @@ header {
 		font-size: 7rem;
 		letter-spacing: 0.02rem;
 		margin: 0;
-		color: rgba($accent-color, 0.85);
+		color: $base;
+		box-shadow: inset shadow 0 -0.5rem 0 rgba($base, 0.4);
 		text-transform: none;
 		mix-blend-mode: hard-light;
 	}
@@ -274,10 +312,12 @@ header {
 
 	.nav-btn {
 		font-size: 2.5rem;
+		font-weight: 600;
 		display: block;
 		width: 100%;
 		text-align: center;
-		padding: 0 0.75rem;
+		color: $base;
+		box-shadow: inset shadow 0 -0.5rem 0 rgba($base, 0.4);
 		&#about-me-btn {
 			padding-left: 0;
 		}
@@ -286,15 +326,14 @@ header {
 	section {
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: 2rem;
 	}
 
 	#index-nav {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
-		gap: 20px;
-		padding: 0; // Remove default padding
+		justify-content: left;
+		gap: 2rem;
 	}
 	.list-group-item {
 		flex: 0 1 auto; // Changed from 1 1 auto to prevent stretching
@@ -379,7 +418,6 @@ header {
 		max-width: 80%; // Adjust this value as needed
 		margin-left: auto;
 		margin-right: auto;
-		gap: 20px; // Consistent with the flex gap
 		.nav-btn {
 			text-align: left;
 			&#about-me-btn {
@@ -399,7 +437,7 @@ header {
 // Styles the about page
 #about {
 	padding: calc(var(--navbar-height) + 2rem) 0;
-	background-color: rgba($accent-color-3, 0.4);
+	background-color: rgba($base, 0.85);
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
 
@@ -410,12 +448,12 @@ header {
 	}
 
 	h2 {
-		color: $accent-color-2;
+		color: $teal;
 		font-size: 4rem;
 		font-weight: 700;
 		text-align: center;
 		margin-bottom: 2rem;
-		text-shadow: 2px 2px 4px rgba($accent-color, 0.5);
+		text-shadow: 2px 2px 4px rgba($sky, 0.5);
 	}
 
 	.about-content {
@@ -437,14 +475,14 @@ header {
 			font-weight: 500;
 			line-height: 1.8;
 			margin-bottom: 1rem;
-			color: $primary-color;
+			color: $text;
 		}
 	}
 
 	// Adds eye-catching styles for skills section
 	.skills {
 		h3 {
-			color: $accent-color;
+			color: $sky;
 			font-size: 3rem;
 			text-align: center;
 			margin-bottom: 1.5rem;
@@ -458,11 +496,12 @@ header {
 			font-size: 1.5rem;
 
 			.tab-button {
-				background-color: $secondary-color;
-				color: $accent-color-3;
+				background-color: $crust;
+				color: $sky;
 				border: none;
 				padding: 0.5rem 1rem;
 				margin: 0.25rem;
+				font-weight: 500;
 				cursor: pointer;
 				transition: all 0.3s ease;
 				flex: 1 1 auto;
@@ -471,8 +510,8 @@ header {
 
 				&.skills-active,
 				&:hover {
-					background-color: $accent-color-2;
-					color: $accent-color;
+					background-color: $blue;
+					color: $crust;
 				}
 			}
 		}
@@ -490,17 +529,18 @@ header {
 				}
 
 				li {
-					background-color: $secondary-color;
-					color: $accent-color-3;
+					background-color: $crust;
+					color: $sky;
 					padding: 0.5rem 1rem;
 					margin: 0.5rem;
 					border-radius: 0.5rem;
 					font-size: 1.8rem;
+					font-weight: 500;
 					transition: all 0.3s ease;
 
 					&:hover {
-						background-color: $accent-color-2;
-						color: $accent-color;
+						background-color: $blue;
+						color: $crust;
 						transform: translateY(-3px);
 					}
 				}
@@ -704,15 +744,6 @@ header {
 	&.size-2x2 {
 		grid-column: span 2;
 		grid-row: span 2;
-	}
-}
-
-// Styles text-based links for the widgets content
-.socials-link {
-	color: #430052;
-
-	&:hover {
-		color: #2b0035;
 	}
 }
 
