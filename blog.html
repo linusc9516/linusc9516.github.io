@@ -11,7 +11,7 @@
 	<meta property="og:description"
 		content="My blogpage -- Posts updates irregularly but tries to keep it at least once a month!">
 	<meta property="og:url" content="https://example.github.io/blog">
-	<meta property="og:image" content="https://i.ibb.co/j6LWDJX/967810689412517929.png">
+	<meta property="og:image" content="https://example.github.io/src/images/github-pfp.webp">
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -37,7 +37,8 @@
 	<div class="nav-containter">
 		<nav class="navbar navbar-dark navbar-expand-md bg-body-tertiary" id="blog-nav">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/">placeholder</a>
+				<a class="navbar-brand" href="/"><img src="./src/images/github-pfp.webp" alt="avatar"
+						id="pfp">placeholder</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
 					aria-label="Toggle navigation" id="blog-nav-toggle">
@@ -61,12 +62,15 @@
                                 <a class="nav-link disabled nav-btn" href="./projects">Projects</a>
                             </li> -->
 					</ul>
+					<button id="theme-toggle" class="nav-btn nav-link">
+						<i class="fas fa-sun" id="theme-icon"></i>
+					</button>
 				</div>
 			</div>
 		</nav>
 	</div>
 	<div class="image-container">
-		<img class="bg-img bg-main" alt="Background image">
+		<img id="bg-img" alt="Background image">
 	</div>
 	<i class="fas fa-arrow-circle-up backToTopBtn" aria-hidden="false" id="blog-backToTop"></i>
 	<div id="blog-container">
