@@ -53,32 +53,47 @@ function toggleBackToTopButton(): void {
 	backToTopBtn.style.display = window.scrollY > window.innerHeight * 0.5 ? "block" : "none";
 }
 
-// Event listeners
+// Updates navbar height whenever window is resized
 window.addEventListener("resize", debounce(() => {
 	if (window.innerWidth !== lastWidth) {
 		lastWidth = window.innerWidth;
 		location.reload();
 	}
-	updateNavbarHeight(); // Updates whenever window is resized
+	updateNavbarHeight();
 }, 250));
 
 window.addEventListener("scroll", toggleBackToTopButton);
+
+const themeToggle = document.getElementById('theme-toggle') as HTMLElement;
+const themeIcon = document.getElementById('theme-icon') as HTMLElement;
+
+themeToggle.addEventListener('click', () => {
+	document.body.classList.toggle('light-mode');
+	if (document.body.classList.contains('light-mode')) {
+		themeIcon.classList.remove('fa-sun');
+		themeIcon.classList.add('fa-moon');
+	} else {
+		themeIcon.classList.remove('fa-moon');
+		themeIcon.classList.add('fa-sun');
+	}
+});
+
 
 // Initialization when page loaded
 document.addEventListener("DOMContentLoaded", () => {
 	updateNavbarHeight();
 	toggleBackToTopButton();
 
-	// Navigation items
-	const navItems = document.querySelectorAll<HTMLElement>(".nav-item");
-	const navBtns = document.querySelectorAll<HTMLElement>(".nav-btn");
+	// // Navigation items
+	// const navItems = document.querySelectorAll<HTMLElement>(".nav-item");
+	// const navBtns = document.querySelectorAll<HTMLElement>(".nav-btn");
 
-	// Adds cursor style to disabled nav links
-	navItems.forEach((item, index) => {
-		if (navBtns[index].classList.contains("disabled")) {
-			item.style.cursor = "not-allowed";
-		}
-	});
+	// // Adds cursor style to disabled nav links
+	// navItems.forEach((item, index) => {
+	// 	if (navBtns[index].classList.contains("disabled")) {
+	// 		item.style.cursor = "not-allowed";
+	// 	}
+	// });
 
 	// Page-specific functionality
 	const currentPage = window.location.pathname.split("/").pop()?.toLowerCase();

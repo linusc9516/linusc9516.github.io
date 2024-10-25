@@ -11,19 +11,34 @@
 	font-style: normal;
 }
 
+// Catppuccin Mocha palette
+$mocha-white: 240, 216, 229;
+$mocha-teal: 148, 226, 213;
+$mocha-sky: 137, 220, 235;
+$mocha-lavender: 180, 190, 254;
+$mocha-text: 205, 214, 244;
+$mocha-surface: 49, 50, 68;
+$mocha-base: 30, 30, 46;
+$mocha-crust: 17, 17, 27;
+
 :root {
 	--navbar-height: 0px; // Will be dynamically set in js
+	--white: rgb(#{$mocha-white});
+	--teal: rgb(#{$mocha-teal});
+	--sky: rgb(#{$mocha-sky});
+	--lavender: rgb(#{$mocha-lavender});
+	--lavender-10pct: rgba(#{$mocha-lavender}, 0.1);
+	--lavender-30pct: rgba(#{$mocha-lavender}, 0.3);
+	--text: rgb(#{$mocha-text});
+	--surface: rgb(#{$mocha-surface});
+	--surface-75pct: rgba(#{$mocha-surface}, 0.75);
+	--base: rgb(#{$mocha-base});
+	--base-60pct: rgba(#{$mocha-base}, 0.6);
+	--base-85pct: rgba(#{$mocha-base}, 0.85);
+	--crust: rgb(#{$mocha-crust});
+	--crust-25pct: rgba(#{$mocha-crust}, 0.25);
+	--bg-img: url("../images/bg-dark.webp");
 }
-
-// Catppuccin Mocha palette
-$white: #f0d8e5;
-$teal: #94e2d5;
-$sky: #89dceb;
-$lavender: #b4befe;
-$text: #cdd6f4;
-$surface: #313244;
-$base: #1e1e2e;
-$crust: #11111b;
 
 * {
 	margin: 0;
@@ -38,13 +53,13 @@ html {
 	font-family: "Dosis", system-ui, "sans serif";
 
 	// IE Scrollbar styles
-	scrollbar-face-color: $white;
-	scrollbar-base-color: $white;
-	scrollbar-3dlight-color: $white;
-	scrollbar-highlight-color: $white;
-	scrollbar-track-color: $lavender;
-	scrollbar-arrow-color: $lavender;
-	scrollbar-shadow-color: $white;
+	scrollbar-face-color: var(--white);
+	scrollbar-base-color: var(--white);
+	scrollbar-3dlight-color: var(--white);
+	scrollbar-highlight-color: var(--white);
+	scrollbar-track-color: var(--lavender);
+	scrollbar-arrow-color: var(--lavender);
+	scrollbar-shadow-color: var(--white);
 
 	// Chrome Scrollbar styless
 	::-webkit-scrollbar {
@@ -52,23 +67,23 @@ html {
 		height: 0.2rem;
 	}
 	::-webkit-scrollbar-button {
-		background-color: $white;
+		background-color: var(--white);
 		::-webkit-scrollbar-track {
-			background-color: $white;
+			background-color: var(--white);
 		}
 		::-webkit-scrollbar-track-piece {
-			background-color: $lavender;
+			background-color: var(--lavender);
 		}
 		::-webkit-scrollbar-thumb {
 			height: 3rem;
-			background-color: $white;
+			background-color: var(--white);
 			border-radius: 2rem;
 		}
 		::-webkit-scrollbar-corner {
-			background-color: $white;
+			background-color: var(--white);
 		}
 		::-webkit-resizer {
-			background-color: $white;
+			background-color: var(--white);
 		}
 	}
 }
@@ -79,11 +94,23 @@ body {
 	overflow-x: hidden;
 	overflow-y: auto;
 	width: 100%;
-}
 
-html,
-body {
-	max-width: 100%;
+	&.light-mode {
+		--teal: rgb(5, 117, 123);
+		--sky: rgb(0, 92, 115);
+		--lavender: rgb(47, 66, 176);
+		--lavender-10pct: rgba(47, 66, 176, 0.1);
+		--lavender-30pct: rgba(47, 66, 176, 0.3);
+		--text: rgb(6, 8, 29);
+		--surface: rgb(172, 176, 190);
+		--surface-75pct: rgba(172, 176, 190, 0.75);
+		--base: rgb(204, 208, 218);
+		--base-60pct: rgba(204, 208, 218, 0.4);
+		--base-85pct: rgba(204, 208, 218, 0.65);
+		--crust: rgb(220, 224, 232);
+		--crust-25pct: rgba(220, 224, 232, 0.25);
+		--bg-img: url("../images/bg-light.webp");
+	}
 }
 
 // Navbar styling
@@ -91,20 +118,26 @@ body {
 	position: fixed;
 	display: flex;
 	width: 100vw;
-	background-color: $base;
+	background-color: var(--base);
 	z-index: 1000;
 	border-radius: 0.2rem;
 
 	.navbar-brand {
 		padding: 0.5rem;
-		color: $lavender;
+		color: var(--lavender);
 		font-weight: 700;
 		font-size: 1.5rem;
+		img {
+			width: 2rem;
+			height: 2rem;
+			border-radius: 50%;
+			margin-right: 0.5rem;
+		}
 	}
 
 	.nav-item {
 		&.nav-active {
-			background: rgba($lavender, 0.1);
+			background: var(--lavender-10pct);
 			border-radius: 0.75rem;
 			pointer-events: none;
 		}
@@ -112,13 +145,13 @@ body {
 
 	.nav-btn {
 		text-align: center;
-		color: $teal;
+		color: var(--teal);
 		font-size: 1.5rem;
 		font-weight: 500;
 		text-decoration: none;
 
 		&:hover {
-			color: $sky;
+			color: var(--sky);
 			transform: scale(1);
 
 			&::after {
@@ -128,7 +161,8 @@ body {
 				bottom: -5px;
 				width: 0;
 				height: 3px;
-				background-color: $sky;
+				border-radius: 10px;
+				background-color: var(--sky);
 				animation: underline 0.5s cubic-bezier(0.51, 0.07, 0.27, 0.85)
 					forwards;
 			}
@@ -143,6 +177,16 @@ body {
 				}
 			}
 		}
+	}
+
+	#theme-toggle {
+		cursor: pointer;
+		border: none;
+		color: var(--teal);
+		background-color: var(--base);
+		font-size: 1.5rem;
+		position: absolute;
+		right: 1.5rem;
 	}
 }
 // Add these new styles for mobile view
@@ -168,12 +212,17 @@ body {
 				animation: none !important;
 			}
 		}
+
+		#theme-toggle {
+			position: static;
+			text-align: left;
+		}
 	}
 }
 // Adds filter and dynamically adjusts size of background images on all viewports
 /* Background image */
-.bg-img {
-	background-image: url(../images/bg-main.webp);
+#bg-img {
+	background-image: var(--bg-img);
 	position: fixed;
 	z-index: -1;
 	inset: 0;
@@ -187,7 +236,7 @@ body {
 }
 
 @media (max-width: 768px) {
-	.bg-img {
+	#bg-img {
 		width: 100%;
 		height: 100%;
 		left: 0;
@@ -204,7 +253,7 @@ body {
 	right: 3%;
 	font-size: 4rem;
 	z-index: 99;
-	color: $teal;
+	color: var(--teal);
 	cursor: pointer;
 	transition: transform 0.3s ease;
 
@@ -222,17 +271,17 @@ body {
 
 @media (min-width: 780px) {
 	.backToTopBtn:hover {
-		color: $teal;
+		color: var(--teal);
 		transform: scale(1.1);
 	}
 }
 
 // Styles text-based links
 .socials-link {
-	color: $teal;
+	color: var(--teal);
 
 	&:hover {
-		color: $sky;
+		color: var(--sky);
 	}
 }
 
@@ -260,7 +309,7 @@ body {
 	left: 0;
 	position: fixed;
 	z-index: -1;
-	background-color: rgba($base, 0.6);
+	background-color: var(--base-60pct);
 }
 
 header {
@@ -280,8 +329,8 @@ header {
 		font-size: 7rem;
 		letter-spacing: 0.02rem;
 		margin: 0;
-		color: $lavender;
-		box-shadow: inset shadow 0 -0.5rem 0 rgba($base, 0.4);
+		color: var(--lavender);
+		text-shadow: 0.15rem 0.15rem 0 var(--lavender-30pct);
 		text-transform: none;
 		mix-blend-mode: hard-light;
 	}
@@ -309,17 +358,18 @@ header {
 
 	.nav-btn {
 		font-size: 2.5rem;
-		font-weight: 600;
+		font-weight: 700;
+		letter-spacing: 0.08rem;
 		display: block;
 		width: 100%;
 		text-align: center;
-		color: $teal;
+		color: var(--teal);
 		&#about-me-btn {
 			padding-left: 0;
 		}
 
 		&:hover {
-			color: $sky;
+			color: var(--sky);
 		}
 	}
 
@@ -334,11 +384,13 @@ header {
 		flex-wrap: wrap;
 		justify-content: left;
 		gap: 2rem;
-	}
-	.list-group-item {
-		flex: 0 1 auto; // Changed from 1 1 auto to prevent stretching
-		margin: 0 !important; // Override any default margins
-		padding: 0 !important; // Override any default padding
+
+		.list-group-item {
+			flex: 0 1 auto; // Changed from 1 1 auto to prevent stretching
+			margin: 0 !important; // Override any default margins
+			padding: 0 !important; // Override any default padding
+			color: var(--teal);
+		}
 	}
 }
 
@@ -437,18 +489,18 @@ header {
 // Styles the about page
 #about-container {
 	padding: calc(var(--navbar-height) + 2rem) 0;
-	background-color: rgba($base, 0.85);
+	background-color: var(--base-85pct);
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
 	margin: 0 auto;
 
 	h2 {
-		color: $lavender;
+		color: var(--lavender);
 		font-size: 4rem;
 		font-weight: 700;
 		text-align: center;
 		margin-bottom: 2rem;
-		text-shadow: 2px 2px 4px rgba($lavender, 0.3);
+		text-shadow: 2px 2px 4px var(--lavender-30pct);
 	}
 
 	.about-content {
@@ -470,14 +522,14 @@ header {
 			font-weight: 500;
 			line-height: 1.8;
 			margin-bottom: 1rem;
-			color: $text;
+			color: var(--text);
 		}
 	}
 
 	// Adds eye-catching styles for skills section
 	.skills {
 		h3 {
-			color: $lavender;
+			color: var(--lavender);
 			font-size: 3rem;
 			font-weight: 600;
 			text-align: center;
@@ -492,8 +544,8 @@ header {
 			font-size: 1.5rem;
 
 			.tab-button {
-				background-color: $crust;
-				color: $teal;
+				background-color: var(--crust);
+				color: var(--teal);
 				border: none;
 				padding: 0.5rem 1rem;
 				margin: 0.25rem;
@@ -506,8 +558,8 @@ header {
 
 				&.skills-active,
 				&:hover {
-					background-color: $sky;
-					color: $crust;
+					background-color: var(--sky);
+					color: var(--crust);
 				}
 			}
 		}
@@ -525,8 +577,8 @@ header {
 				}
 
 				li {
-					background-color: $crust;
-					color: $teal;
+					background-color: var(--crust);
+					color: var(--teal);
 					padding: 0.5rem 1rem;
 					margin: 0.5rem;
 					border-radius: 0.5rem;
@@ -535,8 +587,8 @@ header {
 					transition: all 0.3s ease;
 
 					&:hover {
-						background-color: $sky;
-						color: $crust;
+						background-color: var(--sky);
+						color: var(--crust);
 						transform: translateY(-3px);
 					}
 				}
@@ -605,23 +657,23 @@ header {
 
 // Defaults the widget container settings on desktop view
 #socials-container {
-	background-color: rgba($base, 0.85);
+	background-color: var(--base-85pct);
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
 }
 
 // Styles individual widgets
 .widget {
-	background-color: rgba($base, 0.75);
+	background-color: var(--lavender-10pct);
 	backdrop-filter: brightness(1.2);
 	border-radius: 0.5rem;
 	padding: 20px;
-	box-shadow: 0 8px 12px $crust;
+	box-shadow: 0 8px 12px var(--crust);
 	transition: transform 0.2s, box-shadow 0.2s;
 
 	&:hover {
 		transform: translateY(-5px);
-		box-shadow: 0 14px 20px $crust;
+		box-shadow: 0 14px 20px var(--crust);
 	}
 
 	.widget-header {
@@ -646,7 +698,7 @@ header {
 		h2 {
 			margin: 0;
 			font-size: 2rem;
-			color: $lavender;
+			color: var(--lavender);
 			text-decoration: none;
 			font-weight: bold;
 		}
@@ -667,12 +719,12 @@ header {
 			text-decoration: none;
 			border-radius: 3rem;
 			transition: background-color 0.2s, transform 0.1s;
-			color: $teal;
-			background-color: $crust;
+			color: var(--teal);
+			background-color: var(--crust);
 
 			&:hover {
-				color: $crust;
-				background-color: $sky;
+				color: var(--crust);
+				background-color: var(--sky);
 				transform: translateY(-3px);
 			}
 		}
@@ -680,7 +732,7 @@ header {
 
 	p {
 		margin: 0 0 15px 0;
-		color: $text;
+		color: var(--text);
 		font-weight: 600;
 	}
 
@@ -795,7 +847,7 @@ header {
 
 #blog-container {
 	padding-top: var(--navbar-height);
-	background-color: rgba($base, 0.85);
+	background-color: var(--base-85pct);
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
 }
@@ -805,7 +857,7 @@ header {
 	padding: 20px;
 	margin-bottom: 30px;
 	width: 100%;
-	box-shadow: 0 4px 6px rgba($crust, 0.25);
+	box-shadow: 0 4px 6px var(--crust-25pct);
 	transition: transform 0.3s ease;
 	border-radius: 0.25rem;
 
@@ -818,8 +870,8 @@ header {
 		font-size: 2.8rem;
 		font-weight: 700;
 		margin-bottom: 15px;
-		color: $lavender;
-		text-shadow: 1px 1px 2px rgba($lavender, 0.5);
+		color: var(--lavender);
+		text-shadow: 1px 1px 2px var(--lavender-30pct);
 		cursor: pointer;
 		transition: color 0.3s ease;
 
@@ -839,19 +891,19 @@ header {
 		margin: auto;
 
 		h2 {
-			color: $text;
+			color: var(--text);
 			font-size: 2.5rem;
 			font-weight: 700;
 		}
 
 		h3 {
-			color: $teal;
+			color: var(--teal);
 			font-size: 2rem;
 			font-weight: 600;
 		}
 
 		p {
-			color: $text;
+			color: var(--text);
 			font-size: 1.5rem;
 			font-weight: 500;
 			line-height: 1.8;
@@ -872,36 +924,36 @@ header {
 	top: var(--navbar-height);
 	right: 0;
 	width: 200px;
-	background-color: rgba($crust, 0.9);
+	background-color: var(--crust);
 	z-index: 1;
 	padding: 2vh 2vh;
 	overflow-y: auto;
 	height: 100vh;
-	box-shadow: -2px 0 5px rgba($crust, 0.2);
+	box-shadow: -2px 0 5px var(--crust-25pct);
 	border-radius: 0.25rem;
 
 	// Makes indiviaul entries on timeline look more like clickable links
 	.entry {
 		margin-bottom: 15px;
 		padding: 10px;
-		background-color: rgba($surface, 0.75);
+		background-color: var(--surface-75pct);
 		border-radius: 0.4rem;
 		transition: background-color 0.3s ease;
 
 		&:hover {
-			background-color: rgba($surface, 0.9);
+			background-color: var(--surface);
 		}
 	}
 
 	a {
 		display: block;
-		color: $teal;
+		color: var(--teal);
 		text-decoration: none;
 		font-weight: 500;
 		transition: color 0.3s ease;
 
 		&:hover {
-			color: $sky;
+			color: var(--sky);
 		}
 	}
 }
@@ -920,7 +972,7 @@ header {
 	border-bottom-left-radius: 5px;
 
 	i {
-		color: $teal;
+		color: var(--teal);
 	}
 }
 
@@ -989,24 +1041,24 @@ header {
 // Styles music page
 #music-container {
 	padding-top: var(--navbar-height);
-	background-color: rgba($base, 0.85);
+	background-color: var(--base-85pct);
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
 
 	h1 {
-		color: $lavender;
+		color: var(--lavender);
 		font-size: 4rem;
 		font-weight: 800;
 		text-align: center;
 		margin-bottom: 1rem;
-		text-shadow: 2px 2px 4px rgba($lavender, 0.5);
+		text-shadow: 2px 2px 4px var(--lavender-30pct);
 		text-transform: none;
 	}
 
 	p {
-		color: $text;
+		color: var(--text);
 		font-weight: 600;
-		text-decoration: underline $text;
+		text-decoration: underline var(--text);
 	}
 
 	#playlists-container {

@@ -38,29 +38,42 @@ function toggleBackToTopButton() {
     // Toggles button display when over half page is scrolled
     backToTopBtn.style.display = window.scrollY > window.innerHeight * 0.5 ? "block" : "none";
 }
-// Event listeners
+// Updates navbar height whenever window is resized
 window.addEventListener("resize", debounce(function () {
     if (window.innerWidth !== lastWidth) {
         lastWidth = window.innerWidth;
         location.reload();
     }
-    updateNavbarHeight(); // Updates whenever window is resized
+    updateNavbarHeight();
 }, 250));
 window.addEventListener("scroll", toggleBackToTopButton);
+var themeToggle = document.getElementById('theme-toggle');
+var themeIcon = document.getElementById('theme-icon');
+themeToggle.addEventListener('click', function () {
+    document.body.classList.toggle('light-mode');
+    if (document.body.classList.contains('light-mode')) {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+    }
+    else {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    }
+});
 // Initialization when page loaded
 document.addEventListener("DOMContentLoaded", function () {
     var _a;
     updateNavbarHeight();
     toggleBackToTopButton();
-    // Navigation items
-    var navItems = document.querySelectorAll(".nav-item");
-    var navBtns = document.querySelectorAll(".nav-btn");
-    // Adds cursor style to disabled nav links
-    navItems.forEach(function (item, index) {
-        if (navBtns[index].classList.contains("disabled")) {
-            item.style.cursor = "not-allowed";
-        }
-    });
+    // // Navigation items
+    // const navItems = document.querySelectorAll<HTMLElement>(".nav-item");
+    // const navBtns = document.querySelectorAll<HTMLElement>(".nav-btn");
+    // // Adds cursor style to disabled nav links
+    // navItems.forEach((item, index) => {
+    // 	if (navBtns[index].classList.contains("disabled")) {
+    // 		item.style.cursor = "not-allowed";
+    // 	}
+    // });
     // Page-specific functionality
     var currentPage = (_a = window.location.pathname.split("/").pop()) === null || _a === void 0 ? void 0 : _a.toLowerCase();
     switch (currentPage) {
