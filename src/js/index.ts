@@ -75,10 +75,14 @@ function toggleTheme() {
 	if (document.body.classList.contains('light-mode')) {
 		themeIcon.classList.remove('fa-sun');
 		themeIcon.classList.add('fa-moon');
+		navbar?.classList.remove('navbar-dark');
+		navbar?.classList.add('navbar-light');
 		localStorage.setItem('theme', 'light');
 	} else {
 		themeIcon.classList.remove('fa-moon');
 		themeIcon.classList.add('fa-sun');
+		navbar?.classList.remove('navbar-light');
+		navbar?.classList.add('navbar-dark');
 		localStorage.setItem('theme', 'dark');
 	}
 }
@@ -87,9 +91,11 @@ function getTheme() {
 	const storedTheme = localStorage.getItem('theme');
 	if (storedTheme === 'light') {
 		document.body.classList.add('light-mode');
+		navbar?.classList.add('navbar-light')
 		themeIcon.classList.add('fa-moon');
 	} else {
 		document.body.classList.remove('light-mode');
+		navbar?.classList.add('navbar-dark')
 		themeIcon.classList.add('fa-sun');
 	}
 }
@@ -482,155 +488,6 @@ function initializeSocialsPage(): void {
 }
 
 function initializeBlogPage(): void {
-	// const posts: Post[] = [
-	// 	{ title: "First post!!", file: "first-post.html" },
-	// 	{ title: "Restarting the project~", file: "restarting.html" },
-	// 	{ title: "Dev diary", file: "dev-diary.html" },
-	// 	// More posts TBA...
-	// ];
-
-	// const createPost = (post: Post): HTMLElement => {
-	// 	const postElement = document.createElement("div");
-	// 	postElement.id = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
-	// 	postElement.classList.add("post");
-
-	// 	const postTitleContainer = document.createElement("div");
-	// 	postTitleContainer.classList.add("postTitle");
-
-	// 	const collapseButton = document.createElement("span");
-	// 	const arrow = document.createElement("i");
-	// 	arrow.classList.add("fa-solid", "fa-caret-right", "fa-2x");
-	// 	collapseButton.classList.add("collapse-button");
-	// 	collapseButton.appendChild(arrow);
-
-	// 	const titleElement = document.createElement("span");
-	// 	titleElement.classList.add("title");
-	// 	titleElement.textContent = "\u2800" + post.title; // Unicode space character to enable spacing
-
-	// 	postTitleContainer.appendChild(collapseButton);
-	// 	postTitleContainer.appendChild(titleElement);
-
-	// 	const contentElement = document.createElement("div");
-	// 	contentElement.classList.add("content");
-	// 	contentElement.style.display = "none";
-
-	// 	// Toggle expand/collapse of posts
-	// 	postTitleContainer.addEventListener("click", () => {
-	// 		if (contentElement.style.display === "none") {
-	// 			arrow.classList.remove("fa-caret-right");
-	// 			arrow.classList.add("fa-caret-down");
-	// 			contentElement.style.display = "block";
-	// 		} else {
-	// 			arrow.classList.remove("fa-caret-down");
-	// 			arrow.classList.add("fa-caret-right");
-	// 			contentElement.style.display = "none";
-	// 		}
-	// 	});
-
-	// 	// Loads each post from the directory
-	// 	fetch(`./src/blog-entries/${post.file}`)
-	// 		.then((response) => response.text())
-	// 		.then((content) => {
-	// 			contentElement.innerHTML = content;
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error(`Error loading post content from ${post.file}:`, error);
-	// 		});
-
-	// 	postElement.appendChild(postTitleContainer);
-	// 	postElement.appendChild(contentElement);
-	// 	return postElement;
-	// };
-
-	// const loadPage = (): void => {
-	// 	const timelineElement = document.querySelector(".timeline");
-	// 	const blogElement = document.getElementById("blog");
-	// 	if (!timelineElement || !blogElement) return;
-
-	// 	timelineElement.innerHTML = "";
-	// 	blogElement.innerHTML = "";
-
-	// 	// Newest post at the top
-	// 	posts.reverse().forEach((post) => {
-	// 		const postElement = createPost(post);
-	// 		blogElement.appendChild(postElement);
-
-	// 		const postTitle = document.createElement("a");
-	// 		postTitle.href = `#${post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "")}`;
-	// 		postTitle.classList.add("entry");
-	// 		postTitle.textContent = post.title;
-	// 		postTitle.addEventListener("click", function (event: Event) {
-	// 			event.preventDefault(); // Prevent default anchor behavior
-
-	// 			const postId = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
-	// 			const $post = $(`#${postId}`);
-	// 			const $navbar = $(".navbar");
-
-	// 			if ($post.length && $navbar.length) {
-	// 				// Expand the post content if it's collapsed
-	// 				const $content = $post.find(".content");
-	// 				if ($content.css("display") === "none") {
-	// 					$post.find(".collapse-button").trigger("click");
-	// 				}
-
-	// 				// Calculate the scroll position
-	// 				const navbarHeight = $navbar.outerHeight() || 0;
-	// 				const scrollTo = $post.offset()?.top ?? 0;
-
-	// 				// Smooth scroll to the post
-	// 				$("html, body").animate(
-	// 					{
-	// 						scrollTop: scrollTo - navbarHeight
-	// 					},
-	// 					{
-	// 						duration: 200,
-	// 						easing: "swing"
-	// 					}
-	// 				);
-	// 			}
-	// 		});
-	// 		timelineElement.appendChild(postTitle);
-	// 	});
-
-	// 	// Expand the latest post by default
-	// 	if (posts.length > 0) {
-	// 		const latestPost = document.getElementById(posts[0].title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, ""));
-	// 		latestPost?.querySelector<HTMLElement>(".collapse-button")?.click();
-	// 	}
-	// };
-
-	// loadPage();
-
-	// // Timeline toggle functionality
-	// const toggleButton = document.querySelector<HTMLElement>(".timeline-toggle");
-	// const timeline = document.querySelector<HTMLElement>(".timeline");
-	// const blogContent = document.getElementById("blog");
-
-	// if (toggleButton && timeline && blogContent) {
-	// 	let isTimelineVisible = window.innerWidth > 780; // For desktop timeline is initially visible
-
-	// 	const updateTimelineVisibility = (): void => {
-	// 		if (window.innerWidth > 780) {
-	// 			timeline.style.right = "0";
-	// 			blogContent.style.marginRight = "200px";
-	// 			isTimelineVisible = true;
-	// 		} else {
-	// 			timeline.style.right = isTimelineVisible ? "0" : "-200px";
-	// 			blogContent.style.marginRight = isTimelineVisible ? "200px" : "40px";
-	// 		}
-	// 	};
-
-	// 	// For mobile only
-	// 	toggleButton.addEventListener("click", () => {
-	// 		isTimelineVisible = !isTimelineVisible;
-	// 		updateTimelineVisibility();
-	// 	});
-
-	// 	// Updates timeline ASAP
-	// 	window.addEventListener("resize", updateTimelineVisibility);
-	// 	updateTimelineVisibility();
-	// }
-
 	const blogWidgets: blogWidget[] = [
 		// Posts are prepended in reverse chronological order
 		{

@@ -105,7 +105,7 @@ body {
 		--surface-75pct: rgba(172, 176, 190, 0.75);
 		--base: rgb(204, 208, 218);
 		--base-60pct: rgba(204, 208, 218, 0.4);
-		--base-85pct: rgba(204, 208, 218, 0.65);
+		--base-85pct: rgba(204, 208, 218, 0.7);
 		--crust: rgb(220, 224, 232);
 		--crust-25pct: rgba(220, 224, 232, 0.25);
 	}
@@ -148,6 +148,15 @@ h1 {
 			background: var(--lavender-10pct);
 			border-radius: 0.75rem;
 			pointer-events: none;
+
+			&#blog-entry-nav {
+				pointer-events: auto;
+
+				&:hover {
+					background: none;
+					border-radius: 0;
+				}
+			}
 		}
 	}
 
@@ -223,6 +232,7 @@ h1 {
 
 		#theme-toggle {
 			position: static;
+			margin-left: 1rem;
 			text-align: left;
 		}
 	}
@@ -863,186 +873,84 @@ header {
 		font-weight: 600;
 		text-decoration: underline var(--text);
 	}
+
+	@media (max-width: 768px) {
+		#widget-container {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 468px) {
+		#widget-container {
+			grid-template-columns: repeat(1, 1fr);
+		}
+	}
 }
 
-// Styles individual posts
-.post {
-	padding: 20px;
-	margin-bottom: 30px;
+// Styles individual entries
+#blog {
+	padding: calc(var(--navbar-height) + 2rem) 20vw;
+	margin-bottom: 3rem;
 	width: 100%;
-	box-shadow: 0 4px 6px var(--crust-25pct);
-	transition: transform 0.3s ease;
-	border-radius: 0.25rem;
+	align-items: center;
+	justify-content: center;
 
-	&:hover {
-		transform: translateY(-5px);
-	}
-
-	// Hints that the post title is clickable
-	.postTitle {
-		font-size: 2.8rem;
-		font-weight: 700;
-		margin-bottom: 15px;
+	h2 {
 		color: var(--lavender);
-		text-shadow: 1px 1px 2px var(--lavender-30pct);
-		cursor: pointer;
-		transition: color 0.3s ease;
-
-		.collapse-button {
-			font-size: 1.5rem;
-			font-weight: 600;
-		}
-
-		&:hover {
-			filter: brightness(1.05);
-		}
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-bottom: 2rem;
 	}
 
-	.content {
-		margin-bottom: 20px;
-		max-width: clamp(320px, 90%, 1000px);
-		margin: auto;
+	h3 {
+		color: var(--teal);
+		font-size: 2rem;
+		font-weight: 600;
+		margin-bottom: 2rem;
+	}
 
+	p {
+		color: var(--text);
+		font-size: 1.5rem;
+		font-weight: 500;
+		line-height: 1.8;
+		margin-bottom: 2rem;
+	}
+
+	img {
+		position: relative;
+		width: 100%;
+		height: auto;
+		margin-bottom: 2rem;
+	}
+
+	.youtube-container {
+		position: relative;
+		width: 100%;
+		height: 0;
+		padding-bottom: 56.25%;
+	}
+
+	.video {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	@media (max-width: 780px) {
+		padding: calc(var(--navbar-height) + 2rem) 10vw;
 		h2 {
-			color: var(--text);
-			font-size: 2.5rem;
-			font-weight: 700;
+			font-size: 2rem;
 		}
 
 		h3 {
-			color: var(--teal);
-			font-size: 2rem;
-			font-weight: 600;
+			font-size: 1.6rem;
 		}
 
 		p {
-			color: var(--text);
-			font-size: 1.5rem;
-			font-weight: 500;
-			line-height: 1.8;
-			margin-bottom: 15px;
-		}
-
-		img {
-			position: relative;
-			width: 100%;
-			height: auto;
-		}
-	}
-}
-
-// Styles the timeline
-.timeline {
-	position: fixed;
-	top: var(--navbar-height);
-	right: 0;
-	width: 200px;
-	background-color: var(--crust);
-	z-index: 1;
-	padding: 2vh 2vh;
-	overflow-y: auto;
-	height: 100vh;
-	box-shadow: -2px 0 5px var(--crust-25pct);
-	border-radius: 0.25rem;
-
-	// Makes indiviaul entries on timeline look more like clickable links
-	.entry {
-		margin-bottom: 15px;
-		padding: 10px;
-		background-color: var(--surface-75pct);
-		border-radius: 0.4rem;
-		transition: background-color 0.3s ease;
-
-		&:hover {
-			background-color: var(--surface);
-		}
-	}
-
-	a {
-		display: block;
-		color: var(--teal);
-		text-decoration: none;
-		font-weight: 500;
-		transition: color 0.3s ease;
-
-		&:hover {
-			color: var(--sky);
-		}
-	}
-}
-
-.timeline-toggle {
-	display: none; // Initially toggle timeline button is hidden on desktop
-	position: fixed;
-	top: 50%;
-	right: 0;
-	transform: translateY(-50%);
-	background: rgba(200, 200, 200, 0.8);
-	padding: 10px 5px;
-	cursor: pointer;
-	z-index: 991;
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-
-	i {
-		color: var(--teal);
-	}
-}
-
-// Fixes the youtube iframe embeds in the blogs to maintain aspect ratio even on smaller viewports
-.youtube-container {
-	position: relative;
-	width: 100%;
-	height: 0;
-	padding-bottom: 56.25%;
-}
-
-.video {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-
-@media (min-width: 781px) {
-	.timeline {
-		right: 0;
-	}
-
-	.timeline-toggle {
-		display: none;
-	}
-}
-
-@media (max-width: 780px) {
-	.timeline {
-		display: block; // Hides timeline initially for smaller viewports
-	}
-
-	.timeline-toggle {
-		display: block; // Shows timeline toggle button on smaller viewports
-	}
-
-	.post {
-		width: 100vw;
-		.content {
-			h2 {
-				font-size: 2rem;
-				font-weight: 700;
-			}
-
-			h3 {
-				font-size: 1.6rem;
-				font-weight: 600;
-			}
-
-			p {
-				font-size: 1.2rem;
-				font-weight: 500;
-				line-height: 1.8;
-				margin-bottom: 15px;
-			}
+			font-size: 1.1rem;
 		}
 	}
 }
