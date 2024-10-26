@@ -111,6 +111,16 @@ body {
 	}
 }
 
+h1 {
+	color: var(--lavender);
+	font-size: 4rem;
+	font-weight: 800;
+	text-align: center;
+	margin-bottom: 1rem;
+	text-shadow: 2px 2px 4px var(--lavender-30pct);
+	text-transform: none;
+}
+
 // Navbar styling
 .navbar {
 	position: fixed;
@@ -217,6 +227,7 @@ body {
 		}
 	}
 }
+
 // Adds filter and dynamically adjusts size of background images on all viewports
 /* Background image */
 #bg-img {
@@ -241,6 +252,16 @@ body {
 		transform: none;
 		object-fit: cover;
 	}
+}
+
+// Creates overlay on top of background image
+#overlay {
+	position: fixed;
+	z-index: -1;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--base-85pct);
 }
 
 // Styles the backToTopBtn
@@ -291,7 +312,187 @@ body {
 	gap: 20px;
 	padding: calc(var(--navbar-height) + 2rem) 20px 20px;
 	width: 100%;
+	height: 100%;
 	margin: 0 auto;
+}
+
+// Styles individual widgets
+.widget {
+	background-color: var(--lavender-10pct);
+	backdrop-filter: brightness(1.2);
+	border-radius: 0.5rem;
+	padding: 20px;
+	box-shadow: 0 8px 12px var(--crust);
+	transition: transform 0.2s, box-shadow 0.2s;
+
+	&:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 14px 20px var(--crust);
+	}
+
+	.widget-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10px;
+
+		.title-container {
+			display: flex;
+			align-items: center;
+			flex-grow: 1;
+		}
+
+		.widget-icon {
+			width: 24px;
+			height: 24px;
+			margin-right: 10px;
+			object-fit: contain;
+		}
+
+		h2 {
+			margin: 0;
+			font-size: 2rem;
+			color: var(--lavender);
+			text-decoration: none;
+			font-weight: bold;
+		}
+
+		.button-container {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 10px;
+			margin-top: 15px;
+		}
+
+		.follow-button {
+			display: inline-block;
+			padding: 8px 16px;
+			font-size: 1.25rem;
+			white-space: nowrap;
+			text-decoration: none;
+			border-radius: 3rem;
+			transition: background-color 0.2s, transform 0.1s;
+			color: var(--teal);
+			background-color: var(--crust);
+
+			&:hover {
+				color: var(--crust);
+				background-color: var(--sky);
+				transform: translateY(-3px);
+			}
+		}
+	}
+
+	p {
+		margin: 0 0 15px 0;
+		color: var(--text);
+		font-weight: 600;
+	}
+
+	// Ensures embed content of the widgets maintain aspect ratio and fit the widgets accordingly
+	.embed-content {
+		margin-bottom: 15px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		img,
+		iframe {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+			border-radius: 0.5rem;
+		}
+
+		iframe {
+			width: 100%;
+			aspect-ratio: 16 / 9;
+			border: none;
+		}
+	}
+
+	// Gives correct grid formatting with different sized widgets (Only used in musicWidgets)
+	&.size-1x1 {
+		grid-column: span 1;
+		grid-row: span 1;
+	}
+
+	&.size-1x2 {
+		grid-column: span 1;
+		grid-row: span 2;
+	}
+
+	&.size-2x1 {
+		grid-column: span 2;
+		grid-row: span 1;
+	}
+
+	&.size-2x2 {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+}
+
+// Responsive design of the grids on smaller devices
+@media (min-width: 1201px) {
+	#widget-container {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.widget {
+		&.size-1x1 {
+			grid-column: span 1;
+			grid-row: span 1;
+		}
+		&.size-1x2 {
+			grid-column: span 1;
+			grid-row: span 2;
+		}
+		&.size-2x1 {
+			grid-column: span 2;
+			grid-row: span 1;
+		}
+		&.size-2x2 {
+			grid-column: span 2;
+			grid-row: span 2;
+		}
+	}
+}
+
+@media (min-width: 900px) and (max-width: 1200px) {
+	#widget-container {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.widget {
+		&.size-2x1,
+		&.size-2x2 {
+			grid-column: span 2;
+		}
+	}
+}
+
+@media (max-width: 900px) {
+	#widget-container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.widget {
+		&.size-1x1,
+		&.size-1x2,
+		&.size-2x1,
+		&.size-2x2 {
+			grid-column: span 1;
+			grid-row: span 1;
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	#widget-container {
+		grid-template-columns: 1fr;
+	}
 }
 
 /* ------------------------------------ */
@@ -487,19 +688,7 @@ header {
 // Styles the about page
 #about-container {
 	padding: calc(var(--navbar-height) + 2rem) 0;
-	background-color: var(--base-85pct);
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
 	margin: 0 auto;
-
-	h2 {
-		color: var(--lavender);
-		font-size: 4rem;
-		font-weight: 700;
-		text-align: center;
-		margin-bottom: 2rem;
-		text-shadow: 2px 2px 4px var(--lavender-30pct);
-	}
 
 	.about-content {
 		display: flex;
@@ -526,7 +715,7 @@ header {
 
 	// Adds eye-catching styles for skills section
 	.skills {
-		h3 {
+		h2 {
 			color: var(--lavender);
 			font-size: 3rem;
 			font-weight: 600;
@@ -650,204 +839,30 @@ header {
 }
 
 /* ------------------------------------ */
-/* SOCIALS */
+/* BLOG */
 /* ------------------------------------ */
 
-// Defaults the widget container settings on desktop view
-#socials-container {
-	background-color: var(--base-85pct);
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
-}
+#blog-container {
+	padding-top: calc(var(--navbar-height) + 2rem);
 
-// Styles individual widgets
-.widget {
-	background-color: var(--lavender-10pct);
-	backdrop-filter: brightness(1.2);
-	border-radius: 0.5rem;
-	padding: 20px;
-	box-shadow: 0 8px 12px var(--crust);
-	transition: transform 0.2s, box-shadow 0.2s;
+	#widget-container {
+		padding-top: 0;
+		grid-template-columns: repeat(3, 1fr);
 
-	&:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 14px 20px var(--crust);
-	}
-
-	.widget-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 10px;
-
-		.title-container {
-			display: flex;
-			align-items: center;
-			flex-grow: 1;
-		}
-
-		.widget-icon {
-			width: 24px;
-			height: 24px;
-			margin-right: 10px;
-			object-fit: contain;
-		}
-
-		h2 {
-			margin: 0;
-			font-size: 2rem;
-			color: var(--lavender);
-			text-decoration: none;
-			font-weight: bold;
-		}
-
-		.button-container {
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-			gap: 10px;
-			margin-top: 15px;
-		}
-
-		.follow-button {
-			display: inline-block;
-			padding: 8px 16px;
-			font-size: 1.25rem;
-			white-space: nowrap;
-			text-decoration: none;
-			border-radius: 3rem;
-			transition: background-color 0.2s, transform 0.1s;
-			color: var(--teal);
-			background-color: var(--crust);
-
-			&:hover {
-				color: var(--crust);
-				background-color: var(--sky);
-				transform: translateY(-3px);
+		.widget {
+			div.embed-content {
+				align-items: flex-start;
+				justify-content: flex-start;
+				flex-direction: column;
 			}
 		}
 	}
 
 	p {
-		margin: 0 0 15px 0;
 		color: var(--text);
 		font-weight: 600;
+		text-decoration: underline var(--text);
 	}
-
-	// Ensures embed content of the widgets maintain aspect ratio and fit the widgets accordingly
-	.embed-content {
-		margin-bottom: 15px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		img,
-		iframe {
-			max-width: 100%;
-			max-height: 100%;
-			object-fit: contain;
-			border-radius: 0.5rem;
-		}
-
-		iframe {
-			width: 100%;
-			aspect-ratio: 16 / 9;
-			border: none;
-		}
-	}
-
-	// Gives correct grid formatting with different sized widgets (Only used in musicWidgets)
-	&.size-1x1 {
-		grid-column: span 1;
-		grid-row: span 1;
-	}
-
-	&.size-1x2 {
-		grid-column: span 1;
-		grid-row: span 2;
-	}
-
-	&.size-2x1 {
-		grid-column: span 2;
-		grid-row: span 1;
-	}
-
-	&.size-2x2 {
-		grid-column: span 2;
-		grid-row: span 2;
-	}
-}
-
-// Responsive design of the grids on smaller devices
-@media (min-width: 1201px) {
-	#widget-container {
-		grid-template-columns: repeat(4, 1fr);
-	}
-
-	.widget {
-		&.size-1x1 {
-			grid-column: span 1;
-			grid-row: span 1;
-		}
-		&.size-1x2 {
-			grid-column: span 1;
-			grid-row: span 2;
-		}
-		&.size-2x1 {
-			grid-column: span 2;
-			grid-row: span 1;
-		}
-		&.size-2x2 {
-			grid-column: span 2;
-			grid-row: span 2;
-		}
-	}
-}
-
-@media (min-width: 769px) and (max-width: 1200px) {
-	#widget-container {
-		grid-template-columns: repeat(3, 1fr);
-	}
-
-	.widget {
-		&.size-2x1,
-		&.size-2x2 {
-			grid-column: span 2;
-		}
-	}
-}
-
-@media (max-width: 768px) {
-	#widget-container {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	.widget {
-		&.size-1x1,
-		&.size-1x2,
-		&.size-2x1,
-		&.size-2x2 {
-			grid-column: span 1;
-			grid-row: span 1;
-		}
-	}
-}
-
-@media (max-width: 480px) {
-	#widget-container {
-		grid-template-columns: 1fr;
-	}
-}
-
-/* ------------------------------------ */
-/* BLOG */
-/* ------------------------------------ */
-
-#blog-container {
-	padding-top: var(--navbar-height);
-	background-color: var(--base-85pct);
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
 }
 
 // Styles individual posts
@@ -1039,19 +1054,6 @@ header {
 // Styles music page
 #music-container {
 	padding-top: var(--navbar-height);
-	background-color: var(--base-85pct);
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
-
-	h1 {
-		color: var(--lavender);
-		font-size: 4rem;
-		font-weight: 800;
-		text-align: center;
-		margin-bottom: 1rem;
-		text-shadow: 2px 2px 4px var(--lavender-30pct);
-		text-transform: none;
-	}
 
 	p {
 		color: var(--text);
@@ -1060,20 +1062,10 @@ header {
 	}
 
 	#playlists-container {
-		padding-top: calc(var(--navbar-height) + 2rem);
+		padding-top: 2rem;
 
 		#widget-container {
 			padding: 0 2vw;
 		}
 	}
-
-	// // Centers the iframe
-	// .iframe-container {
-	// 	padding-top: 3vh;
-	// 	text-align: center;
-	// }
-
-	// #lastfmstats {
-	// 	height: calc(95vh - var(--navbar-height));
-	// }
 }

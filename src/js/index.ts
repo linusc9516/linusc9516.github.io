@@ -2,21 +2,34 @@
 interface Skill {
 	[key: string]: string[];
 }
-interface WidgetOptions {
+
+interface socialsWidget {
 	title: string;
 	content: string;
-	linkUrl: string;
+	date?: string;
+	linkUrl?: string;
+	blogUrl?: string;
 	iconUrl?: string;
 	imageUrl?: string;
 	embedHTML?: string;
 	followUrl?: string;
 	size?: string;
 }
+
 interface Post {
 	title: string;
 	file: string;
 }
-interface MusicWidget {
+
+interface blogWidget {
+	title: string;
+	content: string;
+	date: string;
+	blogUrl: string;
+	imageUrl?: string;
+}
+
+interface musicWidget {
 	title: string;
 	content: string;
 	linkUrl: string;
@@ -147,14 +160,20 @@ $(() => {
 });
 
 // Widget creating function (reused in both socials & music for playlists)
-const createWidget = (options: WidgetOptions): void => {
+const createWidget = (options: socialsWidget): void => {
 
 	// Entire widget body is a link
 	const widget = document.createElement("a");
 	widget.className = `widget size-${options.size || "1x1"}`;
-	widget.href = options.linkUrl;
-	widget.target = "_blank";
-	widget.rel = "noopener noreferrer";
+	if (options.linkUrl) {
+		widget.href = options.linkUrl;
+		widget.target = "_blank";
+		widget.rel = "noopener noreferrer";
+	}
+	else if (options.blogUrl) {
+		widget.href = options.blogUrl;
+	}
+
 	widget.style.textDecoration = "none";
 
 	// A bit messy but follwo btn positioning only works with nested div
@@ -201,7 +220,7 @@ const createWidget = (options: WidgetOptions): void => {
 	contentElement.style.textDecoration = "none";
 	widget.appendChild(contentElement);
 
-	if (options.imageUrl || options.embedHTML) {
+	if (options.imageUrl || options.embedHTML || options.date) {
 		const embedContent = document.createElement("div");
 		embedContent.className = "embed-content";
 
@@ -209,6 +228,10 @@ const createWidget = (options: WidgetOptions): void => {
 			embedContent.innerHTML = `<img src="src/images/${options.imageUrl}" alt="${options.title}" onerror="this.src='src/images/fallback.webp';">`; // Too lazy to add fallback, maybe sometime in the future
 		} else if (options.embedHTML) {
 			embedContent.innerHTML = options.embedHTML; // Yeah somehow embedHTML implementation is similar to contentElement.. whatever.
+		} else if (options.date) {
+			const date = document.createElement("p");
+			date.innerHTML = options.date;
+			embedContent.appendChild(date);
 		}
 
 		widget.appendChild(embedContent);
@@ -310,7 +333,7 @@ function initializeAboutPage(): void {
 
 function initializeSocialsPage(): void {
 	// Create widgets
-	[
+	const socialsWidgets: socialsWidget[] = [
 		{
 			title: "osu!",
 			content: "Check out my osu! profile~",
@@ -378,7 +401,6 @@ function initializeSocialsPage(): void {
 			linkUrl: "https://github.com/example",
 			iconUrl: "github-icon.svg",
 			imageUrl: "github-pfp.webp",
-			size: "1x1",
 		},
 		{
 			title: 'Spotify',
@@ -386,7 +408,6 @@ function initializeSocialsPage(): void {
 			linkUrl: 'https://open.spotify.com/user/0000000000000000000000?si=0abff12c86554294',
 			iconUrl: 'spotify-icon.svg',
 			imageUrl: 'spotify-pfp.webp',
-			size: '1x1'
 		},
 		{
 			title: 'SoundCloud',
@@ -394,7 +415,6 @@ function initializeSocialsPage(): void {
 			linkUrl: 'https://soundcloud.com/example',
 			iconUrl: 'soundcloud-icon.svg',
 			imageUrl: 'soundcloud-pfp.webp',
-			size: '1x1'
 		},
 		{
 			title: "Last.fm",
@@ -403,7 +423,6 @@ function initializeSocialsPage(): void {
 			linkUrl: "https://last.fm/user/placeholder",
 			iconUrl: "lastfm-icon.svg",
 			imageUrl: "lastfm-pfp.webp",
-			size: "1x1",
 		},
 		{
 			title: "Steam",
@@ -411,7 +430,6 @@ function initializeSocialsPage(): void {
 			linkUrl: "https://steamcommunity.com/id/example/",
 			iconUrl: "steam-icon.svg",
 			imageUrl: "steam-pfp.webp",
-			size: "1x1",
 		},
 		{
 			title: "Twitch",
@@ -419,7 +437,6 @@ function initializeSocialsPage(): void {
 			linkUrl: "https://twitch.tv/example/",
 			iconUrl: "twitch-icon.svg",
 			imageUrl: "twitch-pfp.webp",
-			size: "1x1",
 		},
 		{
 			title: "Fantasy PL",
@@ -427,172 +444,244 @@ function initializeSocialsPage(): void {
 			linkUrl: "https://fantasy.premierleague.com/leagues/142567/standings/c",
 			imageUrl: "pl-icon.webp",
 			followUrl: "https://fantasy.premierleague.com/leagues/auto-join/hzwugs",
-			size: "1x1",
 		},
 		{
 			title: "Football server",
 			content: "Join my other discord server for football chats!",
 			linkUrl: "https://discord.gg/gEkbpjKtrH",
 			imageUrl: "discord-icon.svg",
-			size: '1x1',
 		},
 		// More widgets TBA...
-	].forEach(createWidget);
+	]
+
+	function createSocialsWidgets(): void {
+		socialsWidgets.forEach((widget: socialsWidget) => {
+			let modifiedWidget: socialsWidget = { ...widget };
+
+			createWidget({
+				...modifiedWidget,
+				size: '1x1'
+			});
+		});
+	}
+
+	function handleResize(): void {
+		createSocialsWidgets();
+	}
+
+	createSocialsWidgets();
+
+	// Use debounce to improve performance
+	let resizeTimeout: number | null = null;
+	window.addEventListener('resize', () => {
+		if (resizeTimeout) {
+			window.clearTimeout(resizeTimeout);
+		}
+		resizeTimeout = window.setTimeout(handleResize, 250);
+	});
 }
 
 function initializeBlogPage(): void {
-	const posts: Post[] = [
-		{ title: "First post!!", file: "first-post.html" },
-		{ title: "Restarting the project~", file: "restarting.html" },
-		{ title: "Dev diary", file: "dev-diary.html" },
-		// More posts TBA...
-	];
+	// const posts: Post[] = [
+	// 	{ title: "First post!!", file: "first-post.html" },
+	// 	{ title: "Restarting the project~", file: "restarting.html" },
+	// 	{ title: "Dev diary", file: "dev-diary.html" },
+	// 	// More posts TBA...
+	// ];
 
-	const createPost = (post: Post): HTMLElement => {
-		const postElement = document.createElement("div");
-		postElement.id = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
-		postElement.classList.add("post");
+	// const createPost = (post: Post): HTMLElement => {
+	// 	const postElement = document.createElement("div");
+	// 	postElement.id = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
+	// 	postElement.classList.add("post");
 
-		const postTitleContainer = document.createElement("div");
-		postTitleContainer.classList.add("postTitle");
+	// 	const postTitleContainer = document.createElement("div");
+	// 	postTitleContainer.classList.add("postTitle");
 
-		const collapseButton = document.createElement("span");
-		const arrow = document.createElement("i");
-		arrow.classList.add("fa-solid", "fa-caret-right", "fa-2x");
-		collapseButton.classList.add("collapse-button");
-		collapseButton.appendChild(arrow);
+	// 	const collapseButton = document.createElement("span");
+	// 	const arrow = document.createElement("i");
+	// 	arrow.classList.add("fa-solid", "fa-caret-right", "fa-2x");
+	// 	collapseButton.classList.add("collapse-button");
+	// 	collapseButton.appendChild(arrow);
 
-		const titleElement = document.createElement("span");
-		titleElement.classList.add("title");
-		titleElement.textContent = "\u2800" + post.title; // Unicode space character to enable spacing
+	// 	const titleElement = document.createElement("span");
+	// 	titleElement.classList.add("title");
+	// 	titleElement.textContent = "\u2800" + post.title; // Unicode space character to enable spacing
 
-		postTitleContainer.appendChild(collapseButton);
-		postTitleContainer.appendChild(titleElement);
+	// 	postTitleContainer.appendChild(collapseButton);
+	// 	postTitleContainer.appendChild(titleElement);
 
-		const contentElement = document.createElement("div");
-		contentElement.classList.add("content");
-		contentElement.style.display = "none";
+	// 	const contentElement = document.createElement("div");
+	// 	contentElement.classList.add("content");
+	// 	contentElement.style.display = "none";
 
-		// Toggle expand/collapse of posts
-		postTitleContainer.addEventListener("click", () => {
-			if (contentElement.style.display === "none") {
-				arrow.classList.remove("fa-caret-right");
-				arrow.classList.add("fa-caret-down");
-				contentElement.style.display = "block";
-			} else {
-				arrow.classList.remove("fa-caret-down");
-				arrow.classList.add("fa-caret-right");
-				contentElement.style.display = "none";
-			}
-		});
+	// 	// Toggle expand/collapse of posts
+	// 	postTitleContainer.addEventListener("click", () => {
+	// 		if (contentElement.style.display === "none") {
+	// 			arrow.classList.remove("fa-caret-right");
+	// 			arrow.classList.add("fa-caret-down");
+	// 			contentElement.style.display = "block";
+	// 		} else {
+	// 			arrow.classList.remove("fa-caret-down");
+	// 			arrow.classList.add("fa-caret-right");
+	// 			contentElement.style.display = "none";
+	// 		}
+	// 	});
 
-		// Loads each post from the directory
-		fetch(`./src/blog-entries/${post.file}`)
-			.then((response) => response.text())
-			.then((content) => {
-				contentElement.innerHTML = content;
-			})
-			.catch((error) => {
-				console.error(`Error loading post content from ${post.file}:`, error);
+	// 	// Loads each post from the directory
+	// 	fetch(`./src/blog-entries/${post.file}`)
+	// 		.then((response) => response.text())
+	// 		.then((content) => {
+	// 			contentElement.innerHTML = content;
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error(`Error loading post content from ${post.file}:`, error);
+	// 		});
+
+	// 	postElement.appendChild(postTitleContainer);
+	// 	postElement.appendChild(contentElement);
+	// 	return postElement;
+	// };
+
+	// const loadPage = (): void => {
+	// 	const timelineElement = document.querySelector(".timeline");
+	// 	const blogElement = document.getElementById("blog");
+	// 	if (!timelineElement || !blogElement) return;
+
+	// 	timelineElement.innerHTML = "";
+	// 	blogElement.innerHTML = "";
+
+	// 	// Newest post at the top
+	// 	posts.reverse().forEach((post) => {
+	// 		const postElement = createPost(post);
+	// 		blogElement.appendChild(postElement);
+
+	// 		const postTitle = document.createElement("a");
+	// 		postTitle.href = `#${post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "")}`;
+	// 		postTitle.classList.add("entry");
+	// 		postTitle.textContent = post.title;
+	// 		postTitle.addEventListener("click", function (event: Event) {
+	// 			event.preventDefault(); // Prevent default anchor behavior
+
+	// 			const postId = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
+	// 			const $post = $(`#${postId}`);
+	// 			const $navbar = $(".navbar");
+
+	// 			if ($post.length && $navbar.length) {
+	// 				// Expand the post content if it's collapsed
+	// 				const $content = $post.find(".content");
+	// 				if ($content.css("display") === "none") {
+	// 					$post.find(".collapse-button").trigger("click");
+	// 				}
+
+	// 				// Calculate the scroll position
+	// 				const navbarHeight = $navbar.outerHeight() || 0;
+	// 				const scrollTo = $post.offset()?.top ?? 0;
+
+	// 				// Smooth scroll to the post
+	// 				$("html, body").animate(
+	// 					{
+	// 						scrollTop: scrollTo - navbarHeight
+	// 					},
+	// 					{
+	// 						duration: 200,
+	// 						easing: "swing"
+	// 					}
+	// 				);
+	// 			}
+	// 		});
+	// 		timelineElement.appendChild(postTitle);
+	// 	});
+
+	// 	// Expand the latest post by default
+	// 	if (posts.length > 0) {
+	// 		const latestPost = document.getElementById(posts[0].title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, ""));
+	// 		latestPost?.querySelector<HTMLElement>(".collapse-button")?.click();
+	// 	}
+	// };
+
+	// loadPage();
+
+	// // Timeline toggle functionality
+	// const toggleButton = document.querySelector<HTMLElement>(".timeline-toggle");
+	// const timeline = document.querySelector<HTMLElement>(".timeline");
+	// const blogContent = document.getElementById("blog");
+
+	// if (toggleButton && timeline && blogContent) {
+	// 	let isTimelineVisible = window.innerWidth > 780; // For desktop timeline is initially visible
+
+	// 	const updateTimelineVisibility = (): void => {
+	// 		if (window.innerWidth > 780) {
+	// 			timeline.style.right = "0";
+	// 			blogContent.style.marginRight = "200px";
+	// 			isTimelineVisible = true;
+	// 		} else {
+	// 			timeline.style.right = isTimelineVisible ? "0" : "-200px";
+	// 			blogContent.style.marginRight = isTimelineVisible ? "200px" : "40px";
+	// 		}
+	// 	};
+
+	// 	// For mobile only
+	// 	toggleButton.addEventListener("click", () => {
+	// 		isTimelineVisible = !isTimelineVisible;
+	// 		updateTimelineVisibility();
+	// 	});
+
+	// 	// Updates timeline ASAP
+	// 	window.addEventListener("resize", updateTimelineVisibility);
+	// 	updateTimelineVisibility();
+	// }
+
+	const blogWidgets: blogWidget[] = [
+		// Posts are prepended in reverse chronological order
+		{
+			title: "Dev diary.",
+			content: "Read through my struggles on developing the website.",
+			date: "18-07-24",
+			blogUrl: "../../blog-entries/dev-diary",
+		},
+		{
+			title: "Restarting the project.",
+			content: "Check out my decision to remake this website.",
+			date: "15-05-24",
+			blogUrl: "../../blog-entries/restarting",
+		},
+		{
+			title: "First post.",
+			content: "My first blog post.",
+			date: "09-02-22",
+			blogUrl: "../../blog-entries/first-post",
+		},
+	]
+
+	function createBlogWidgets(): void {
+		blogWidgets.forEach((widget: blogWidget) => {
+			let modifiedWidget: blogWidget = { ...widget };
+
+			createWidget({
+				...modifiedWidget,
+				size: '1x1'
 			});
-
-		postElement.appendChild(postTitleContainer);
-		postElement.appendChild(contentElement);
-		return postElement;
-	};
-
-	const loadPage = (): void => {
-		const timelineElement = document.querySelector(".timeline");
-		const blogElement = document.getElementById("blog");
-		if (!timelineElement || !blogElement) return;
-
-		timelineElement.innerHTML = "";
-		blogElement.innerHTML = "";
-
-		// Newest post at the top
-		posts.reverse().forEach((post) => {
-			const postElement = createPost(post);
-			blogElement.appendChild(postElement);
-
-			const postTitle = document.createElement("a");
-			postTitle.href = `#${post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "")}`;
-			postTitle.classList.add("entry");
-			postTitle.textContent = post.title;
-			postTitle.addEventListener("click", function (event: Event) {
-				event.preventDefault(); // Prevent default anchor behavior
-
-				const postId = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
-				const $post = $(`#${postId}`);
-				const $navbar = $(".navbar");
-
-				if ($post.length && $navbar.length) {
-					// Expand the post content if it's collapsed
-					const $content = $post.find(".content");
-					if ($content.css("display") === "none") {
-						$post.find(".collapse-button").trigger("click");
-					}
-
-					// Calculate the scroll position
-					const navbarHeight = $navbar.outerHeight() || 0;
-					const scrollTo = $post.offset()?.top ?? 0;
-
-					// Smooth scroll to the post
-					$("html, body").animate(
-						{
-							scrollTop: scrollTo - navbarHeight
-						},
-						{
-							duration: 200,
-							easing: "swing"
-						}
-					);
-				}
-			});
-			timelineElement.appendChild(postTitle);
 		});
-
-		// Expand the latest post by default
-		if (posts.length > 0) {
-			const latestPost = document.getElementById(posts[0].title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, ""));
-			latestPost?.querySelector<HTMLElement>(".collapse-button")?.click();
-		}
-	};
-
-	loadPage();
-
-	// Timeline toggle functionality
-	const toggleButton = document.querySelector<HTMLElement>(".timeline-toggle");
-	const timeline = document.querySelector<HTMLElement>(".timeline");
-	const blogContent = document.getElementById("blog");
-
-	if (toggleButton && timeline && blogContent) {
-		let isTimelineVisible = window.innerWidth > 780; // For desktop timeline is initially visible
-
-		const updateTimelineVisibility = (): void => {
-			if (window.innerWidth > 780) {
-				timeline.style.right = "0";
-				blogContent.style.marginRight = "200px";
-				isTimelineVisible = true;
-			} else {
-				timeline.style.right = isTimelineVisible ? "0" : "-200px";
-				blogContent.style.marginRight = isTimelineVisible ? "200px" : "40px";
-			}
-		};
-
-		// For mobile only
-		toggleButton.addEventListener("click", () => {
-			isTimelineVisible = !isTimelineVisible;
-			updateTimelineVisibility();
-		});
-
-		// Updates timeline ASAP
-		window.addEventListener("resize", updateTimelineVisibility);
-		updateTimelineVisibility();
 	}
+
+	function handleResize(): void {
+		createBlogWidgets();
+	}
+
+	createBlogWidgets();
+
+	// Use debounce to improve performance
+	let resizeTimeout: number | null = null;
+	window.addEventListener('resize', () => {
+		if (resizeTimeout) {
+			window.clearTimeout(resizeTimeout);
+		}
+		resizeTimeout = window.setTimeout(handleResize, 250);
+	});
 }
 
 function initializeMusicPage(): void {
-	const musicWidgets: MusicWidget[] = [
+	const musicWidgets: musicWidget[] = [
 		{
 			title: 'Spotify Main Playlist',
 			content: 'Bangers only!',
@@ -630,8 +719,8 @@ function initializeMusicPage(): void {
 		}
 		const isMobile = window.matchMedia("(max-width: 1024px)").matches;
 
-		musicWidgets.forEach((widget: MusicWidget) => {
-			let modifiedWidget: MusicWidget = { ...widget };
+		musicWidgets.forEach((widget: musicWidget) => {
+			let modifiedWidget: musicWidget = { ...widget };
 
 			if (modifiedWidget.embedHTML) {
 				if (modifiedWidget.embedHTML.toLowerCase().includes('soundcloud') && isMobile) {

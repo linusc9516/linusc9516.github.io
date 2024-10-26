@@ -126,9 +126,14 @@ var createWidget = function (options) {
     // Entire widget body is a link
     var widget = document.createElement("a");
     widget.className = "widget size-".concat(options.size || "1x1");
-    widget.href = options.linkUrl;
-    widget.target = "_blank";
-    widget.rel = "noopener noreferrer";
+    if (options.linkUrl) {
+        widget.href = options.linkUrl;
+        widget.target = "_blank";
+        widget.rel = "noopener noreferrer";
+    }
+    else if (options.blogUrl) {
+        widget.href = options.blogUrl;
+    }
     widget.style.textDecoration = "none";
     // A bit messy but follwo btn positioning only works with nested div
     var headerContainer = document.createElement("div");
@@ -169,7 +174,7 @@ var createWidget = function (options) {
     contentElement.innerHTML = options.content;
     contentElement.style.textDecoration = "none";
     widget.appendChild(contentElement);
-    if (options.imageUrl || options.embedHTML) {
+    if (options.imageUrl || options.embedHTML || options.date) {
         var embedContent = document.createElement("div");
         embedContent.className = "embed-content";
         if (options.imageUrl) {
@@ -177,6 +182,11 @@ var createWidget = function (options) {
         }
         else if (options.embedHTML) {
             embedContent.innerHTML = options.embedHTML; // Yeah somehow embedHTML implementation is similar to contentElement.. whatever.
+        }
+        else if (options.date) {
+            var date = document.createElement("p");
+            date.innerHTML = options.date;
+            embedContent.appendChild(date);
         }
         widget.appendChild(embedContent);
     }
@@ -266,7 +276,7 @@ function initializeAboutPage() {
 }
 function initializeSocialsPage() {
     // Create widgets
-    [
+    var socialsWidgets = [
         {
             title: "osu!",
             content: "Check out my osu! profile~",
@@ -332,7 +342,6 @@ function initializeSocialsPage() {
             linkUrl: "https://github.com/example",
             iconUrl: "github-icon.svg",
             imageUrl: "github-pfp.webp",
-            size: "1x1",
         },
         {
             title: 'Spotify',
@@ -340,7 +349,6 @@ function initializeSocialsPage() {
             linkUrl: 'https://open.spotify.com/user/0000000000000000000000?si=0abff12c86554294',
             iconUrl: 'spotify-icon.svg',
             imageUrl: 'spotify-pfp.webp',
-            size: '1x1'
         },
         {
             title: 'SoundCloud',
@@ -348,7 +356,6 @@ function initializeSocialsPage() {
             linkUrl: 'https://soundcloud.com/example',
             iconUrl: 'soundcloud-icon.svg',
             imageUrl: 'soundcloud-pfp.webp',
-            size: '1x1'
         },
         {
             title: "Last.fm",
@@ -356,7 +363,6 @@ function initializeSocialsPage() {
             linkUrl: "https://last.fm/user/placeholder",
             iconUrl: "lastfm-icon.svg",
             imageUrl: "lastfm-pfp.webp",
-            size: "1x1",
         },
         {
             title: "Steam",
@@ -364,7 +370,6 @@ function initializeSocialsPage() {
             linkUrl: "https://steamcommunity.com/id/example/",
             iconUrl: "steam-icon.svg",
             imageUrl: "steam-pfp.webp",
-            size: "1x1",
         },
         {
             title: "Twitch",
@@ -372,7 +377,6 @@ function initializeSocialsPage() {
             linkUrl: "https://twitch.tv/example/",
             iconUrl: "twitch-icon.svg",
             imageUrl: "twitch-pfp.webp",
-            size: "1x1",
         },
         {
             title: "Fantasy PL",
@@ -380,145 +384,198 @@ function initializeSocialsPage() {
             linkUrl: "https://fantasy.premierleague.com/leagues/142567/standings/c",
             imageUrl: "pl-icon.webp",
             followUrl: "https://fantasy.premierleague.com/leagues/auto-join/hzwugs",
-            size: "1x1",
         },
         {
             title: "Football server",
             content: "Join my other discord server for football chats!",
             linkUrl: "https://discord.gg/gEkbpjKtrH",
             imageUrl: "discord-icon.svg",
-            size: '1x1',
         },
         // More widgets TBA...
-    ].forEach(createWidget);
+    ];
+    function createSocialsWidgets() {
+        socialsWidgets.forEach(function (widget) {
+            var modifiedWidget = __assign({}, widget);
+            createWidget(__assign(__assign({}, modifiedWidget), { size: '1x1' }));
+        });
+    }
+    function handleResize() {
+        createSocialsWidgets();
+    }
+    createSocialsWidgets();
+    // Use debounce to improve performance
+    var resizeTimeout = null;
+    window.addEventListener('resize', function () {
+        if (resizeTimeout) {
+            window.clearTimeout(resizeTimeout);
+        }
+        resizeTimeout = window.setTimeout(handleResize, 250);
+    });
 }
 function initializeBlogPage() {
-    var posts = [
-        { title: "First post!!", file: "first-post.html" },
-        { title: "Restarting the project~", file: "restarting.html" },
-        { title: "Dev diary", file: "dev-diary.html" },
-        // More posts TBA...
+    // const posts: Post[] = [
+    // 	{ title: "First post!!", file: "first-post.html" },
+    // 	{ title: "Restarting the project~", file: "restarting.html" },
+    // 	{ title: "Dev diary", file: "dev-diary.html" },
+    // 	// More posts TBA...
+    // ];
+    // const createPost = (post: Post): HTMLElement => {
+    // 	const postElement = document.createElement("div");
+    // 	postElement.id = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
+    // 	postElement.classList.add("post");
+    // 	const postTitleContainer = document.createElement("div");
+    // 	postTitleContainer.classList.add("postTitle");
+    // 	const collapseButton = document.createElement("span");
+    // 	const arrow = document.createElement("i");
+    // 	arrow.classList.add("fa-solid", "fa-caret-right", "fa-2x");
+    // 	collapseButton.classList.add("collapse-button");
+    // 	collapseButton.appendChild(arrow);
+    // 	const titleElement = document.createElement("span");
+    // 	titleElement.classList.add("title");
+    // 	titleElement.textContent = "\u2800" + post.title; // Unicode space character to enable spacing
+    // 	postTitleContainer.appendChild(collapseButton);
+    // 	postTitleContainer.appendChild(titleElement);
+    // 	const contentElement = document.createElement("div");
+    // 	contentElement.classList.add("content");
+    // 	contentElement.style.display = "none";
+    // 	// Toggle expand/collapse of posts
+    // 	postTitleContainer.addEventListener("click", () => {
+    // 		if (contentElement.style.display === "none") {
+    // 			arrow.classList.remove("fa-caret-right");
+    // 			arrow.classList.add("fa-caret-down");
+    // 			contentElement.style.display = "block";
+    // 		} else {
+    // 			arrow.classList.remove("fa-caret-down");
+    // 			arrow.classList.add("fa-caret-right");
+    // 			contentElement.style.display = "none";
+    // 		}
+    // 	});
+    // 	// Loads each post from the directory
+    // 	fetch(`./src/blog-entries/${post.file}`)
+    // 		.then((response) => response.text())
+    // 		.then((content) => {
+    // 			contentElement.innerHTML = content;
+    // 		})
+    // 		.catch((error) => {
+    // 			console.error(`Error loading post content from ${post.file}:`, error);
+    // 		});
+    // 	postElement.appendChild(postTitleContainer);
+    // 	postElement.appendChild(contentElement);
+    // 	return postElement;
+    // };
+    // const loadPage = (): void => {
+    // 	const timelineElement = document.querySelector(".timeline");
+    // 	const blogElement = document.getElementById("blog");
+    // 	if (!timelineElement || !blogElement) return;
+    // 	timelineElement.innerHTML = "";
+    // 	blogElement.innerHTML = "";
+    // 	// Newest post at the top
+    // 	posts.reverse().forEach((post) => {
+    // 		const postElement = createPost(post);
+    // 		blogElement.appendChild(postElement);
+    // 		const postTitle = document.createElement("a");
+    // 		postTitle.href = `#${post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "")}`;
+    // 		postTitle.classList.add("entry");
+    // 		postTitle.textContent = post.title;
+    // 		postTitle.addEventListener("click", function (event: Event) {
+    // 			event.preventDefault(); // Prevent default anchor behavior
+    // 			const postId = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
+    // 			const $post = $(`#${postId}`);
+    // 			const $navbar = $(".navbar");
+    // 			if ($post.length && $navbar.length) {
+    // 				// Expand the post content if it's collapsed
+    // 				const $content = $post.find(".content");
+    // 				if ($content.css("display") === "none") {
+    // 					$post.find(".collapse-button").trigger("click");
+    // 				}
+    // 				// Calculate the scroll position
+    // 				const navbarHeight = $navbar.outerHeight() || 0;
+    // 				const scrollTo = $post.offset()?.top ?? 0;
+    // 				// Smooth scroll to the post
+    // 				$("html, body").animate(
+    // 					{
+    // 						scrollTop: scrollTo - navbarHeight
+    // 					},
+    // 					{
+    // 						duration: 200,
+    // 						easing: "swing"
+    // 					}
+    // 				);
+    // 			}
+    // 		});
+    // 		timelineElement.appendChild(postTitle);
+    // 	});
+    // 	// Expand the latest post by default
+    // 	if (posts.length > 0) {
+    // 		const latestPost = document.getElementById(posts[0].title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, ""));
+    // 		latestPost?.querySelector<HTMLElement>(".collapse-button")?.click();
+    // 	}
+    // };
+    // loadPage();
+    // // Timeline toggle functionality
+    // const toggleButton = document.querySelector<HTMLElement>(".timeline-toggle");
+    // const timeline = document.querySelector<HTMLElement>(".timeline");
+    // const blogContent = document.getElementById("blog");
+    // if (toggleButton && timeline && blogContent) {
+    // 	let isTimelineVisible = window.innerWidth > 780; // For desktop timeline is initially visible
+    // 	const updateTimelineVisibility = (): void => {
+    // 		if (window.innerWidth > 780) {
+    // 			timeline.style.right = "0";
+    // 			blogContent.style.marginRight = "200px";
+    // 			isTimelineVisible = true;
+    // 		} else {
+    // 			timeline.style.right = isTimelineVisible ? "0" : "-200px";
+    // 			blogContent.style.marginRight = isTimelineVisible ? "200px" : "40px";
+    // 		}
+    // 	};
+    // 	// For mobile only
+    // 	toggleButton.addEventListener("click", () => {
+    // 		isTimelineVisible = !isTimelineVisible;
+    // 		updateTimelineVisibility();
+    // 	});
+    // 	// Updates timeline ASAP
+    // 	window.addEventListener("resize", updateTimelineVisibility);
+    // 	updateTimelineVisibility();
+    // }
+    var blogWidgets = [
+        // Posts are prepended in reverse chronological order
+        {
+            title: "Dev diary.",
+            content: "Read through my struggles on developing the website.",
+            date: "18-07-24",
+            blogUrl: "../../blog-entries/dev-diary",
+        },
+        {
+            title: "Restarting the project.",
+            content: "Check out my decision to remake this website.",
+            date: "15-05-24",
+            blogUrl: "../../blog-entries/restarting",
+        },
+        {
+            title: "First post.",
+            content: "My first blog post.",
+            date: "09-02-22",
+            blogUrl: "../../blog-entries/first-post",
+        },
     ];
-    var createPost = function (post) {
-        var postElement = document.createElement("div");
-        postElement.id = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
-        postElement.classList.add("post");
-        var postTitleContainer = document.createElement("div");
-        postTitleContainer.classList.add("postTitle");
-        var collapseButton = document.createElement("span");
-        var arrow = document.createElement("i");
-        arrow.classList.add("fa-solid", "fa-caret-right", "fa-2x");
-        collapseButton.classList.add("collapse-button");
-        collapseButton.appendChild(arrow);
-        var titleElement = document.createElement("span");
-        titleElement.classList.add("title");
-        titleElement.textContent = "\u2800" + post.title; // Unicode space character to enable spacing
-        postTitleContainer.appendChild(collapseButton);
-        postTitleContainer.appendChild(titleElement);
-        var contentElement = document.createElement("div");
-        contentElement.classList.add("content");
-        contentElement.style.display = "none";
-        // Toggle expand/collapse of posts
-        postTitleContainer.addEventListener("click", function () {
-            if (contentElement.style.display === "none") {
-                arrow.classList.remove("fa-caret-right");
-                arrow.classList.add("fa-caret-down");
-                contentElement.style.display = "block";
-            }
-            else {
-                arrow.classList.remove("fa-caret-down");
-                arrow.classList.add("fa-caret-right");
-                contentElement.style.display = "none";
-            }
+    function createBlogWidgets() {
+        blogWidgets.forEach(function (widget) {
+            var modifiedWidget = __assign({}, widget);
+            createWidget(__assign(__assign({}, modifiedWidget), { size: '1x1' }));
         });
-        // Loads each post from the directory
-        fetch("./src/blog-entries/".concat(post.file))
-            .then(function (response) { return response.text(); })
-            .then(function (content) {
-            contentElement.innerHTML = content;
-        })
-            .catch(function (error) {
-            console.error("Error loading post content from ".concat(post.file, ":"), error);
-        });
-        postElement.appendChild(postTitleContainer);
-        postElement.appendChild(contentElement);
-        return postElement;
-    };
-    var loadPage = function () {
-        var _a;
-        var timelineElement = document.querySelector(".timeline");
-        var blogElement = document.getElementById("blog");
-        if (!timelineElement || !blogElement)
-            return;
-        timelineElement.innerHTML = "";
-        blogElement.innerHTML = "";
-        // Newest post at the top
-        posts.reverse().forEach(function (post) {
-            var postElement = createPost(post);
-            blogElement.appendChild(postElement);
-            var postTitle = document.createElement("a");
-            postTitle.href = "#".concat(post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, ""));
-            postTitle.classList.add("entry");
-            postTitle.textContent = post.title;
-            postTitle.addEventListener("click", function (event) {
-                var _a, _b;
-                event.preventDefault(); // Prevent default anchor behavior
-                var postId = post.title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, "");
-                var $post = $("#".concat(postId));
-                var $navbar = $(".navbar");
-                if ($post.length && $navbar.length) {
-                    // Expand the post content if it's collapsed
-                    var $content = $post.find(".content");
-                    if ($content.css("display") === "none") {
-                        $post.find(".collapse-button").trigger("click");
-                    }
-                    // Calculate the scroll position
-                    var navbarHeight = $navbar.outerHeight() || 0;
-                    var scrollTo_1 = (_b = (_a = $post.offset()) === null || _a === void 0 ? void 0 : _a.top) !== null && _b !== void 0 ? _b : 0;
-                    // Smooth scroll to the post
-                    $("html, body").animate({
-                        scrollTop: scrollTo_1 - navbarHeight
-                    }, {
-                        duration: 200,
-                        easing: "swing"
-                    });
-                }
-            });
-            timelineElement.appendChild(postTitle);
-        });
-        // Expand the latest post by default
-        if (posts.length > 0) {
-            var latestPost = document.getElementById(posts[0].title.toLowerCase().replace(/[\s]+/g, "-").replace(/[\W]+/g, ""));
-            (_a = latestPost === null || latestPost === void 0 ? void 0 : latestPost.querySelector(".collapse-button")) === null || _a === void 0 ? void 0 : _a.click();
-        }
-    };
-    loadPage();
-    // Timeline toggle functionality
-    var toggleButton = document.querySelector(".timeline-toggle");
-    var timeline = document.querySelector(".timeline");
-    var blogContent = document.getElementById("blog");
-    if (toggleButton && timeline && blogContent) {
-        var isTimelineVisible_1 = window.innerWidth > 780; // For desktop timeline is initially visible
-        var updateTimelineVisibility_1 = function () {
-            if (window.innerWidth > 780) {
-                timeline.style.right = "0";
-                blogContent.style.marginRight = "200px";
-                isTimelineVisible_1 = true;
-            }
-            else {
-                timeline.style.right = isTimelineVisible_1 ? "0" : "-200px";
-                blogContent.style.marginRight = isTimelineVisible_1 ? "200px" : "40px";
-            }
-        };
-        // For mobile only
-        toggleButton.addEventListener("click", function () {
-            isTimelineVisible_1 = !isTimelineVisible_1;
-            updateTimelineVisibility_1();
-        });
-        // Updates timeline ASAP
-        window.addEventListener("resize", updateTimelineVisibility_1);
-        updateTimelineVisibility_1();
     }
+    function handleResize() {
+        createBlogWidgets();
+    }
+    createBlogWidgets();
+    // Use debounce to improve performance
+    var resizeTimeout = null;
+    window.addEventListener('resize', function () {
+        if (resizeTimeout) {
+            window.clearTimeout(resizeTimeout);
+        }
+        resizeTimeout = window.setTimeout(handleResize, 250);
+    });
 }
 function initializeMusicPage() {
     var musicWidgets = [
