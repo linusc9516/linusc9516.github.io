@@ -37,7 +37,6 @@ $mocha-crust: 17, 17, 27;
 	--base-85pct: rgba(#{$mocha-base}, 0.85);
 	--crust: rgb(#{$mocha-crust});
 	--crust-25pct: rgba(#{$mocha-crust}, 0.25);
-	--bg-img: url("../images/bg-dark.webp");
 }
 
 * {
@@ -109,7 +108,6 @@ body {
 		--base-85pct: rgba(204, 208, 218, 0.65);
 		--crust: rgb(220, 224, 232);
 		--crust-25pct: rgba(220, 224, 232, 0.25);
-		--bg-img: url("../images/bg-light.webp");
 	}
 }
 
@@ -222,7 +220,7 @@ body {
 // Adds filter and dynamically adjusts size of background images on all viewports
 /* Background image */
 #bg-img {
-	background-image: var(--bg-img);
+	background-image: url("../images/bg.webp");
 	position: fixed;
 	z-index: -1;
 	inset: 0;
