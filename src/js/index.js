@@ -14,6 +14,8 @@ var lastWidth = window.innerWidth;
 var navbar = document.querySelector(".navbar");
 var backToTopBtn = document.querySelector(".backToTopBtn");
 var widgetContainer = document.getElementById("widget-container");
+var themeToggle = document.getElementById('theme-toggle');
+var themeIcon = document.getElementById('theme-icon');
 // Utility functions
 function debounce(func, wait) {
     var timeout;
@@ -38,6 +40,30 @@ function toggleBackToTopButton() {
     // Toggles button display when over half page is scrolled
     backToTopBtn.style.display = window.scrollY > window.innerHeight * 0.5 ? "block" : "none";
 }
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    if (document.body.classList.contains('light-mode')) {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'light');
+    }
+    else {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+function getTheme() {
+    var storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        themeIcon.classList.add('fa-moon');
+    }
+    else {
+        document.body.classList.remove('light-mode');
+        themeIcon.classList.add('fa-sun');
+    }
+}
 // Updates navbar height whenever window is resized
 window.addEventListener("resize", debounce(function () {
     if (window.innerWidth !== lastWidth) {
@@ -45,26 +71,16 @@ window.addEventListener("resize", debounce(function () {
         location.reload();
     }
     updateNavbarHeight();
+    getTheme();
 }, 250));
 window.addEventListener("scroll", toggleBackToTopButton);
-var themeToggle = document.getElementById('theme-toggle');
-var themeIcon = document.getElementById('theme-icon');
-themeToggle.addEventListener('click', function () {
-    document.body.classList.toggle('light-mode');
-    if (document.body.classList.contains('light-mode')) {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-    }
-    else {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    }
-});
+themeToggle.addEventListener('click', toggleTheme);
 // Initialization when page loaded
 document.addEventListener("DOMContentLoaded", function () {
     var _a;
     updateNavbarHeight();
     toggleBackToTopButton();
+    getTheme();
     // // Navigation items
     // const navItems = document.querySelectorAll<HTMLElement>(".nav-item");
     // const navBtns = document.querySelectorAll<HTMLElement>(".nav-btn");

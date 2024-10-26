@@ -30,8 +30,12 @@ let lastWidth: number = window.innerWidth;
 const navbar: HTMLElement | null = document.querySelector(".navbar");
 const backToTopBtn: HTMLElement | null = document.querySelector(".backToTopBtn");
 const widgetContainer: HTMLElement | null = document.getElementById("widget-container");
+const themeToggle = document.getElementById('theme-toggle') as HTMLElement;
+const themeIcon = document.getElementById('theme-icon') as HTMLElement;
+
 
 // Utility functions
+
 function debounce(func: Function, wait: number): (...args: any[]) => void {
 	let timeout: NodeJS.Timeout;
 	return (...args: any[]) => {
@@ -53,6 +57,30 @@ function toggleBackToTopButton(): void {
 	backToTopBtn.style.display = window.scrollY > window.innerHeight * 0.5 ? "block" : "none";
 }
 
+function toggleTheme() {
+	document.body.classList.toggle('light-mode');
+	if (document.body.classList.contains('light-mode')) {
+		themeIcon.classList.remove('fa-sun');
+		themeIcon.classList.add('fa-moon');
+		localStorage.setItem('theme', 'light');
+	} else {
+		themeIcon.classList.remove('fa-moon');
+		themeIcon.classList.add('fa-sun');
+		localStorage.setItem('theme', 'dark');
+	}
+}
+
+function getTheme() {
+	const storedTheme = localStorage.getItem('theme');
+	if (storedTheme === 'light') {
+		document.body.classList.add('light-mode');
+		themeIcon.classList.add('fa-moon');
+	} else {
+		document.body.classList.remove('light-mode');
+		themeIcon.classList.add('fa-sun');
+	}
+}
+
 // Updates navbar height whenever window is resized
 window.addEventListener("resize", debounce(() => {
 	if (window.innerWidth !== lastWidth) {
@@ -60,29 +88,18 @@ window.addEventListener("resize", debounce(() => {
 		location.reload();
 	}
 	updateNavbarHeight();
+	getTheme();
 }, 250));
 
 window.addEventListener("scroll", toggleBackToTopButton);
 
-const themeToggle = document.getElementById('theme-toggle') as HTMLElement;
-const themeIcon = document.getElementById('theme-icon') as HTMLElement;
-
-themeToggle.addEventListener('click', () => {
-	document.body.classList.toggle('light-mode');
-	if (document.body.classList.contains('light-mode')) {
-		themeIcon.classList.remove('fa-sun');
-		themeIcon.classList.add('fa-moon');
-	} else {
-		themeIcon.classList.remove('fa-moon');
-		themeIcon.classList.add('fa-sun');
-	}
-});
-
+themeToggle.addEventListener('click', toggleTheme);
 
 // Initialization when page loaded
 document.addEventListener("DOMContentLoaded", () => {
 	updateNavbarHeight();
 	toggleBackToTopButton();
+	getTheme();
 
 	// // Navigation items
 	// const navItems = document.querySelectorAll<HTMLElement>(".nav-item");
