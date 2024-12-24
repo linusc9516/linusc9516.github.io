@@ -34,7 +34,7 @@ $mocha-crust: 17, 17, 27;
 	--surface-75pct: rgba(#{$mocha-surface}, 0.75);
 	--base: rgb(#{$mocha-base});
 	--base-60pct: rgba(#{$mocha-base}, 0.6);
-	--base-85pct: rgba(#{$mocha-base}, 0.85);
+	--base-90pct: rgba(#{$mocha-base}, 0.9);
 	--crust: rgb(#{$mocha-crust});
 	--crust-25pct: rgba(#{$mocha-crust}, 0.25);
 }
@@ -105,7 +105,7 @@ body {
 		--surface-75pct: rgba(172, 176, 190, 0.75);
 		--base: rgb(204, 208, 218);
 		--base-60pct: rgba(204, 208, 218, 0.4);
-		--base-85pct: rgba(204, 208, 218, 0.7);
+		--base-90pct: rgba(204, 208, 218, 0.9);
 		--crust: rgb(220, 224, 232);
 		--crust-25pct: rgba(220, 224, 232, 0.25);
 	}
@@ -143,22 +143,22 @@ h1 {
 		}
 	}
 
-	.nav-item {
-		&.nav-active {
-			background: var(--lavender-10pct);
-			border-radius: 0.75rem;
-			pointer-events: none;
+	// .nav-item {
+	// 	&.nav-active {
+	// 		background: var(--lavender-10pct);
+	// 		border-radius: 0.75rem;
+	// 		pointer-events: none;
 
-			&#blog-entry-nav {
-				pointer-events: auto;
+	// 		&#blog-entry-nav {
+	// 			pointer-events: auto;
 
-				&:hover {
-					background: none;
-					border-radius: 0;
-				}
-			}
-		}
-	}
+	// 			&:hover {
+	// 				background: none;
+	// 				border-radius: 0;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	.nav-btn {
 		text-align: center;
@@ -216,11 +216,11 @@ h1 {
 			padding-left: 1rem;
 		}
 
-		.nav-item {
-			&.nav-active {
-				background: none !important; // Remove background on mobile
-			}
-		}
+		// .nav-item {
+		// 	&.nav-active {
+		// 		background: none !important; // Remove background on mobile
+		// 	}
+		// }
 
 		.nav-btn {
 			width: 100%;
@@ -271,7 +271,7 @@ h1 {
 	inset: 0;
 	width: 100%;
 	height: 100%;
-	background-color: var(--base-85pct);
+	background-color: var(--base-90pct);
 }
 
 // Styles the backToTopBtn

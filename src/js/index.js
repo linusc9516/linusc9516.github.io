@@ -283,120 +283,122 @@ function initializeAboutPage() {
 function initializeSocialsPage() {
     // Create widgets
     var socialsWidgets = [
+        // {
+        // 	title: "osu!",
+        // 	content: "Check out my osu! profile~",
+        // 	linkUrl: "https://osu.ppy.sh/users/0",
+        // 	iconUrl: "osu-icon.svg",
+        // 	imageUrl: "osu-header.webp",
+        // },
+        // {
+        // 	title: "Tournament History",
+        // 	content:
+        // 		"Both staffing and playing are included!<br> Displayed below is my most recent banner.",
+        // 	linkUrl:
+        // 		"https://docs.google.com/spreadsheets/d/00000000000000000000000000000000000000000000/edit?gid=2118512619#gid=2118512619",
+        // 	iconUrl: "sheets-icon.svg",
+        // 	imageUrl: "nct2-header.webp",
+        // },
+        // {
+        // 	title: "osekai",
+        // 	content: "Check my medal statistics on osekai!",
+        // 	linkUrl: "https://osekai.net/profiles/?user=0&page=Medals&mode=osu",
+        // 	iconUrl: "osekai-icon.svg",
+        // 	imageUrl: "osekai-header.svg",
+        // },
         {
-            title: "osu!",
-            content: "Check out my osu! profile~",
-            linkUrl: "https://osu.ppy.sh/users/0",
-            iconUrl: "osu-icon.svg",
-            imageUrl: "osu-header.webp",
-        },
-        {
-            title: "Tournament History",
-            content: "Both staffing and playing are included!<br> Displayed below is my most recent banner.",
-            linkUrl: "https://docs.google.com/spreadsheets/d/00000000000000000000000000000000000000000000/edit?gid=2118512619#gid=2118512619",
-            iconUrl: "sheets-icon.svg",
-            imageUrl: "nct2-header.webp",
-        },
-        {
-            title: "osekai",
-            content: "Check my medal statistics on osekai!",
-            linkUrl: "https://osekai.net/profiles/?user=0&page=Medals&mode=osu",
-            iconUrl: "osekai-icon.svg",
-            imageUrl: "osekai-header.svg",
+            title: "Twitter",
+            content: "Follow me on twitter",
+            linkUrl: "https://twitter.com/example",
+            iconUrl: "twitter-icon.svg",
+            imageUrl: "twitter-header.webp",
+            followUrl: "https://twitter.com/intent/user?screen_name=placeholder",
         },
         {
             title: "Youtube",
-            content: "Subscribe to my channel on Youtube!",
+            content: "Subscribe to my channel",
             linkUrl: "https://www.youtube.com/@example",
             iconUrl: "youtube-icon.svg",
             imageUrl: "youtube-header.webp",
             followUrl: "https://www.youtube.com/@example",
         },
-        {
-            title: "Twitter",
-            content: "Follow my main account on Twitter ^^",
-            linkUrl: "https://twitter.com/example",
-            iconUrl: "twitter-icon.svg",
-            imageUrl: "placeholder-header.webp",
-            followUrl: "https://twitter.com/intent/user?screen_name=placeholder",
-        },
-        {
-            title: "RushiaTwt",
-            content: "Follow my Rushia Counting Twitter!",
-            linkUrl: "https://twitter.com/RushiaMyBeloved",
-            iconUrl: "twitter-icon.svg",
-            imageUrl: "rushiamybeloved-header.webp",
-            followUrl: "https://twitter.com/intent/user?screen_name=RushiaMyBeloved",
-        },
+        // {
+        // 	title: "RushiaTwt",
+        // 	content: "Follow my Rushia Counting Twitter!",
+        // 	linkUrl: "https://twitter.com/RushiaMyBeloved",
+        // 	iconUrl: "twitter-icon.svg",
+        // 	imageUrl: "rushiamybeloved-header.webp",
+        // 	followUrl: "https://twitter.com/intent/user?screen_name=RushiaMyBeloved",
+        // },
         {
             title: "Discord server",
-            content: "Join my server! :3",
+            content: "Join my server",
             linkUrl: "https://discord.gg/000000",
             iconUrl: "discord-icon.svg",
             imageUrl: "server-header.webp",
         },
         {
             title: "Discord account",
-            content: "Invite me as friend nya~",
+            content: "Add me as friend",
             linkUrl: "https://discord.com/users/0",
             iconUrl: "discord-icon.svg",
             imageUrl: "discord-header.webp",
         },
         {
             title: "GitHub",
-            content: "Check out my projects on GitHub~",
+            content: "Check out my projects",
             linkUrl: "https://github.com/example",
             iconUrl: "github-icon.svg",
             imageUrl: "github-pfp.webp",
         },
         {
             title: 'Spotify',
-            content: 'Check out my account for playlists!',
+            content: 'Check out my account for playlists',
             linkUrl: 'https://open.spotify.com/user/0000000000000000000000?si=0abff12c86554294',
             iconUrl: 'spotify-icon.svg',
             imageUrl: 'spotify-pfp.webp',
         },
-        {
-            title: 'SoundCloud',
-            content: 'Check out my SoundCloud!',
-            linkUrl: 'https://soundcloud.com/example',
-            iconUrl: 'soundcloud-icon.svg',
-            imageUrl: 'soundcloud-pfp.webp',
-        },
+        // {
+        // 	title: 'SoundCloud',
+        // 	content: 'Check out my account for playlists',
+        // 	linkUrl: 'https://soundcloud.com/example',
+        // 	iconUrl: 'soundcloud-icon.svg',
+        // 	imageUrl: 'soundcloud-pfp.webp',
+        // },
         {
             title: "Last.fm",
-            content: 'More stats available on the <a class="socials-link" href="./music">Music</a> Tab!',
+            content: 'More stats available on the <a class="socials-link" href="./music">Music</a> Tab.',
             linkUrl: "https://last.fm/user/placeholder",
             iconUrl: "lastfm-icon.svg",
             imageUrl: "lastfm-pfp.webp",
         },
         {
             title: "Steam",
-            content: "Add me as friend on steam! (Highly inactive)",
+            content: "Add me on steam",
             linkUrl: "https://steamcommunity.com/id/example/",
             iconUrl: "steam-icon.svg",
             imageUrl: "steam-pfp.webp",
         },
-        {
-            title: "Twitch",
-            content: "My twitch account (Rarely streams)",
-            linkUrl: "https://twitch.tv/example/",
-            iconUrl: "twitch-icon.svg",
-            imageUrl: "twitch-pfp.webp",
-        },
-        {
-            title: "Fantasy PL",
-            content: "My FPL miniLeague for 24/25 Season!",
-            linkUrl: "https://fantasy.premierleague.com/leagues/142567/standings/c",
-            imageUrl: "pl-icon.webp",
-            followUrl: "https://fantasy.premierleague.com/leagues/auto-join/hzwugs",
-        },
-        {
-            title: "Football server",
-            content: "Join my other discord server for football chats!",
-            linkUrl: "https://discord.gg/gEkbpjKtrH",
-            imageUrl: "discord-icon.svg",
-        },
+        // {
+        // 	title: "Twitch",
+        // 	content: "My twitch account (Rarely streams)",
+        // 	linkUrl: "https://twitch.tv/example/",
+        // 	iconUrl: "twitch-icon.svg",
+        // 	imageUrl: "twitch-pfp.webp",
+        // },
+        // {
+        // 	title: "Fantasy PL",
+        // 	content: "My FPL miniLeague for 24/25 Season!",
+        // 	linkUrl: "https://fantasy.premierleague.com/leagues/142567/standings/c",
+        // 	imageUrl: "pl-icon.webp",
+        // 	followUrl: "https://fantasy.premierleague.com/leagues/auto-join/hzwugs",
+        // },
+        // {
+        // 	title: "Football server",
+        // 	content: "Join my other discord server for football chats!",
+        // 	linkUrl: "https://discord.gg/gEkbpjKtrH",
+        // 	imageUrl: "discord-icon.svg",
+        // },
         // More widgets TBA...
     ];
     function createSocialsWidgets() {
@@ -429,13 +431,13 @@ function initializeBlogPage() {
         },
         {
             title: "Restarting the project.",
-            content: "Check out my decision to remake this website.",
+            content: "My decision to remake this website.",
             date: "15-05-24",
             blogUrl: "../../blog-entries/restarting",
         },
         {
             title: "First post.",
-            content: "My first blog post.",
+            content: "Where all it began",
             date: "09-02-22",
             blogUrl: "../../blog-entries/first-post",
         },
@@ -463,28 +465,28 @@ function initializeMusicPage() {
     var musicWidgets = [
         {
             title: 'Spotify Main Playlist',
-            content: 'Bangers only!',
+            content: 'My favourite songs',
             linkUrl: 'https://open.spotify.com/playlist/1mVNP66DkhroJRds67UTpK?si=54674a5aa28b45c2',
             iconUrl: 'spotify-icon.svg',
             embedHTML: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1mVNP66DkhroJRds67UTpK?utm_source=generator" width="100%" height="700" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
         },
         {
-            title: 'Spotify Emotional Playlist',
-            content: 'Slow, relaxing songs to listen~',
+            title: 'Spotify Playlist ft. my gf',
+            content: 'Relaxing songs',
             linkUrl: 'https://open.spotify.com/playlist/2Uf4ughAQi6HkvmVWi8dvp?si=149d58e91e3b4136',
             iconUrl: 'spotify-icon.svg',
             embedHTML: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Uf4ughAQi6HkvmVWi8dvp?utm_source=generator" width="100%" height="700" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
         },
         {
             title: 'YouTube Playlist',
-            content: 'My playlist on YT!',
+            content: 'My playlist for covers/remixes that aren\'t on Spotify',
             linkUrl: 'https://youtube.com/playlist?list=PLKKggsa6p95NFOOrnmM50O6YGxIaaxGUw',
             iconUrl: 'youtube-icon.svg',
             embedHTML: '<iframe width="100%" height="700" src="https://www.youtube.com/embed/?listType=playlist&list=PLKKggsa6p95NFOOrnmM50O6YGxIaaxGUw&index=13" frameborder="0" allowfullscreen>',
         },
         {
             title: 'Soundcloud Remix Playlist',
-            content: 'My favourite remixes!',
+            content: 'My favourite remixes',
             linkUrl: 'https://on.soundcloud.com/nCveaVp69jXKdgcp9',
             iconUrl: 'soundcloud-icon.svg',
             embedHTML: '<iframe width="100%" height="700" scrolling="no" frameborder="no" allow="autoplay" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1821604341&color=%2354405a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/example" title="placeholder" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
@@ -500,7 +502,7 @@ function initializeMusicPage() {
             if (modifiedWidget.embedHTML) {
                 if (modifiedWidget.embedHTML.toLowerCase().includes('soundcloud') && isMobile) {
                     // Clear embedHTML for SoundCloud widgets
-                    modifiedWidget.content = "My favourite remixes on SoundCloud!<br> SoundCloud playlist embed unfortunately is broken on mobile... but you can still click the link to see the full playlist!";
+                    modifiedWidget.content = "My favourite remixes on SoundCloud!<br> SoundCloud playlist embed unfortunately is broken on mobile, but you can still click the link to see the full playlist!";
                     modifiedWidget.embedHTML = undefined;
                 }
                 else {
