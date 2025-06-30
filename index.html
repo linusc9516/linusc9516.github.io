@@ -27,42 +27,129 @@
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/53cb7cf0f5.js" crossorigin="anonymous"></script>
-	<link href="./src/css/styles.css" rel="stylesheet">
+	<link href="./src/css/global.css" rel="stylesheet">
+	<link href="./src/css/index.css" rel="stylesheet">
 	<style>
 		@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap");
 	</style>
-	<title>placeholder's Homepage</title>
+	<title>placeholder</title>
 </head>
 
-<body id="homepage-body">
-	<div class="image-container">
-		<img id="bg-img" id="bg-home">
-	</div>
-	<section id="home-overlay">
-		<header>
-			<img src="./src/images/github-pfp.webp" alt="avatar" id="pfp">
-			<section>
-				<h1>placeholder's Page</h1>
-				<ul class="list-group list-group-horizontal bg-transparent border-0" id="index-nav">
-					<li class="list-group-item bg-transparent border-0">
-						<a class="nav-btn nav-link index-link" id="index-about" href="./about">About</a>
-					</li>
-					<li class="list-group-item bg-transparent border-0">
-						<a class="nav-btn nav-link index-link" href="./socials">Socials</a>
-					</li>
-					<li class="list-group-item bg-transparent border-0">
-						<a class="nav-btn nav-link index-link" href="./blog">Blog</a>
-					</li>
-					<li class="list-group-item bg-transparent border-0">
-						<a class="nav-link nav-btn index-link" href="./music">Music</a>
-					</li>
-					<!-- <li class="nav-item px-3">
-                        <a class="nav-link disabled nav-btn" href="./projects">Projects</a>
-                    </li>-->
-				</ul>
-			</section>
-		</header>
+<body>
+	<div class="bg-container"></div>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+		<a class="navbar-brand" href="/"><img src="./src/images/github-pfp.webp" alt="placeholder"
+				class="brand-logo">placeholder</a>
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item">
+					<a class="nav-link disabled" href="./projects">Projects</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="./blog">Blog</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./music">Music</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- Landing Section -->
+	<section id="landing" class="landing-section">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-8 col-md-10 mx-auto text-center">
+					<img src="./src/images/github-pfp.webp" alt="placeholder" class="profile-image mb-4">
+					<h1 class="display-1 mb-3">placeholder</h1>
+					<p class="lead mb-4">Welcome to my homepage.</p>
+
+					<!-- Social Links -->
+					<div class="social-links">
+						<a href="https://osu.ppy.sh/users/0" target="_blank" rel="noopener noreferrer"
+							class="social-link">
+							<img src="./src/images/osu-icon.svg" alt="osu!" class="social-icon">
+							<span>osu!</span>
+						</a>
+						<a href="https://twitter.com/linusc9516" target="_blank" rel="noopener noreferrer"
+							class="social-link">
+							<img src="./src/images/twitter-icon.svg" alt="Twitter/X" class="social-icon">
+							<span>twitter/x</span>
+						</a>
+						<a href="https://instagram.com/linusc9516" target="_blank" rel="noopener noreferrer"
+							class="social-link">
+							<img src="./src/images/instagram-icon.svg" alt="Instagram" class="social-icon">
+							<span>instagram</span>
+						</a>
+						<a href="https://github.com/example" target="_blank" rel="noopener noreferrer"
+							class="social-link">
+							<img src="./src/images/github-icon.svg" alt="GitHub" class="social-icon">
+							<span>github</span>
+						</a>
+						<a href="https://linkedin.com/in/linusc9516" target="_blank" rel="noopener noreferrer"
+							class="social-link">
+							<i class="fab fa-linkedin social-icon"></i>
+							<span>linkedin</span>
+						</a>
+					</div>
+
+					<div class="scroll-indicator mt-5">
+						<i class="fas fa-chevron-down"></i>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
+
+	<!-- About Section -->
+	<section id="about" class="about-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<h2 class="section-title mb-5">Hey there!</h2>
+
+					<div class="about-content">
+						<p class="about-text">
+							My name is Linus, but you can call me placeholder. I'm passionate about programming, music, and
+							reading. I also enjoy playing games occasionally to relax.
+						</p>
+
+						<p class="about-text">
+							I enjoy working on various coding projects and exploring new technologies.
+							When I'm not coding, you can find me playing rhythm games like osu!,
+							discovering new music to add to my playlists, or reading visual novels.
+						</p>
+
+						<p class="about-text">
+							Feel free to check out my projects, listen to my music playlists,
+							or read my blog posts about my encounters.
+						</p>
+
+						<p class="about-text">
+							If you have any ideas for collaboration or just want to chat, don't hesitate to reach out
+							via my socials or email!
+						</p>
+					</div>
+
+					<!-- Contact -->
+					<div class="contact-section mt-5">
+						<p class="contact-text">
+							Contact: <a href="mailto:linusc9516@gmail.com" class="contact-link">linusc9516@gmail.com</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="./src/js/index.js"></script>
 </body>
 
 </html>
