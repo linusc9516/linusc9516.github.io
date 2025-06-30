@@ -1,20 +1,4 @@
 // Initializes types
-interface Skill {
-	[key: string]: string[];
-}
-
-interface socialsWidget {
-	title: string;
-	content: string;
-	date?: string;
-	linkUrl?: string;
-	blogUrl?: string;
-	iconUrl?: string;
-	imageUrl?: string;
-	embedHTML?: string;
-	followUrl?: string;
-	size?: string;
-}
 
 interface Post {
 	title: string;
@@ -41,11 +25,7 @@ interface musicWidget {
 // Global variables
 let lastWidth: number = window.innerWidth;
 const navbar: HTMLElement | null = document.querySelector(".navbar");
-const backToTopBtn: HTMLElement | null = document.querySelector(".backToTopBtn");
 const widgetContainer: HTMLElement | null = document.getElementById("widget-container");
-const themeToggle = document.getElementById('theme-toggle') as HTMLElement;
-const themeIcon = document.getElementById('theme-icon') as HTMLElement;
-
 
 // Utility functions
 
@@ -64,42 +44,6 @@ function updateNavbarHeight(): void {
 	}
 }
 
-function toggleBackToTopButton(): void {
-	if (!backToTopBtn) return; // Prevents errors on pages wtih no button
-	// Toggles button display when over half page is scrolled
-	backToTopBtn.style.display = window.scrollY > window.innerHeight * 0.5 ? "block" : "none";
-}
-
-function toggleTheme() {
-	document.body.classList.toggle('light-mode');
-	if (document.body.classList.contains('light-mode')) {
-		themeIcon.classList.remove('fa-sun');
-		themeIcon.classList.add('fa-moon');
-		navbar?.classList.remove('navbar-dark');
-		navbar?.classList.add('navbar-light');
-		localStorage.setItem('theme', 'light');
-	} else {
-		themeIcon.classList.remove('fa-moon');
-		themeIcon.classList.add('fa-sun');
-		navbar?.classList.remove('navbar-light');
-		navbar?.classList.add('navbar-dark');
-		localStorage.setItem('theme', 'dark');
-	}
-}
-
-function getTheme() {
-	const storedTheme = localStorage.getItem('theme');
-	if (storedTheme === 'light') {
-		document.body.classList.add('light-mode');
-		navbar?.classList.add('navbar-light')
-		themeIcon.classList.add('fa-moon');
-	} else {
-		document.body.classList.remove('light-mode');
-		navbar?.classList.add('navbar-dark')
-		themeIcon.classList.add('fa-sun');
-	}
-}
-
 // Updates navbar height whenever window is resized
 window.addEventListener("resize", debounce(() => {
 	if (window.innerWidth !== lastWidth) {
@@ -107,39 +51,16 @@ window.addEventListener("resize", debounce(() => {
 		location.reload();
 	}
 	updateNavbarHeight();
-	getTheme();
 }, 250));
 
-window.addEventListener("scroll", toggleBackToTopButton);
-
-themeToggle.addEventListener('click', toggleTheme);
 
 // Initialization when page loaded
 document.addEventListener("DOMContentLoaded", () => {
 	updateNavbarHeight();
-	toggleBackToTopButton();
-	getTheme();
-
-	// // Navigation items
-	// const navItems = document.querySelectorAll<HTMLElement>(".nav-item");
-	// const navBtns = document.querySelectorAll<HTMLElement>(".nav-btn");
-
-	// // Adds cursor style to disabled nav links
-	// navItems.forEach((item, index) => {
-	// 	if (navBtns[index].classList.contains("disabled")) {
-	// 		item.style.cursor = "not-allowed";
-	// 	}
-	// });
 
 	// Page-specific functionality
 	const currentPage = window.location.pathname.split("/").pop()?.toLowerCase();
 	switch (currentPage) {
-		case "about":
-			initializeAboutPage();
-			break;
-		case "socials":
-			initializeSocialsPage();
-			break;
 		case "blog":
 			initializeBlogPage();
 			break;
@@ -149,24 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 });
 
-// jQuery function for smooth scrolling to the top
-$(() => {
-	const $backToTopBtn: JQuery<HTMLElement> = $(".backToTopBtn");
-
-	// If Btn exists and is clicked, init scroll
-	if ($backToTopBtn.length) {
-		$backToTopBtn.on("click", (event: JQuery.ClickEvent) => {
-			event.preventDefault();
-			$("html, body").animate({ scrollTop: 0 }, {
-				duration: 200,
-				easing: "swing"
-			});
-		});
-	}
-});
 
 // Widget creating function (reused in both socials & music for playlists)
-const createWidget = (options: socialsWidget): void => {
+const createWidget = (options): void => {
 
 	// Entire widget body is a link
 	const widget = document.createElement("a");
@@ -243,249 +149,8 @@ const createWidget = (options: socialsWidget): void => {
 		widget.appendChild(embedContent);
 	}
 
-	widgetContainer?.appendChild(widget); // Yay we finally made a widget dynamically, only took 70 lines
+	widgetContainer?.appendChild(widget);
 };
-
-// Page-specific functions
-function initializeAboutPage(): void {
-	const aboutHeader = document.querySelector<HTMLElement>('.about-header');
-	const aboutContent = document.querySelector<HTMLElement>('.about-content');
-	const caret = document.querySelector<HTMLElement>('.mobile-caret');
-
-	if (aboutHeader && aboutContent && caret) {
-		aboutHeader.addEventListener('click', () => {
-			if (window.innerWidth <= 768) {
-				// Functionality to toggle expand/collapse the About Me section on mobile
-				aboutContent.classList.toggle('collapsed');
-				caret.classList.toggle('fa-caret-down');
-				caret.classList.toggle('fa-caret-up');
-			}
-		});
-	}
-
-	const skills: Skill = {
-		beginner: [
-			"TensorFlow",
-			"Flask",
-			"Julia (Learning)",
-			"Basic responsive web design",
-			"C++",
-			"jQuery",
-			"Git",
-		],
-		intermediate: [
-			"Statistical models",
-			"Pyplot/Matplotlib",
-			"Seaborn",
-			"HTML5",
-			"SCSS + Bootstrap 5",
-			"JavaScript/Typescript",
-		],
-		advanced: ["Python", "SQL (SQLite3)"],
-	};
-
-	const skillsLists: { [key: string]: HTMLElement | null } = {
-		beginner: document.getElementById("beginner-skills"),
-		intermediate: document.getElementById("intermediate-skills"),
-		advanced: document.getElementById("advanced-skills"),
-	};
-
-	// Populate skills lists
-	Object.entries(skills).forEach(([level, skillSet]) => {
-		const list = skillsLists[level];
-		if (list) {
-			skillSet.forEach((skill) => {
-				const li = document.createElement("li");
-				li.textContent = skill;
-				list.appendChild(li);
-			});
-		}
-	});
-
-	// Tab functionality
-	const tabButtons = document.querySelectorAll<HTMLElement>(".tab-button");
-	const skillsContainers = document.querySelectorAll<HTMLElement>(".skills-list");
-
-	tabButtons.forEach((button) => {
-		button.addEventListener("click", () => {
-			const tab = button.dataset.tab;
-			if (!tab) return;
-
-			tabButtons.forEach((btn) => btn.classList.remove("skills-active"));
-			skillsContainers.forEach((list) => list.classList.remove("skills-active"));
-
-			button.classList.add("skills-active");
-			const activeList = document.getElementById(`${tab}-skills`);
-			if (activeList) {
-				activeList.classList.add("skills-active");
-				animateSkills(activeList);
-			}
-		});
-	});
-
-	function animateSkills(skillsList: HTMLElement): void {
-		const skillItems = skillsList.querySelectorAll<HTMLElement>("li");
-		skillItems.forEach((item, index) => {
-			item.style.opacity = "0";
-			item.style.transform = "translateY(20px)";
-			setTimeout(() => {
-				item.style.opacity = "1";
-				item.style.transform = "translateY(0)";
-			}, index * 50);
-		});
-	}
-}
-
-
-function initializeSocialsPage(): void {
-	// Create widgets
-	const socialsWidgets: socialsWidget[] = [
-		// {
-		// 	title: "osu!",
-		// 	content: "Check out my osu! profile~",
-		// 	linkUrl: "https://osu.ppy.sh/users/0",
-		// 	iconUrl: "osu-icon.svg",
-		// 	imageUrl: "osu-header.webp",
-		// },
-		// {
-		// 	title: "Tournament History",
-		// 	content:
-		// 		"Both staffing and playing are included!<br> Displayed below is my most recent banner.",
-		// 	linkUrl:
-		// 		"https://docs.google.com/spreadsheets/d/00000000000000000000000000000000000000000000/edit?gid=2118512619#gid=2118512619",
-		// 	iconUrl: "sheets-icon.svg",
-		// 	imageUrl: "nct2-header.webp",
-		// },
-		// {
-		// 	title: "osekai",
-		// 	content: "Check my medal statistics on osekai!",
-		// 	linkUrl: "https://osekai.net/profiles/?user=0&page=Medals&mode=osu",
-		// 	iconUrl: "osekai-icon.svg",
-		// 	imageUrl: "osekai-header.svg",
-		// },
-		{
-			title: "Twitter",
-			content: "Follow me on twitter",
-			linkUrl: "https://twitter.com/example",
-			iconUrl: "twitter-icon.svg",
-			imageUrl: "twitter-header.webp",
-			followUrl: "https://twitter.com/intent/user?screen_name=placeholder",
-		},
-		{
-			title: "Youtube",
-			content: "Subscribe to my channel",
-			linkUrl: "https://www.youtube.com/@example",
-			iconUrl: "youtube-icon.svg",
-			imageUrl: "youtube-header.webp",
-			followUrl: "https://www.youtube.com/@example",
-		},
-		// {
-		// 	title: "RushiaTwt",
-		// 	content: "Follow my Rushia Counting Twitter!",
-		// 	linkUrl: "https://twitter.com/RushiaMyBeloved",
-		// 	iconUrl: "twitter-icon.svg",
-		// 	imageUrl: "rushiamybeloved-header.webp",
-		// 	followUrl: "https://twitter.com/intent/user?screen_name=RushiaMyBeloved",
-		// },
-		{
-			title: "Discord server",
-			content: "Join my server",
-			linkUrl: "https://discord.gg/000000",
-			iconUrl: "discord-icon.svg",
-			imageUrl: "server-header.webp",
-		},
-		{
-			title: "Discord account",
-			content: "Add me as friend",
-			linkUrl: "https://discord.com/users/0",
-			iconUrl: "discord-icon.svg",
-			imageUrl: "discord-header.webp",
-		},
-		{
-			title: "GitHub",
-			content: "Check out my projects",
-			linkUrl: "https://github.com/example",
-			iconUrl: "github-icon.svg",
-			imageUrl: "github-pfp.webp",
-		},
-		{
-			title: 'Spotify',
-			content: 'Check out my account for playlists',
-			linkUrl: 'https://open.spotify.com/user/0000000000000000000000?si=0abff12c86554294',
-			iconUrl: 'spotify-icon.svg',
-			imageUrl: 'spotify-pfp.webp',
-		},
-		// {
-		// 	title: 'SoundCloud',
-		// 	content: 'Check out my account for playlists',
-		// 	linkUrl: 'https://soundcloud.com/example',
-		// 	iconUrl: 'soundcloud-icon.svg',
-		// 	imageUrl: 'soundcloud-pfp.webp',
-		// },
-		{
-			title: "Last.fm",
-			content:
-				'More stats available on the <a class="socials-link" href="./music">Music</a> Tab.',
-			linkUrl: "https://last.fm/user/placeholder",
-			iconUrl: "lastfm-icon.svg",
-			imageUrl: "lastfm-pfp.webp",
-		},
-		{
-			title: "Steam",
-			content: "Add me on steam",
-			linkUrl: "https://steamcommunity.com/id/example/",
-			iconUrl: "steam-icon.svg",
-			imageUrl: "steam-pfp.webp",
-		},
-		// {
-		// 	title: "Twitch",
-		// 	content: "My twitch account (Rarely streams)",
-		// 	linkUrl: "https://twitch.tv/example/",
-		// 	iconUrl: "twitch-icon.svg",
-		// 	imageUrl: "twitch-pfp.webp",
-		// },
-		// {
-		// 	title: "Fantasy PL",
-		// 	content: "My FPL miniLeague for 24/25 Season!",
-		// 	linkUrl: "https://fantasy.premierleague.com/leagues/142567/standings/c",
-		// 	imageUrl: "pl-icon.webp",
-		// 	followUrl: "https://fantasy.premierleague.com/leagues/auto-join/hzwugs",
-		// },
-		// {
-		// 	title: "Football server",
-		// 	content: "Join my other discord server for football chats!",
-		// 	linkUrl: "https://discord.gg/gEkbpjKtrH",
-		// 	imageUrl: "discord-icon.svg",
-		// },
-		// More widgets TBA...
-	]
-
-	function createSocialsWidgets(): void {
-		socialsWidgets.forEach((widget: socialsWidget) => {
-			let modifiedWidget: socialsWidget = { ...widget };
-
-			createWidget({
-				...modifiedWidget,
-				size: '1x1'
-			});
-		});
-	}
-
-	function handleResize(): void {
-		createSocialsWidgets();
-	}
-
-	createSocialsWidgets();
-
-	// Use debounce to improve performance
-	let resizeTimeout: number | null = null;
-	window.addEventListener('resize', () => {
-		if (resizeTimeout) {
-			window.clearTimeout(resizeTimeout);
-		}
-		resizeTimeout = window.setTimeout(handleResize, 250);
-	});
-}
 
 function initializeBlogPage(): void {
 	const blogWidgets: blogWidget[] = [
@@ -497,14 +162,14 @@ function initializeBlogPage(): void {
 			blogUrl: "../../blog-entries/dev-diary",
 		},
 		{
-			title: "Restarting the project.",
+			title: "Restarting the site.",
 			content: "My decision to remake this website.",
 			date: "15-05-24",
 			blogUrl: "../../blog-entries/restarting",
 		},
 		{
 			title: "First post.",
-			content: "Where all it began",
+			content: "Where all it began.`",
 			date: "09-02-22",
 			blogUrl: "../../blog-entries/first-post",
 		},
@@ -540,14 +205,14 @@ function initializeBlogPage(): void {
 function initializeMusicPage(): void {
 	const musicWidgets: musicWidget[] = [
 		{
-			title: 'Spotify Main Playlist',
+			title: 'Main Spotify Playlist',
 			content: 'My favourite songs',
 			linkUrl: 'https://open.spotify.com/playlist/1mVNP66DkhroJRds67UTpK?si=54674a5aa28b45c2',
 			iconUrl: 'spotify-icon.svg',
 			embedHTML: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1mVNP66DkhroJRds67UTpK?utm_source=generator" width="100%" height="700" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
 		},
 		{
-			title: 'Spotify Playlist ft. my gf',
+			title: 'Another Spotify Playlist',
 			content: 'Relaxing songs',
 			linkUrl: 'https://open.spotify.com/playlist/2Uf4ughAQi6HkvmVWi8dvp?si=149d58e91e3b4136',
 			iconUrl: 'spotify-icon.svg',

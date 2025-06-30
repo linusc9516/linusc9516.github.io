@@ -1,0 +1,430 @@
+/* GLOBAL STYLES */
+/* ------------------------------------ */
+@font-face {
+  font-family: "Dosis Bold";
+  src: url("../font/Dosis-VariableFont_wght.ttf") format("truetype");
+  font-weight: 500;
+  font-style: bold;
+  font-family: "Dosis";
+  src: url("../font/Dosis-VariableFont_wght.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+// Catppuccin Mocha palette
+$mocha-white: 240, 216, 229;
+$mocha-teal: 148, 226, 213;
+$mocha-sky: 137, 220, 235;
+$mocha-lavender: 180, 190, 254;
+$mocha-text: 205, 214, 244;
+$mocha-surface: 49, 50, 68;
+$mocha-base: 30, 30, 46;
+$mocha-crust: 17, 17, 27;
+
+:root {
+  --navbar-height: 0px; // Will be dynamically set in js
+  --white: rgb(#{$mocha-white});
+  --teal: rgb(#{$mocha-teal});
+  --sky: rgb(#{$mocha-sky});
+  --lavender: rgb(#{$mocha-lavender});
+  --lavender-10pct: rgba(#{$mocha-lavender}, 0.1);
+  --lavender-30pct: rgba(#{$mocha-lavender}, 0.3);
+  --text: rgb(#{$mocha-text});
+  --surface: rgb(#{$mocha-surface});
+  --surface-30pct: rgba(#{$mocha-surface}, 0.3);
+  --surface-75pct: rgba(#{$mocha-surface}, 0.75);
+  --base: rgb(#{$mocha-base});
+  --base-30pct: rgba(#{$mocha-base}, 0.3);
+  --base-60pct: rgba(#{$mocha-base}, 0.6);
+  --base-80pct: rgba(#{$mocha-base}, 0.8);
+  --base-90pct: rgba(#{$mocha-base}, 0.9);
+  --crust: rgb(#{$mocha-crust});
+  --crust-25pct: rgba(#{$mocha-crust}, 0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Dosis", system-ui, "sans serif";
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  font-family: "Dosis", system-ui, "sans serif";
+
+  // IE Scrollbar styles
+  scrollbar-face-color: var(--white);
+  scrollbar-base-color: var(--white);
+  scrollbar-3dlight-color: var(--white);
+  scrollbar-highlight-color: var(--white);
+  scrollbar-track-color: var(--lavender);
+  scrollbar-arrow-color: var(--lavender);
+  scrollbar-shadow-color: var(--white);
+
+  // Chrome Scrollbar styless
+  ::-webkit-scrollbar {
+    width: 0.7rem;
+    height: 0.2rem;
+  }
+  ::-webkit-scrollbar-button {
+    background-color: var(--white);
+    ::-webkit-scrollbar-track {
+      background-color: var(--white);
+    }
+    ::-webkit-scrollbar-track-piece {
+      background-color: var(--lavender);
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 3rem;
+      background-color: var(--white);
+      border-radius: 2rem;
+    }
+    ::-webkit-scrollbar-corner {
+      background-color: var(--white);
+    }
+    ::-webkit-resizer {
+      background-color: var(--white);
+    }
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+}
+
+h1 {
+  color: var(--lavender);
+  font-size: 4rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px var(--lavender-30pct);
+  text-transform: none;
+}
+
+// Navbar styling
+.navbar {
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  background-color: var(--crust);
+  z-index: 1000;
+  border-radius: 0.2rem;
+  padding: 0.5rem 1.5rem;
+
+  .navbar-brand {
+    padding: 0.5rem;
+    color: var(--lavender);
+    font-weight: 700;
+    font-size: 1.75rem;
+    img {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .nav-link {
+    text-align: center;
+    color: var(--teal);
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--sky);
+      transform: scale(1);
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 0;
+        height: 3px;
+        border-radius: 10px;
+        background-color: var(--sky);
+        animation: underline 0.5s cubic-bezier(0.51, 0.07, 0.27, 0.85) forwards;
+      }
+
+      @keyframes underline {
+        0% {
+          width: 0;
+        }
+
+        100% {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+// Add these new styles for mobile view
+
+@media (max-width: 768px) {
+  // This is Bootstrap's default breakpoint for md
+  .navbar {
+    width: 100%;
+    .navbar-brand {
+      padding-left: 1rem;
+    }
+
+    // .nav-item {
+    // 	&.nav-active {
+    // 		background: none !important; // Remove background on mobile
+    // 	}
+    // }
+
+    .nav-btn {
+      width: 100%;
+      text-align: left;
+      &:hover::after {
+        animation: none !important;
+      }
+    }
+
+    #theme-toggle {
+      position: static;
+      margin-left: 1rem;
+      text-align: left;
+    }
+  }
+}
+
+// Adds filter and dynamically adjusts size of background images on all viewports
+/* Background image */
+.bg-container {
+  background-image: url("../images/bg.webp");
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.003); // Fixes border issues
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--base-90pct);
+  }
+}
+
+@media (max-width: 768px) {
+  .bg-container {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    transform: none;
+    object-fit: cover;
+  }
+}
+
+// Styles text-based links
+.socials-link {
+  color: var(--teal);
+
+  &:hover {
+    color: var(--sky);
+  }
+}
+
+// Styles global widgets
+
+#widget-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // 4 1x1 widgets per row
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+// Styles individual widgets
+.widget {
+  background-color: var(--lavender-10pct);
+  backdrop-filter: brightness(1.2);
+  border-radius: 0.5rem;
+  padding: 20px;
+  box-shadow: 0 8px 12px var(--crust);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 20px var(--crust);
+  }
+
+  .widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .title-container {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    .widget-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+      object-fit: contain;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 2rem;
+      color: var(--lavender);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .follow-button {
+      display: inline-block;
+      padding: 8px 16px;
+      font-size: 1.25rem;
+      white-space: nowrap;
+      text-decoration: none;
+      border-radius: 3rem;
+      transition: background-color 0.2s, transform 0.1s;
+      color: var(--teal);
+      background-color: var(--crust);
+
+      &:hover {
+        color: var(--crust);
+        background-color: var(--sky);
+        transform: translateY(-3px);
+      }
+    }
+  }
+
+  p {
+    margin: 0 0 15px 0;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  // Ensures embed content of the widgets maintain aspect ratio and fit the widgets accordingly
+  .embed-content {
+    display: flex;
+
+    img,
+    iframe {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 0.5rem;
+    }
+
+    iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: none;
+    }
+  }
+
+  // Gives correct grid formatting with different sized widgets (Only used in musicWidgets)
+  &.size-1x1 {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  &.size-1x2 {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+
+  &.size-2x1 {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  &.size-2x2 {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+// Responsive design of the grids on smaller devices
+@media (min-width: 1201px) {
+  #widget-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .widget {
+    &.size-1x1 {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+    &.size-1x2 {
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+    &.size-2x1 {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+    &.size-2x2 {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1200px) {
+  #widget-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .widget {
+    &.size-2x1,
+    &.size-2x2 {
+      grid-column: span 2;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  #widget-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .widget {
+    &.size-1x1,
+    &.size-1x2,
+    &.size-2x1,
+    &.size-2x2 {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  #widget-container {
+    grid-template-columns: 1fr;
+  }
+}
