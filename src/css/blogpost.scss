@@ -1,3 +1,6 @@
+.navbar {
+  width: 100vw;
+}
 #blog-section {
   min-height: 100vh;
   padding: calc(var(--navbar-height) + 3rem) 8rem;
@@ -47,16 +50,12 @@
     padding: calc(var(--navbar-height) + 2rem) 1.5rem;
     padding-bottom: 0;
 
-    p {
-      font-size: 1rem;
-      line-height: 1.2;
-    }
     h2 {
       font-size: 1.5rem;
-      margin-top: 1.2rem;
+      margin-top: 1.25rem;
     }
     h3 {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       margin-top: 1rem;
     }
   }

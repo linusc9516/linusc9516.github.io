@@ -94,9 +94,11 @@ var createWidget = function (options) {
     contentElement.innerHTML = options.content;
     contentElement.style.textDecoration = "none";
     widget.appendChild(contentElement);
-    var date = document.createElement("p");
-    date.innerHTML = options.date;
-    widget.appendChild(date);
+    if (options.date) {
+        var date = document.createElement("h3");
+        date.innerHTML = options.date;
+        widget.appendChild(date);
+    }
     if (options.imageUrl || options.embedHTML) {
         var embedContent = document.createElement("div");
         embedContent.className = "embed-content";

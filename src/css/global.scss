@@ -265,6 +265,15 @@ h1 {
   box-shadow: 0 0.5rem 0.75rem var(--crust);
   transition: transform 0.2s, box-shadow 0.2s;
 
+  h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--teal);
+    font-weight: 500;
+    padding-bottom: 0.5rem;
+  }
+
   &:hover {
     transform: translateY(-0.3125rem);
     box-shadow: 0 1rem 1.25rem var(--crust);
@@ -412,10 +421,40 @@ h1 {
 @media (max-width: 62.5rem) {
   #widget-container {
     grid-template-columns: 1fr;
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
   }
 }
 
 @media (max-width: 48rem) {
+  .navbar {
+    padding: 1rem;
+
+    .navbar-brand {
+      padding: 0;
+    }
+
+    .nav-link {
+      font-size: 1.25rem;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      &:hover {
+        &::after {
+          animation: none;
+        }
+      }
+    }
+  }
+
   .contact-section {
     padding: 1rem 0;
     width: 100vw;
