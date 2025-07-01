@@ -10,10 +10,10 @@
 }
 
 .profile-image {
-  width: 150px;
-  height: 150px;
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
-  border: 3px solid var(--lavender);
+  border: 0.25rem solid var(--lavender);
   animation: 1.5s cubic-bezier(0.51, 0.07, 0.27, 0.85) 0.2s both fadeInUp;
 }
 
@@ -51,11 +51,11 @@
   color: var(--text);
   transition: all 0.3s ease;
   padding: 1rem;
-  border-radius: 10px;
+  border-radius: 0.625rem;
 
   &:hover {
     color: var(--lavender);
-    transform: translateY(-5px);
+    transform: translateY(-0.3125rem);
     background-color: var(--surface);
   }
 }
@@ -99,16 +99,16 @@
     transform: translateY(0);
   }
   40% {
-    transform: translateY(-10px);
+    transform: translateY(-0.625rem);
   }
   60% {
-    transform: translateY(-5px);
+    transform: translateY(-0.3125rem);
   }
 }
 
 @keyframes fadeInUp {
   0% {
-    transform: translateY(30px);
+    transform: translateY(2rem);
     opacity: 0;
   }
   100% {
@@ -150,7 +150,7 @@
   color: var(--text);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .landing-section {
     padding: 2rem 1rem;
     padding-top: calc(var(--navbar-height) + 2rem);

@@ -13,14 +13,14 @@
   );
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 75rem) {
   #projects-section {
     padding: calc(var(--navbar-height) + 2.5rem) 4rem;
     padding-bottom: 0;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   #projects-section {
     padding: calc(var(--navbar-height) + 2rem) 1.5rem;
     padding-bottom: 0;

@@ -107,7 +107,7 @@ h1 {
   font-weight: 800;
   text-align: center;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px var(--lavender-30pct);
+  text-shadow: 0.25rem 0.25rem 0.375rem var(--lavender-30pct);
   text-transform: none;
 }
 
@@ -149,10 +149,10 @@ h1 {
         content: "";
         position: absolute;
         left: 0;
-        bottom: -5px;
+        bottom: -0.3125rem;
         width: 0;
-        height: 3px;
-        border-radius: 10px;
+        height: 0.25rem;
+        border-radius: 0.625rem;
         background-color: var(--sky);
         animation: underline 0.5s cubic-bezier(0.51, 0.07, 0.27, 0.85) forwards;
       }
@@ -261,20 +261,20 @@ h1 {
   background-color: var(--lavender-10pct);
   backdrop-filter: brightness(1.2);
   border-radius: 0.5rem;
-  padding: 20px;
-  box-shadow: 0 8px 12px var(--crust);
+  padding: 1.25rem;
+  box-shadow: 0 0.5rem 0.75rem var(--crust);
   transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 14px 20px var(--crust);
+    transform: translateY(-0.3125rem);
+    box-shadow: 0 1rem 1.25rem var(--crust);
   }
 
   .widget-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 
     .title-container {
       display: flex;
@@ -283,9 +283,9 @@ h1 {
     }
 
     .widget-icon {
-      width: 24px;
-      height: 24px;
-      margin-right: 10px;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 0.625rem;
       object-fit: contain;
     }
 
@@ -301,13 +301,14 @@ h1 {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 0.625rem;
+      margin-top: 1rem;
     }
 
     .follow-button {
+      // Not really used currently
       display: inline-block;
-      padding: 8px 16px;
+      padding: 0.5rem 1rem;
       font-size: 1.25rem;
       white-space: nowrap;
       text-decoration: none;
@@ -319,13 +320,13 @@ h1 {
       &:hover {
         color: var(--crust);
         background-color: var(--sky);
-        transform: translateY(-3px);
+        transform: translateY(-0.25rem);
       }
     }
   }
 
   p {
-    margin: 0 0 15px 0;
+    margin: 0 0 1rem 0;
     color: var(--text);
     font-weight: 600;
   }
@@ -383,7 +384,7 @@ h1 {
 }
 
 // Responsive design of the grids on smaller devices
-@media (min-width: 990px) {
+@media (min-width: 62.5rem) {
   #widget-container {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -408,13 +409,13 @@ h1 {
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 62.5rem) {
   #widget-container {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .contact-section {
     padding: 1rem 0;
     width: 100vw;
