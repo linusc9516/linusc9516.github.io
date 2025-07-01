@@ -96,6 +96,9 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
@@ -347,6 +350,38 @@ h1 {
   }
 }
 
+.contact-section {
+  background: var(--base-90pct);
+  border-top: 2px solid var(--lavender);
+  padding: 1.5rem 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  text-align: center;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-text {
+  font-size: 1.2rem;
+  color: var(--text);
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.contact-link {
+  color: var(--lavender);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--sky);
+    text-decoration: underline;
+    transform: translateY(-1px);
+  }
+}
+
 // Responsive design of the grids on smaller devices
 @media (min-width: 990px) {
   #widget-container {
@@ -376,5 +411,17 @@ h1 {
 @media (max-width: 1000px) {
   #widget-container {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 1rem 0;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  .contact-text {
+    font-size: 1rem;
   }
 }

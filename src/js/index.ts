@@ -5,6 +5,15 @@ interface Post {
 	file: string;
 }
 
+interface projectWidget {
+	title: string;
+	content: string;
+	date: string;
+	linkUrl: string;
+	iconUrl?: string;
+	imageUrl?: string;
+}
+
 interface blogWidget {
 	title: string;
 	content: string;
@@ -61,6 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Page-specific functionality
 	const currentPage = window.location.pathname.split("/").pop()?.toLowerCase();
 	switch (currentPage) {
+		case "projects":
+			initializeProjectsPage();
+			break;
 		case "blog":
 			initializeBlogPage();
 			break;
@@ -88,7 +100,7 @@ const createWidget = (options): void => {
 
 	widget.style.textDecoration = "none";
 
-	// A bit messy but follwo btn positioning only works with nested div
+	// A bit messy but follow btn positioning only works with nested div
 	const headerContainer = document.createElement("div");
 	headerContainer.className = "widget-header";
 
@@ -108,22 +120,6 @@ const createWidget = (options): void => {
 	titleContainer.appendChild(titleElement);
 	headerContainer.appendChild(titleContainer);
 
-	if (options.followUrl) {
-		const followButton = document.createElement("a");
-		followButton.href = options.followUrl;
-		followButton.className = "follow-button";
-		if (options.followUrl.toLowerCase().includes("youtube.com")) {
-			followButton.textContent = "Subscribe";
-		} else if (options.followUrl.toLowerCase().includes("fantasy.premierleague.com")) {
-			followButton.textContent = "Join";
-		} else if (options.followUrl.toLowerCase().includes("twitter.com")) {
-			followButton.textContent = "Follow";
-		}
-		followButton.target = "_blank";
-		followButton.rel = "noopener noreferrer";
-		headerContainer.appendChild(followButton);
-	}
-
 	widget.appendChild(headerContainer);
 
 	const contentElement = document.createElement("p");
@@ -132,7 +128,11 @@ const createWidget = (options): void => {
 	contentElement.style.textDecoration = "none";
 	widget.appendChild(contentElement);
 
-	if (options.imageUrl || options.embedHTML || options.date) {
+	const date = document.createElement("p");
+	date.innerHTML = options.date;
+	widget.appendChild(date);
+
+	if (options.imageUrl || options.embedHTML) {
 		const embedContent = document.createElement("div");
 		embedContent.className = "embed-content";
 
@@ -140,10 +140,6 @@ const createWidget = (options): void => {
 			embedContent.innerHTML = `<img src="src/images/${options.imageUrl}" alt="${options.title}" onerror="this.src='src/images/fallback.webp';">`; // Too lazy to add fallback, maybe sometime in the future
 		} else if (options.embedHTML) {
 			embedContent.innerHTML = options.embedHTML; // Yeah somehow embedHTML implementation is similar to contentElement.. whatever.
-		} else if (options.date) {
-			const date = document.createElement("p");
-			date.innerHTML = options.date;
-			embedContent.appendChild(date);
 		}
 
 		widget.appendChild(embedContent);
@@ -151,6 +147,75 @@ const createWidget = (options): void => {
 
 	widgetContainer?.appendChild(widget);
 };
+
+function initializeProjectsPage(): void {
+	const projectWidgets: projectWidget[] = [
+		{
+			title: "Ulcerative Colitis Detection",
+			content: "A machine learning model that predicts the likelihood of a patient having Ulcerative Colitis based on their colonoscopy images. Developed as part of a health exhibition project.",
+			date: "01-07-2025",
+			linkUrl: "https://github.com/example/classifier",
+			iconUrl: "python-icon.svg",
+		},
+		{
+			title: "Soular",
+			content: "An Android app that connects environmental protection NGOs with teenage volunteers, which promotes environmental awareness. Received 1st Runner Up and Innovation Award in the JA Code for Impact competition, 2025.",
+			date: "12-04-2025",
+			linkUrl: "https://github.com/endernoke/soular",
+			iconUrl: "android-icon.svg",
+			imageUrl: "soular-banner.png",
+		},
+		{
+			title: "CS50 Finance",
+			content: "A Flask web application for managing stocks, built as part of the CS50 course. Allows users to buy and sell stocks, view their portfolio, and track stock prices in real-time.",
+			date: "14-08-2024",
+			linkUrl: "https://github.com/example/finance",
+			iconUrl: "python-icon.svg",
+		},
+		{
+			title: "Redcxca Website",
+			content: "The source code for this website.",
+			date: "19-07-2024",
+			linkUrl: "https://github.com/example/template",
+			iconUrl: "redcxca-icon.png",
+			imageUrl: "redcxca-website.png",
+		},
+		{
+			title: "This website",
+			content: "The source code for this website.",
+			date: "21-05-2023",
+			linkUrl: "https://github.com/example/example.github.io",
+			iconUrl: "github-pfp.webp",
+		},
+
+	]
+
+	function createProjectWidgets(): void {
+		projectWidgets.forEach((widget: projectWidget) => {
+			let modifiedWidget: projectWidget = { ...widget };
+
+			createWidget({
+				...modifiedWidget,
+				size: '2x2'
+			});
+		});
+	}
+
+	function handleResize(): void {
+		createProjectWidgets();
+	}
+
+	createProjectWidgets();
+
+	// Use debounce to improve performance
+	let resizeTimeout: number | null = null;
+	window.addEventListener('resize', () => {
+		if (resizeTimeout) {
+			window.clearTimeout(resizeTimeout);
+		}
+		resizeTimeout = window.setTimeout(handleResize, 250);
+	});
+}
 
 function initializeBlogPage(): void {
 	const blogWidgets: blogWidget[] = [
@@ -181,7 +246,7 @@ function initializeBlogPage(): void {
 
 			createWidget({
 				...modifiedWidget,
-				size: '1x1'
+				size: '2x2'
 			});
 		});
 	}
