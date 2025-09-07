@@ -131,7 +131,7 @@ function initializeProjectsPage() {
             imageUrl: "soular-banner.png"
         },
         {
-            title: "Redcxca Website",
+            title: "RedcXca Website",
             content: "Website partially developed for RedcXca, an artist friend of mine.",
             date: "19-07-2024",
             linkUrl: "https://github.com/example/template",
