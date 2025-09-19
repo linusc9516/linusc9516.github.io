@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@parcel/reporter-dev-server": "^2.16.0",
     "http-server": "^14.1.1",
     "resize-observer-polyfill": "^1.5.1",
     "simplebar": "^6.2.7"
