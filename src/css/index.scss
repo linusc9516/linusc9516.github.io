@@ -33,7 +33,7 @@
 }
 
 .social-links {
-  grid-template-columns: repeat(5, 5fr);
+  grid-template-columns: repeat(4, 4fr);
   display: grid;
   justify-content: center;
   align-items: center;
@@ -168,7 +168,7 @@
 
   .social-links {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 2fr);
     justify-content: center;
     align-items: center;
     gap: 1rem;
