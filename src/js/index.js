@@ -118,7 +118,7 @@ function initializeProjectsPage() {
             title: "Ulcerative Colitis Detection",
             content: "A machine learning model that predicts the likelihood of a patient having Ulcerative Colitis based on their colonoscopy images.<br>Developed as part of a health exhibition project.",
             date: "01-07-2025",
-            linkUrl: "https://github.com/slmlaggi/UC_Classifier",
+            linkUrl: "https://github.com/linusc9516/UC_Classifier",
             iconUrl: "python-icon.svg",
             imageUrl: "uc-classifier.png"
         },
@@ -134,7 +134,7 @@ function initializeProjectsPage() {
             title: "RedcXca Website",
             content: "Website partially developed for RedcXca, an artist friend of mine.",
             date: "19-07-2024",
-            linkUrl: "https://github.com/slmlaggi/RedcXca-Website/tree/master",
+            linkUrl: "https://github.com/linusc9516/RedcXca-Website/tree/master",
             iconUrl: "redcxca-icon.png",
             imageUrl: "redcxca-website.png"
         },
@@ -142,9 +142,9 @@ function initializeProjectsPage() {
             title: "This website",
             content: "The source code for this website.",
             date: "21-05-2023",
-            linkUrl: "https://github.com/slmlaggi/slmlaggi.github.io",
+            linkUrl: "https://github.com/linusc9516/linusc9516.github.io",
             iconUrl: "github-pfp.webp",
-            imageUrl: "slmlaggi-website.png"
+            imageUrl: "linusc9516-website.png"
         },
     ];
     function createProjectWidgets() {
@@ -260,9 +260,9 @@ function initializeMusicPage() {
         });
     }
     function handleResize() {
-        createMusicWidgets();
+        // createMusicWidgets();
     }
-    createMusicWidgets();
+    // createMusicWidgets();
     // Use debounce to improve performance
     var resizeTimeout = null;
     window.addEventListener('resize', function () {
