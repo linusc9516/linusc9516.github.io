@@ -81,6 +81,26 @@ module.exports.camelCase = (input) => {
 };
 
 /**
+ * Safely stringify an arbitrary value for an error message — falls back to
+ * `String(...)` when JSON.stringify would throw (BigInt, circular, etc.).
+ * @param {EXPECTED_ANY} value value to stringify
+ * @returns {string} stringified value
+ */
+const safeStringify = (value) => {
+	try {
+		const json = JSON.stringify(value);
+		if (json !== undefined) return json;
+	} catch (_err) {
+		// fall through to String fallback
+	}
+	try {
+		return String(value);
+	} catch (_err) {
+		return "[value cannot be converted to string]";
+	}
+};
+
+/**
  * Returns results.
  * @param {string} input input
  * @param {CssGeneratorExportsConvention | undefined} convention convention
@@ -90,7 +110,28 @@ module.exports.cssExportConvention = (input, convention) => {
 	/** @type {Set<string>} */
 	const set = new Set();
 	if (typeof convention === "function") {
-		set.add(convention(input));
+		const result = convention(input);
+		const validate = (/** @type {string} */ name) => {
+			if (typeof name !== "string" || name.length === 0) {
+				throw new Error(
+					`exportsConvention function must return a non-empty string or an array of non-empty strings, got ${safeStringify(result)}`
+				);
+			}
+		};
+		if (Array.isArray(result)) {
+			if (result.length === 0) {
+				throw new Error(
+					"exportsConvention function returned an empty array; it must return at least one name"
+				);
+			}
+			for (const name of result) {
+				validate(name);
+				set.add(name);
+			}
+		} else {
+			validate(result);
+			set.add(result);
+		}
 	} else {
 		switch (convention) {
 			case "camel-case": {
