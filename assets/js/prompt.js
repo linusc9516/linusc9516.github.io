@@ -6,7 +6,7 @@
 
 	const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 	const addr = ["linusc9516", "gmail.com"].join("@");
-	const PAGES = { projects: "/projects/", resume: "/resume/", blog: "/blog/" };
+	const PAGES = { projects: "/projects/", resume: "/resume/" };
 	const LINKS = {
 		github: "https://github.com/linusc9516",
 		linkedin: "https://linkedin.com/in/linusc9516",
@@ -15,7 +15,6 @@
 		["ls", "list pages"],
 		["cd projects", "open the projects page"],
 		["cd resume", "open the resume"],
-		["cd blog", "open the blog"],
 		["contact", "show how to reach me"],
 		["github", "github.com/linusc9516"],
 		["linkedin", "linkedin.com/in/linusc9516"],
