@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://linusc9516.github.io/sitemap.xml
