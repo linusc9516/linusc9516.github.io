@@ -148,12 +148,12 @@ img {
 }
 
 .wrap {
-	width: min(100% - 2rem, var(--wide));
+	width: min(100% - 3rem, var(--wide));
 	margin-inline: auto;
 }
 
 .prose {
-	width: min(100% - 2rem, var(--measure));
+	width: min(100% - 3rem, var(--measure));
 	margin-inline: auto;
 }
 
@@ -1128,7 +1128,7 @@ a.card:active {
 
 .prompt2.focused {
 	border-radius: 0.25rem;
-	outline: 1px solid var(--term-border);
+	outline: 2px solid var(--term-mauve);
 	outline-offset: 0.35rem;
 }
 
