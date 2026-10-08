@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects · Linus Chik</title>
+<meta name="description" content="Selected projects by Linus Chik: LLM collusion experiments, IOAI 2025, Soular and a medical image classifier.">
+<link rel="canonical" href="https://linusc9516.github.io/projects/">
+<meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="Linus Chik">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Projects · Linus Chik">
+<meta property="og:description" content="Selected projects by Linus Chik: LLM collusion experiments, IOAI 2025, Soular and a medical image classifier.">
+<meta property="og:url" content="https://linusc9516.github.io/projects/">
+<meta property="og:image" content="https://linusc9516.github.io/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Linus Chik, CS at NTU Singapore, researching how LLM agents behave in real-world settings">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css">
+<script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+<div class="wrap">
+<a class="brand" href="/"><img src="/assets/img/avatar.webp" alt="" width="28" height="28">linusc9516</a>
+<nav aria-label="Primary"><ul><li><a href="/projects/" aria-current="page">Projects</a></li><li><a href="/resume/">Resume</a></li><li><a href="/blog/">Blog</a></li></ul></nav>
+</div>
+</header>
+<main id="main">
+<div class="page-head prose"><h1>Projects</h1><p>Research experiments, contest work and apps. Source links where public.</p></div>
+<div class="prose"><article class="project">
+<header><h2>Tacit Collusion in LLM Bidders</h2><span class="meta">Oct 2026 · <a href="https://github.com/linusc9516/bid-pricing-collusion">github.com/linusc9516/bid-pricing-collusion</a></span></header>
+<p><strong>190 sessions · 3 models · ~$6</strong></p>
+<ul class="points"><li>Ran 190 sessions across 3 models and 3 tie-break rules for about $6, with a deterministic auctioneer and a matched one-shot control for every condition.</li><li>Found no tacit rotation at 5 sessions per condition. Ties occurred in 3.07% of rounds against 0.03% by chance, and one two-bidder session held bids at 94–96 from round 10, so I flagged it for follow-up.</li><li>Measured collusion with an index normalised to the Bayes-Nash benchmark (0 competitive, 1 at the reserve price), using the session as the unit and pre-specified Holm-corrected comparisons, so overbidding is not mistaken for coordination.</li><li>Added a pytest suite, log validation, resumable runs and a viewer that shows each session beside its control.</li></ul>
+<ul class="tags" aria-label="Technologies"><li>Python</li><li>pytest</li></ul>
+</article>
+<article class="project">
+<header><h2>International Olympiad in AI (IOAI) 2025</h2><span class="meta">Aug 2025</span></header>
+<p><strong>Bronze · 99.62 top task score</strong></p>
+<ul class="points"><li>Placed 2nd on a segmentation task with a PyTorch model that handled a 50× class imbalance, raising accuracy on the critical human/wall classes by 37% through data augmentation and tuned CrossEntropyLoss weights.</li><li>Solved 6 machine learning tasks (NLP, CV, deep learning) solo in a 2-day contest under 12-hour time and memory limits.</li><li>Delivered a pick-and-place pipeline for the Galbot G1 robot with a team in a MuJoCo simulation, using A* path planning and inverse kinematics to navigate obstacles and organise objects on shelves.</li></ul>
+<ul class="tags" aria-label="Technologies"><li>PyTorch</li><li>NumPy</li><li>scikit-learn</li></ul>
+</article>
+<article class="project">
+<header><h2>Soular</h2><span class="meta">May 2025 · <a href="https://github.com/endernoke/soular">github.com/endernoke/soular</a></span></header>
+<p><strong>2nd + Innovation Award · JA Code for Impact</strong></p>
+<ul class="points"><li>Cut average post load time by 46% for 100+ concurrent users by optimising Supabase queries and adding client-side data caching to the social feed and group chat.</li><li>Cut Android build times by 65% by streamlining the CI/CD pipeline with Expo and Gradle optimisations.</li><li>Built a full-stack React Native app with a team, with an AI assistant and a carbon footprint calculator.</li></ul>
+<ul class="tags" aria-label="Technologies"><li>React Native</li><li>TypeScript</li><li>Supabase</li></ul>
+</article>
+<article class="project">
+<header><h2>Ulcerative Colitis Detector</h2><span class="meta">Jul 2025 · <a href="https://github.com/linusc9516/UC_Classifier">github.com/linusc9516/UC_Classifier</a></span></header>
+<p><strong>96% validation accuracy · 11,000+ images</strong></p>
+<ul class="points"><li>Reached 96% validation accuracy on an 11,000+ image colonoscopy dataset by fine-tuning ResNet18 with data augmentation, weighted random sampling and staged unfreezing.</li><li>Built a Flask app for multi-image upload and real-time inference that aggregates predictions into a High/Medium/Low/Normal risk rating.</li><li>Sped up CPU inference by tracing the model with TorchScript, so it deploys without the PyTorch training environment.</li></ul>
+<ul class="tags" aria-label="Technologies"><li>PyTorch</li><li>ResNet</li><li>Flask</li><li>TorchScript</li></ul>
+</article>
+</div>
+</main>
+<footer class="footer">
+<div class="wrap">
+<p>© 2026 Linus Chik · Hong Kong → Singapore (Jul 2026)</p>
+<ul>
+<li><a href="https://github.com/linusc9516">GitHub</a></li>
+<li><a href="https://linkedin.com/in/linusc9516">LinkedIn</a></li>
+<li><a href="/#contact" data-mail>Email</a></li>
+<li><a href="/assets/Chik_Kin_Hei_Resume.pdf">Resume (PDF)</a></li>
+</ul>
+</div>
+</footer>
+</body>
+</html>

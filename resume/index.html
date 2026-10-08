@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume · Linus Chik</title>
+<meta name="description" content="Resume of Linus Chik (Chik Kin Hei): education, projects, awards and skills.">
+<link rel="canonical" href="https://linusc9516.github.io/resume/">
+<meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="Linus Chik">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Resume · Linus Chik">
+<meta property="og:description" content="Resume of Linus Chik (Chik Kin Hei): education, projects, awards and skills.">
+<meta property="og:url" content="https://linusc9516.github.io/resume/">
+<meta property="og:image" content="https://linusc9516.github.io/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Linus Chik, CS at NTU Singapore, researching how LLM agents behave in real-world settings">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css">
+<script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+<div class="wrap">
+<a class="brand" href="/"><img src="/assets/img/avatar.webp" alt="" width="28" height="28">linusc9516</a>
+<nav aria-label="Primary"><ul><li><a href="/projects/">Projects</a></li><li><a href="/resume/" aria-current="page">Resume</a></li><li><a href="/blog/">Blog</a></li></ul></nav>
+</div>
+</header>
+<main id="main" class="resume-page">
+<div class="page-head prose resume-head">
+<div><h1>Chik Kin Hei</h1>
+<p class="contact" style="margin:.75rem 0 0">Goes by Linus Chik · <a href="/#contact" data-mail>linusc9516 [at] gmail [dot] com</a> · he/him · Hong Kong (SAR) Citizen</p></div>
+<div class="actions"><a class="btn primary" href="/assets/Chik_Kin_Hei_Resume.pdf" download="Chik_Kin_Hei_Resume.pdf">Download PDF</a></div>
+</div>
+<div class="prose resume">
+<section aria-labelledby="edu"><h2 id="edu">Education</h2>
+<div class="entry"><h3>Nanyang Technological University — B.Comp. in Computer Science</h3><span class="when">Expected Jul 2030</span></div>
+<div class="entry"><h3>St. Paul's College Hong Kong</h3><span class="when">Jun 2026</span><p class="sub">4 A* in Edexcel International A-Levels (Mathematics, Further Mathematics, Physics, Chemistry)</p></div>
+</section>
+<section aria-labelledby="proj"><h2 id="proj">Projects</h2>
+<div class="entry"><h3>Tacit Collusion in LLM Bidders</h3><span class="when">Oct 2026</span><p class="sub">Python, pytest · <a href="https://github.com/linusc9516/bid-pricing-collusion">github.com/linusc9516/bid-pricing-collusion</a></p><ul><li>Ran 190 sessions across 3 models and 3 tie-break rules for about $6, with a deterministic auctioneer and a matched one-shot control for every condition.</li><li>Found no tacit rotation at 5 sessions per condition. Ties occurred in 3.07% of rounds against 0.03% by chance, and one two-bidder session held bids at 94–96 from round 10, so I flagged it for follow-up.</li><li>Measured collusion with an index normalised to the Bayes-Nash benchmark (0 competitive, 1 at the reserve price), using the session as the unit and pre-specified Holm-corrected comparisons, so overbidding is not mistaken for coordination.</li><li>Added a pytest suite, log validation, resumable runs and a viewer that shows each session beside its control.</li></ul></div><div class="entry"><h3>International Olympiad in AI (IOAI) 2025</h3><span class="when">Aug 2025</span><p class="sub">PyTorch, NumPy, scikit-learn</p><ul><li>Placed 2nd on a segmentation task with a PyTorch model that handled a 50× class imbalance, raising accuracy on the critical human/wall classes by 37% through data augmentation and tuned CrossEntropyLoss weights.</li><li>Solved 6 machine learning tasks (NLP, CV, deep learning) solo in a 2-day contest under 12-hour time and memory limits.</li><li>Delivered a pick-and-place pipeline for the Galbot G1 robot with a team in a MuJoCo simulation, using A* path planning and inverse kinematics to navigate obstacles and organise objects on shelves.</li></ul></div><div class="entry"><h3>Soular</h3><span class="when">May 2025</span><p class="sub">React Native, TypeScript, Supabase · <a href="https://github.com/endernoke/soular">github.com/endernoke/soular</a></p><ul><li>Cut average post load time by 46% for 100+ concurrent users by optimising Supabase queries and adding client-side data caching to the social feed and group chat.</li><li>Cut Android build times by 65% by streamlining the CI/CD pipeline with Expo and Gradle optimisations.</li><li>Built a full-stack React Native app with a team, with an AI assistant and a carbon footprint calculator.</li></ul></div><div class="entry"><h3>Ulcerative Colitis Detector</h3><span class="when">Jul 2025</span><p class="sub">PyTorch, ResNet, Flask, TorchScript · <a href="https://github.com/linusc9516/UC_Classifier">github.com/linusc9516/UC_Classifier</a></p><ul><li>Reached 96% validation accuracy on an 11,000+ image colonoscopy dataset by fine-tuning ResNet18 with data augmentation, weighted random sampling and staged unfreezing.</li><li>Built a Flask app for multi-image upload and real-time inference that aggregates predictions into a High/Medium/Low/Normal risk rating.</li><li>Sped up CPU inference by tracing the model with TorchScript, so it deploys without the PyTorch training environment.</li></ul></div>
+</section>
+<section aria-labelledby="awards"><h2 id="awards">Honors &amp; Awards</h2>
+<div class="entry"><h3>Bronze Medal, International Olympiad in Artificial Intelligence (IOAI)</h3><span class="when">Aug 2025</span><p class="sub">Top score of 99.62 on one task</p></div>
+<div class="entry"><h3>2nd Place and Innovation Award, JA Code for Impact</h3><span class="when">May 2025</span><p class="sub">Soular</p></div>
+<div class="entry"><h3>Gold Award, IOAI 2025 Hong Kong Qualifier Competition</h3><span class="when">2025</span></div>
+</section>
+<section aria-labelledby="skills"><h2 id="skills">Skills</h2>
+<dl>
+<div class="skill-row"><dt>Languages</dt><dd>Python, TypeScript, JavaScript, C++, C, SQL</dd></div>
+<div class="skill-row"><dt>ML &amp; Research</dt><dd>PyTorch, TransformerLens, inspect_ai, JAX, NumPy, Pandas, scikit-learn, Matplotlib</dd></div>
+<div class="skill-row"><dt>Tools &amp; Platforms</dt><dd>Git, uv, pytest, Flask, React Native, Supabase, Expo</dd></div>
+</dl></section>
+<section aria-labelledby="certs"><h2 id="certs">Certificates</h2>
+<div class="entry"><h3>CS50x: Introduction to Computer Science — HarvardX</h3><span class="when">Aug 2024</span></div>
+<div class="entry"><h3>Microsoft Certified: Azure AI Fundamentals</h3><span class="when">Jul 2021</span></div>
+</section>
+</div>
+</main>
+<footer class="footer">
+<div class="wrap">
+<p>© 2026 Linus Chik · Hong Kong → Singapore (Jul 2026)</p>
+<ul>
+<li><a href="https://github.com/linusc9516">GitHub</a></li>
+<li><a href="https://linkedin.com/in/linusc9516">LinkedIn</a></li>
+<li><a href="/#contact" data-mail>Email</a></li>
+<li><a href="/assets/Chik_Kin_Hei_Resume.pdf">Resume (PDF)</a></li>
+</ul>
+</div>
+</footer>
+</body>
+</html>

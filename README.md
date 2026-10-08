@@ -1,15 +1,8 @@
-# slmlaggi's Page
+# linusc9516.github.io
 
-Design (should be) finalized. Content will be updated regularly in the future.
+Personal site of Linus Chik. Plain HTML, CSS and a tiny JS file; no build step.
 
-## TODO
-
-- [x] Finish remaining pages of connections, about me, music
-- [x] Make site legible for mobile users
-- [x] Fix other remaining errors when they appear/get reported
-- [x] Add OpenGraph to every page to improve the look of embeds
-- [x] Add sufficient comments such that it can function as a website template
-- [ ] Fix error: Error with Permissions-Policy header: Unrecognized feature: 'ch-ua-form-factors' (Unfixable for now)
-- [ ] Add view counter if possible (Need to setup server side with ExpressJS, maybe in the future)
-- [ ] Add project page when more projects
-- [ ] Keep updating blog posts
+- Pages: `index.html`, `projects/`, `resume/`, `blog/`, posts in `blog-entries/`
+- Styles: `assets/css/site.css` (tokens, light and dark)
+- Resume PDF: `assets/resume.pdf`
+- Preview: `python3 -m http.server`
