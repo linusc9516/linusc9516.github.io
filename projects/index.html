@@ -36,7 +36,7 @@
 <main id="main">
 <div class="page-head prose"><h1>Projects</h1><p>Research experiments, contest work and apps. Source links where public.</p></div>
 <div class="prose"><article class="project">
-<header><h2>Tacit Collusion in LLM Bidders</h2><span class="meta">Oct 2026 · <a href="https://github.com/linusc9516/bid-pricing-collusion">github.com/linusc9516/bid-pricing-collusion</a></span></header>
+<header><h2>Tacit Collusion in LLM Bidders</h2><span class="meta">Oct 2026 <a href="https://github.com/linusc9516/bid-pricing-collusion">linusc9516/bid-pricing-collusion</a></span></header>
 <p><strong>48-session baseline · 2 models · 4 arms</strong></p>
 <ul class="points"><li>Conceived the study and built its auction harness: does letting LLM firms communicate raise prices? Four pre-registered arms: no channel, private notes, a shared workspace, an open message channel.</li><li>Ran a pre-registered no-channel baseline of 48 sessions (2 models, 12 seeds, 50 rounds), each matched with a one-shot control. With history, DeepSeek V4.1 Flash bid about 1 to 2.3 below the Bayes-Nash bid by round 50 and GPT-6 Luna about 6 above it; neither control drifted.</li><li>Merged a collaborator's shared-workspace and message-channel code, then built the private-notes control as a one-switch variant of it, with a log check that no prompt shows a firm the other's notes.</li><li>Pre-registered two hypotheses in <code>configs/analysis.yaml</code> before any session ran (paired exact sign-flip tests, Holm-corrected) and ran 24 GPT-6 Luna notes sessions. Analysis in progress.</li></ul>
 <ul class="tags" aria-label="Technologies"><li>Python</li><li>pytest</li></ul>
@@ -48,13 +48,13 @@
 <ul class="tags" aria-label="Technologies"><li>PyTorch</li><li>NumPy</li><li>scikit-learn</li></ul>
 </article>
 <article class="project">
-<header><h2>Soular</h2><span class="meta">May 2025 · <a href="https://github.com/endernoke/soular">github.com/endernoke/soular</a></span></header>
+<header><h2>Soular</h2><span class="meta">May 2025 <a href="https://github.com/endernoke/soular">endernoke/soular</a></span></header>
 <p><strong>2nd + Innovation Award · JA Code for Impact</strong></p>
 <ul class="points"><li>Built a full-stack React Native app with a team to help users discover environmental initiatives, with an AI assistant and a carbon footprint calculator.</li><li>Cut average post load time by 46% for 100+ concurrent users (Supabase queries, client-side caching) and Android build times by 65% (Expo and Gradle).</li></ul>
 <ul class="tags" aria-label="Technologies"><li>React Native</li><li>TypeScript</li><li>Supabase</li></ul>
 </article>
 <article class="project">
-<header><h2>Ulcerative Colitis Detector</h2><span class="meta">Jul 2025 · <a href="https://github.com/linusc9516/UC_Classifier">github.com/linusc9516/UC_Classifier</a></span></header>
+<header><h2>Ulcerative Colitis Detector</h2><span class="meta">Jul 2025 <a href="https://github.com/linusc9516/UC_Classifier">linusc9516/UC_Classifier</a></span></header>
 <p><strong>96% validation accuracy · 11,000+ images</strong></p>
 <ul class="points"><li>Reached 96% validation accuracy on 11,000+ colonoscopy images by fine-tuning ResNet18 with augmentation, weighted sampling and staged unfreezing.</li><li>Built a Flask app for multi-image upload and real-time inference that aggregates predictions into a risk rating, with the model traced to TorchScript for CPU deployment.</li></ul>
 <ul class="tags" aria-label="Technologies"><li>PyTorch</li><li>ResNet</li><li>Flask</li><li>TorchScript</li></ul>
