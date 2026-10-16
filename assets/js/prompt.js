@@ -245,7 +245,7 @@
 		contact() {
 			const a = linkEl("linusc9516 [at] gmail [dot] com", `mailto:${addr}`);
 			row(document.createTextNode("email  "), a);
-			row(document.createTextNode("also   "), linkEl("LinkedIn", LINKS.linkedin, true), document.createTextNode(" · "), linkEl("X", "https://x.com/linusc9516", true));
+			row(document.createTextNode("also   "), linkEl("LinkedIn", LINKS.linkedin, true), document.createTextNode(" · "), linkEl("X", "https://x.com/lc_nzn", true));
 			document.getElementById("contact")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
 		},
 		github() {
