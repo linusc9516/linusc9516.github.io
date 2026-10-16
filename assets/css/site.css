@@ -24,6 +24,12 @@
 	--term-peach: #fe640b;
 	--term-ink: #eff1f5;
 
+	/* Outside section accents; light values darkened from Latte to pass 4.5:1 as text */
+	--oc-mauve: #8839ef;
+	--oc-blue: #1c5fd6;
+	--oc-green: #2b7a1e;
+	--oc-peach: #b8460b;
+
 	--font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
 	--mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 	--ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -55,6 +61,11 @@
 		--term-blue: #89b4fa;
 		--term-peach: #fab387;
 		--term-ink: #11111b;
+
+		--oc-mauve: #cba6f7;
+		--oc-blue: #89b4fa;
+		--oc-green: #a6e3a1;
+		--oc-peach: #fab387;
 	}
 }
 
@@ -615,16 +626,43 @@ a.card:active {
 
 .project header {
 	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
+	align-items: flex-start;
 	justify-content: space-between;
 	gap: 0.25rem 1rem;
 	margin-bottom: 0.75rem;
 }
 
+/* sized so the longest title still fits beside its date/repo column at the full measure */
+.project h2 {
+	font-size: clamp(1.5rem, 3vw, 1.75rem);
+}
+
 .project .meta {
+	flex: none;
+	margin-left: auto;
+	padding-top: 0.35rem;
 	color: var(--text-2);
-	font: 0.875rem var(--mono);
+	font: 0.875rem/1.5 var(--mono);
+	text-align: right;
+}
+
+.project .meta a {
+	display: block;
+	white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+	.project header {
+		flex-wrap: wrap;
+	}
+
+	.project .meta a {
+		white-space: normal;
+	}
+}
+
+.project header + p > strong {
+	color: var(--accent);
 }
 
 .project ul.points {
@@ -712,10 +750,51 @@ a.card:active {
 	font-weight: 600;
 }
 
-.post img {
+.post img,
+.post video {
 	display: block;
+	max-width: 100%;
+	height: auto;
 	margin: 1.25rem 0;
 	border-radius: 0.75rem;
+}
+
+/* Media: figure + caption, a wider variant that breaks out of the text column, and a two-up grid */
+.post figure {
+	margin: 1.75rem 0;
+}
+
+.post figure img,
+.post figure video {
+	margin: 0;
+}
+
+.post figcaption {
+	margin-top: 0.5rem;
+	color: var(--text-2);
+	font-size: 0.875rem;
+}
+
+.post .grid2 {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.75rem;
+	margin-block: 1.75rem;
+}
+
+.post .grid2 > figure {
+	margin: 0;
+}
+
+.post .wide {
+	width: min(100vw - 3rem, var(--wide));
+	margin-inline: calc((100% - min(100vw - 3rem, var(--wide))) / 2);
+}
+
+@media (max-width: 40rem) {
+	.post .grid2 {
+		grid-template-columns: 1fr;
+	}
 }
 
 /* Resume */
@@ -1235,4 +1314,352 @@ a.card:active {
 @keyframes eq {
 	from { transform: scaleY(0.25); }
 	to { transform: scaleY(1); }
+}
+
+/* Jump links (Outside) */
+.jump {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	margin: 0 0 1.5rem;
+	padding: 0;
+	list-style: none;
+}
+
+.jump a {
+	display: block;
+	padding: 0.25rem 0.75rem;
+	border-radius: 999px;
+	background: var(--surface-2);
+	color: var(--text-2);
+	font: 0.8125rem var(--mono);
+	text-decoration: none;
+}
+
+.jump a:hover,
+.jump a:focus-visible {
+	color: var(--accent);
+}
+
+section[aria-labelledby] > h2 {
+	scroll-margin-top: 5rem;
+}
+
+/* ---- Shared entry rows: date column + text (Writing list, Outside entries) ---- */
+.item,
+.post-list li {
+	display: grid;
+	grid-template-columns: 6.5rem minmax(0, 1fr);
+	column-gap: 1rem;
+	padding-block: 1.1rem;
+	border-top: 1px solid var(--line);
+}
+
+.item:first-child,
+.post-list li:first-child {
+	border-top: 0;
+}
+
+.item > time,
+.post-list li > time {
+	padding-top: 0.2rem;
+	color: var(--text-2);
+	font: 0.875rem var(--mono);
+}
+
+.item p,
+.item div > p {
+	margin: 0;
+}
+
+.post-list li > a {
+	display: block;
+}
+
+@media (max-width: 40rem) {
+	.item,
+	.post-list li {
+		grid-template-columns: 1fr;
+		row-gap: 0.25rem;
+	}
+}
+
+/* Type label (Research, Review, Log) */
+.type {
+	display: inline-block;
+	margin-bottom: 0.25rem;
+	padding: 0.05rem 0.5rem;
+	border-radius: 999px;
+	background: var(--surface-2);
+	color: var(--text-2);
+	font: 0.6875rem var(--mono);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+/* ---- Post page: header, measure, leading, extras ---- */
+.post.prose {
+	width: min(100% - 3rem, 68ch);
+	line-height: 1.65;
+}
+
+.post h1 {
+	margin-bottom: 0.75rem;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+}
+
+.post-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.25rem 0.75rem;
+	margin: 0 0 2rem;
+	color: var(--text-2);
+	font: 0.875rem var(--mono);
+}
+
+.post-meta .type {
+	margin: 0;
+}
+
+.toc {
+	margin: 0 0 2rem;
+	padding: 0.75rem 1rem;
+	border: 1px solid var(--line);
+	border-radius: 0.75rem;
+	font-size: 0.9375rem;
+}
+
+.toc ol {
+	margin: 0.4rem 0 0;
+	padding-left: 1.2rem;
+}
+
+.toc a {
+	color: var(--text-2);
+}
+
+.toc a:hover {
+	color: var(--accent);
+}
+
+.post h2 {
+	scroll-margin-top: 5rem;
+}
+
+.post-links {
+	margin-top: 2.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--line);
+	color: var(--text-2);
+	font-size: 0.9375rem;
+}
+
+.post-nav {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-top: 3rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid var(--line);
+}
+
+.post-nav a:last-child {
+	text-align: right;
+}
+
+/* ---- Outside ---- */
+.jump-bar {
+	position: sticky;
+	top: 3.5rem;
+	z-index: 40;
+	margin-bottom: 1rem;
+	padding-block: 0.6rem;
+	background: var(--nav-bg);
+	-webkit-backdrop-filter: blur(20px) saturate(180%);
+	backdrop-filter: blur(20px) saturate(180%);
+}
+
+.jump-bar .jump {
+	margin: 0;
+}
+
+#main {
+	--sec: var(--accent);
+}
+
+[aria-labelledby="concerts"],
+.jump a[href="#concerts"] { --sec: var(--oc-mauve); }
+[aria-labelledby="games"],
+.jump a[href="#games"] { --sec: var(--oc-blue); }
+[aria-labelledby="mahjong"],
+.jump a[href="#mahjong"] { --sec: var(--oc-green); }
+[aria-labelledby="events"],
+.jump a[href="#events"] { --sec: var(--oc-peach); }
+
+.jump-bar .jump a::before,
+.jump-bar ~ section > h2::before {
+	content: "";
+	display: inline-block;
+	border-radius: 50%;
+	background: var(--sec);
+	vertical-align: middle;
+}
+
+.jump-bar .jump a::before {
+	width: 0.45rem;
+	height: 0.45rem;
+	margin: -0.1rem 0.45rem 0 0;
+}
+
+.jump-bar .jump a:hover,
+.jump-bar .jump a:focus-visible {
+	color: var(--sec);
+}
+
+.jump-bar ~ section > h2::before {
+	width: 0.55em;
+	height: 0.55em;
+	margin: -0.12em 0.4em 0 0;
+}
+
+.jump-bar ~ section .item > time,
+.jump-bar ~ section .hand time,
+.jump-bar ~ section .trips time {
+	color: var(--sec);
+}
+
+.item .what {
+	color: var(--text-strong);
+	font-weight: 600;
+}
+
+.item .where {
+	margin-bottom: 0.35rem;
+	color: var(--text-2);
+	font-size: 0.875rem;
+}
+
+.hand,
+.trips a {
+	border-top: 3px solid var(--sec);
+}
+
+section[aria-labelledby] > h2 {
+	scroll-margin-top: 7rem;
+}
+
+/* Sections with nothing in them yet stay hidden (needs :has; older browsers just show them) */
+.oc:not(:has(.entries > *, .trips > *)),
+.jump-bar ~ section .sub:not(:has(.entries > *, .hands > *)) {
+	display: none;
+}
+
+.jump-bar ~ section,
+.jump-bar ~ section .sub {
+	margin-top: 2.5rem;
+}
+
+.jump-bar ~ section .sub > h3 {
+	margin-bottom: 0.5rem;
+}
+
+.trips {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+	align-items: start;
+	gap: 1rem;
+	margin: 1rem 0 1.5rem;
+	padding: 0;
+	list-style: none;
+}
+
+.trips a {
+	display: block;
+	overflow: hidden;
+	border-radius: 0.75rem;
+	background: var(--surface);
+	box-shadow: var(--shadow);
+	color: var(--text);
+	text-decoration: none;
+}
+
+.trips img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 3 / 2;
+	object-fit: cover;
+}
+
+.trips .body {
+	padding: 1rem;
+}
+
+.trips time {
+	color: var(--text-2);
+	font: 0.8125rem var(--mono);
+}
+
+.trips h3 {
+	margin-top: 0.2rem;
+}
+
+.trips a:hover h3 {
+	color: var(--accent);
+}
+
+.trips p {
+	margin: 0.35rem 0 0;
+	color: var(--text-2);
+	font-size: 0.9375rem;
+}
+
+.hands {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+	gap: 0.75rem;
+	margin: 0.75rem 0 1.5rem;
+}
+
+.hand {
+	padding: 0.9rem 1rem;
+	border-radius: 0.75rem;
+	background: var(--surface);
+	box-shadow: var(--shadow);
+}
+
+.hand .tiles {
+	display: block;
+	color: var(--text-strong);
+	font: 0.9375rem/1.4 var(--mono);
+	overflow-wrap: anywhere;
+}
+
+.hand time {
+	color: var(--text-2);
+	font: 0.75rem var(--mono);
+}
+
+.hand p {
+	margin: 0.4rem 0 0;
+	color: var(--text-2);
+	font-size: 0.9375rem;
+}
+
+.hand img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin: 0 0 0.5rem;
+	border-radius: 0.5rem;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+	.jump-bar {
+		background: var(--bg);
+		-webkit-backdrop-filter: none;
+		backdrop-filter: none;
+	}
 }
