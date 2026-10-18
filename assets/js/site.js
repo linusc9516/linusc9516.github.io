@@ -7,7 +7,6 @@
 		addEventListener("scroll", update, { passive: true });
 	}
 
-	// Live clock in the pfetch prompt bar (UTC+8, no DST)
 	const clock = document.getElementById("clock");
 	if (clock) {
 		const fmt = new Intl.DateTimeFormat("en-GB", {
@@ -32,7 +31,36 @@
 	const addr = ["linusc9516", "gmail.com"].join("@");
 	for (const a of document.querySelectorAll("a[data-mail]")) a.href = `mailto:${addr}`;
 
-	// Replay control (added by JS so there is no dead button without it)
+	// Clips replay muted; without JS or under reduced motion the poster and native controls stand in.
+	const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+	for (const v of document.querySelectorAll("video[data-autoplay]")) {
+		if (still) continue;
+		v.controls = false;
+		v.play().catch(() => (v.controls = true));
+	}
+
+	// Table of contents for long posts: add data-toc to the <article class="post">
+	const article = document.querySelector("article.post[data-toc]");
+	const heads = article ? [...article.querySelectorAll("h2")] : [];
+	if (article && heads.length > 1) {
+		const nav = document.createElement("nav");
+		nav.className = "toc";
+		nav.setAttribute("aria-label", "Contents");
+		const ol = document.createElement("ol");
+		for (const h of heads) {
+			h.id ||= h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+			const li = document.createElement("li");
+			const a = document.createElement("a");
+			a.href = `#${h.id}`;
+			a.textContent = h.textContent;
+			li.append(a);
+			ol.append(li);
+		}
+		nav.append(Object.assign(document.createElement("strong"), { textContent: "Contents" }), ol);
+		heads[0].before(nav);
+	}
+
+	// Replay control, added by JS so the button never renders without a handler.
 	const term = document.querySelector(".term");
 	if (term && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
 		const tools = document.createElement("div");

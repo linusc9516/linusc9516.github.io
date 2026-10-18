@@ -5,12 +5,12 @@
 #   scripts/sync-resume.sh --name NEW.pdf       also rename it (old file removed, all links updated)
 #   scripts/sync-resume.sh --src path/to.pdf    use a different source PDF
 #
-# Source defaults to ~/Code/resume/resume.pdf (override with RESUME_SRC).
+# Source defaults to ~/Code/resume/Chik_Kin_Hei_Resume.pdf (override with RESUME_SRC).
 # This does NOT update resume/index.html, the HTML copy of the resume: edit that by hand.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-SRC="${RESUME_SRC:-$HOME/Code/resume/resume.pdf}"
+SRC="${RESUME_SRC:-$HOME/Code/resume/Chik_Kin_Hei_Resume.pdf}"
 NAME=""
 
 while [ $# -gt 0 ]; do
