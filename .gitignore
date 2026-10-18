@@ -2,3 +2,10 @@ node_modules
 .DS_Store
 .parcel-cache
 local-archive/
+# Local safety nets from the history rewrite, not site content.
+.history-backup-*.git
+.worktree-snapshot-*.tar.gz
+# Private working notes, local only.
+HANDOFF.md
+TODO.md
+WRITING.md

@@ -6,7 +6,7 @@
 
 	const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 	const addr = ["linusc9516", "gmail.com"].join("@");
-	const PAGES = { projects: "/projects/", resume: "/resume/" };
+	const PAGES = { projects: "/projects/", resume: "/resume/", outside: "/outside/" };
 	const LINKS = {
 		github: "https://github.com/linusc9516",
 		linkedin: "https://linkedin.com/in/linusc9516",
@@ -15,6 +15,7 @@
 		["ls", "list pages"],
 		["cd projects", "open the projects page"],
 		["cd resume", "open the resume"],
+		["cd outside", "concerts, riichi, acg"],
 		["contact", "show how to reach me"],
 		["github", "github.com/linusc9516"],
 		["linkedin", "linkedin.com/in/linusc9516"],
@@ -23,7 +24,7 @@
 		["easter-eggs", "list the hidden commands"],
 		["help", "show this list"],
 	];
-	// Completion candidates: whole command lines
+	// Completion candidates: whole command lines, since "cd projects" is one command.
 	const COMMANDS = HELP.map(([c]) => c);
 	const EGGS = [
 		["moo", "a cow says moo"],
@@ -37,7 +38,6 @@
 		[":q", "quit, vim style (:q! and :wq work too)"],
 	];
 
-	// DOM: output log + prompt form, replacing the static prompt
 	const out = document.createElement("div");
 	out.className = "out";
 	out.setAttribute("role", "log");
@@ -65,7 +65,7 @@
 	const ghostTyped = form.querySelector(".ghost i");
 	const ghostRest = form.querySelector(".ghost b");
 
-	// Output helpers: only textContent / DOM nodes, never innerHTML with user text
+	// line/row/pre build only DOM nodes: user text must never reach innerHTML.
 	const MAX_LINES = 60;
 	const add = (node) => {
 		out.hidden = false;
@@ -147,6 +147,7 @@
 	};
 
 	const cow = (text) => {
+		// Cap the width: the bubble is preformatted ASCII art and would run off the card.
 		const t = text.slice(0, 40);
 		const bar = "-".repeat(t.length + 2);
 		return String.raw` ${"_".repeat(t.length + 2)}
@@ -375,7 +376,7 @@
 				updateGhost();
 			}
 		} else if (e.key === "Tab" && !e.shiftKey && input.value) {
-			// Tab only completes a non-empty prefix; otherwise it moves focus on
+			// Shift+Tab falls through so it still moves focus backwards.
 			const rest = suggestion(input.value);
 			if (rest) {
 				e.preventDefault();
