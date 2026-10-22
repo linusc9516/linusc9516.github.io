@@ -1142,6 +1142,19 @@ a.card:active {
 	text-decoration: underline;
 }
 
+/* Command listings (help, easter-eggs): grid rows so every description starts
+   at the same x. min-width on .cmd-link cannot do this, because it only pads
+   commands shorter than 5.5rem and lets the long ones push their text out. */
+.out .row-list {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 0 1rem;
+}
+
+.out .row-list .cmd-link {
+	min-width: 0;
+}
+
 .prompt2.live {
 	display: flex;
 	align-items: baseline;

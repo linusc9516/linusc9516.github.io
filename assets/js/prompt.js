@@ -108,6 +108,17 @@
 		d.append(...nodes);
 		add(d);
 	};
+	// Two-column listing: command buttons in one grid column, descriptions in
+	// the other, so every description starts at the same x regardless of how
+	// long the command is.
+	const listing = (entries) => {
+		const d = document.createElement("div");
+		d.className = "line row-list";
+		for (const [name, desc] of entries) {
+			d.append(cmdButton(name), document.createTextNode(desc));
+		}
+		add(d);
+	};
 	const pre = (text) => {
 		const d = document.createElement("pre");
 		d.className = "line art";
@@ -222,7 +233,7 @@
 	const commands = {
 		help() {
 			line("commands:", "dim");
-			for (const [name, desc] of HELP) row(cmdButton(name), document.createTextNode("  " + desc));
+			listing(HELP);
 			line("→ or Tab completes · ↑ ↓ history · Ctrl+L clears · Esc leaves the prompt", "dim");
 		},
 		ls() {
@@ -293,7 +304,7 @@
 		},
 		"easter-eggs"() {
 			line("hidden commands:", "dim");
-			for (const [name, desc] of EGGS) row(cmdButton(name), document.createTextNode("  " + desc));
+			listing(EGGS);
 		},
 		moo: () => pre(cow("moo")),
 		cowsay: (args) => pre(cow(args.join(" ") || "moo")),
