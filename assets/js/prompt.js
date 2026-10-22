@@ -20,7 +20,6 @@
 		["github", "github.com/linusc9516"],
 		["linkedin", "linkedin.com/in/linusc9516"],
 		["clear", "clear the output"],
-		["song", "what is on repeat"],
 		["easter-eggs", "list the hidden commands"],
 		["help", "show this list"],
 	];
@@ -32,6 +31,7 @@
 		["sl", "steam locomotive"],
 		["sudo rm -rf /", "try your luck"],
 		["whoami", "who is this?"],
+		["song", "what is on repeat"],
 		["pfetch", "replay the card above"],
 		["neofetch", "same as pfetch"],
 		["exit", "try to leave"],
