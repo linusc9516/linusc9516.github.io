@@ -9,7 +9,7 @@
 	const PAGES = { projects: "/projects/", resume: "/resume/", outside: "/outside/" };
 	const LINKS = {
 		github: "https://github.com/linusc9516",
-		linkedin: "https://linkedin.com/in/linusc9516",
+		linkedin: "https://linkedin.com/in/linuschik",
 	};
 	const HELP = [
 		["ls", "list pages"],
@@ -18,7 +18,7 @@
 		["cd outside", "concerts, riichi, acg"],
 		["contact", "show how to reach me"],
 		["github", "github.com/linusc9516"],
-		["linkedin", "linkedin.com/in/linusc9516"],
+		["linkedin", "linkedin.com/in/linuschik"],
 		["clear", "clear the output"],
 		["easter-eggs", "list the hidden commands"],
 		["help", "show this list"],
@@ -265,7 +265,7 @@
 			window.open(LINKS.github, "_blank", "noopener");
 		},
 		linkedin() {
-			row(document.createTextNode("opening "), linkEl("linkedin.com/in/linusc9516", LINKS.linkedin, true));
+			row(document.createTextNode("opening "), linkEl("linkedin.com/in/linuschik", LINKS.linkedin, true));
 			window.open(LINKS.linkedin, "_blank", "noopener");
 		},
 		clear() {
