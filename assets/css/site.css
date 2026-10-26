@@ -1775,6 +1775,7 @@ section[aria-labelledby="games"] figure figcaption {
 /* Favourites: three unranked picks per category, then the near-misses. */
 .picks {
 	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 0.5rem;
 	margin: 0.75rem 0 0;
 }
@@ -1813,6 +1814,40 @@ section[aria-labelledby="games"] figure figcaption {
 	margin: 0.5rem 0 0;
 	color: var(--text-2);
 	font-size: 0.875rem;
+}
+
+/* Three across needs ~330px per card to stay readable. Below that the cards
+   become tall slivers, so stack them and let each pick have the full column. */
+@media (max-width: 40rem) {
+	.picks {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Favourites opts out of the page's prose column: three picks side by side
+   need the same width Selected work has on the homepage. The heading and the
+   prose inside go back to the reading measure, so the section start still
+   lines up with every other section on the page. */
+.prose > section.wide {
+	width: min(100vw - 3rem, var(--wide));
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.prose > section.wide > h2,
+.prose > section.wide > p {
+	max-width: var(--measure);
+	margin-inline: auto;
+}
+
+/* Everything that belongs to the pick grid lines up with the cards, not with
+   the prose: sub-headings, their notes, and the "Also" lines. */
+.prose > section.wide > .sub > h3,
+.prose > section.wide > .sub > p,
+.prose > section.wide > .sub > .hon {
+	max-width: none;
+	margin-inline: 0;
 }
 
 @media (prefers-reduced-transparency: reduce) {
