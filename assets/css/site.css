@@ -1,3 +1,18 @@
+/* The pfetch card uses the author's terminal font, subset to Latin, arrows and box drawing */
+@font-face {
+	font-family: "Aporetic Sans Mono";
+	font-weight: 400;
+	font-display: swap;
+	src: url("/assets/fonts/aporetic-sans-mono-regular.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Aporetic Sans Mono";
+	font-weight: 700;
+	font-display: swap;
+	src: url("/assets/fonts/aporetic-sans-mono-bold.woff2") format("woff2");
+}
+
 /* Tokens: Catppuccin Latte (light) / Mocha (dark), mauve accent, same as the profile card */
 :root {
 	color-scheme: light dark;
@@ -33,6 +48,7 @@
 
 	--font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
 	--mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+	--term-mono: "Aporetic Sans Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 	--ease: cubic-bezier(0.22, 1, 0.36, 1);
 	--measure: 42rem;
 	--wide: 64rem;
@@ -325,7 +341,7 @@ img {
 	color: var(--term-text);
 	border: 1px solid var(--term-border);
 	border-radius: 0.75rem;
-	font: 0.9375rem/1.55 var(--mono);
+	font: 0.9375rem/1.55 var(--term-mono);
 	overflow: clip;
 }
 
@@ -438,7 +454,7 @@ img {
 .cat {
 	margin: 0;
 	color: var(--term-mauve);
-	font: 2rem/1.45 var(--mono);
+	font: 2rem/1.45 var(--term-mono);
 	white-space: pre;
 }
 
