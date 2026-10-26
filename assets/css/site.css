@@ -1791,13 +1791,22 @@ section[aria-labelledby="games"] figure figcaption {
 	margin: 0;
 }
 
+/* Artist or circle after a title, so titles never need an inline byline. */
+.pick .by {
+	color: var(--text-2);
+	font-size: 0.9rem;
+}
+
 .pick .what a {
 	color: inherit;
 	text-decoration-color: var(--text-2);
 }
 
+/* Hover keeps the accent's hue but drops to the body colour: --accent on
+   --surface is 4.45:1 in Latte, under 4.5:1, and these are 16px links. */
 .pick .what a:hover {
-	color: var(--accent);
+	color: var(--text-strong);
+	text-decoration-color: var(--accent);
 }
 
 .hon {
