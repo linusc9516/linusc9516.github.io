@@ -1563,8 +1563,13 @@ section[aria-labelledby] > h2 {
 	border-top: 3px solid var(--sec);
 }
 
-section[aria-labelledby] > h2 {
-	scroll-margin-top: 7rem;
+/* Jump targets clear the sticky bars. Measured painted footprint: 56px nav
+   + 42px jump bar + 16px of the bar's bottom margin = 114px. 8rem leaves
+   ~14px of clear space above the heading. The offset lives on the section,
+   not the h2, so a section's own margin-top cannot drag the heading back up
+   under the bar. */
+.jump-bar ~ section {
+	scroll-margin-top: 8rem;
 }
 
 .jump-bar ~ section,
