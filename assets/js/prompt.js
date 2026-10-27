@@ -5,7 +5,7 @@
 	if (!stub) return;
 
 	const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-	const addr = ["linusc9516", "gmail.com"].join("@");
+	const addr = ["linus", "linuschik.com"].join("@");
 	const PAGES = { projects: "/projects/", resume: "/resume/", outside: "/outside/" };
 	const LINKS = {
 		github: "https://github.com/linusc9516",
@@ -255,7 +255,7 @@
 			line(`cd: The directory '${target}' does not exist`);
 		},
 		contact() {
-			const a = linkEl("linusc9516 [at] gmail [dot] com", `mailto:${addr}`);
+			const a = linkEl("linus [at] linuschik [dot] com", `mailto:${addr}`);
 			row(document.createTextNode("email  "), a);
 			row(document.createTextNode("also   "), linkEl("LinkedIn", LINKS.linkedin, true), document.createTextNode(" · "), linkEl("X", "https://x.com/linuschik", true));
 			document.getElementById("contact")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });

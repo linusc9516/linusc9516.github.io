@@ -28,7 +28,7 @@
 	}
 
 	// Email: never written out in full in the HTML; links get their mailto here
-	const addr = ["linusc9516", "gmail.com"].join("@");
+	const addr = ["linus", "linuschik.com"].join("@");
 	for (const a of document.querySelectorAll("a[data-mail]")) a.href = `mailto:${addr}`;
 
 	// Clips replay muted; without JS or under reduced motion the poster and native controls stand in.
