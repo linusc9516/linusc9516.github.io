@@ -1,4 +1,4 @@
-# linusc9516.github.io
+# linuschik.com
 
 Personal site of Linus Chik. Plain HTML, CSS and a tiny JS file; no build step.
 
