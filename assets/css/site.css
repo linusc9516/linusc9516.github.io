@@ -1764,6 +1764,7 @@ section[aria-labelledby="games"] figure figcaption {
 	margin-top: 0.35rem;
 	color: var(--text-2);
 	font-size: 0.85rem;
+	text-align: center;
 }
 
 /* A small aside under a section intro, for honest caveats */
